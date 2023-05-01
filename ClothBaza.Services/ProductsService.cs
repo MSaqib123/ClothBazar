@@ -9,39 +9,39 @@ using System.Threading.Tasks;
 
 namespace ClothBaza.Services
 {
-    public class CategoriesService
+    public class ProductsService
     {
         //____ create ______
-        public void Save(Category model)
+        public void Save(Product model)
         {
             using (var context = new CBContext())
             {
-                context.categories.Add(model);
+                context.Products.Add(model);
                 context.SaveChanges();
             }
         }
 
         //_____ List ________
-        public List<Category> GetList()
+        public List<Product> GetList()
         {
             using (var context = new CBContext())
             {
-                return context.categories.ToList();
+                return context.Products.ToList();
             }
         }
         
         //_____ Single Record ________
-        public Category GetSingleRecord(int Id)
+        public Product GetSingleRecord(int Id)
         {
             using (var context = new CBContext())
             {
-                return context.categories.Find(Id);
+                return context.Products.Find(Id);
             }
         }
 
 
         //_____ Update Record ________
-        public void Update(Category model)
+        public void Update(Product model)
         {
             using (var context = new CBContext())
             {
@@ -51,12 +51,24 @@ namespace ClothBaza.Services
         }
 
         //_____ Delete Record ________
-        public void Delete(Category model)
+        public void Delete(Product model)
         {
             using (var context = new CBContext())
             {
                 context.Entry(model).State = EntityState.Deleted;
                 context.SaveChanges();
+            }
+        }
+
+        //_____ Delete Record ________
+        public List<Product> SearchRecords(string search)
+        {
+            using (var context = new CBContext())
+            {
+                //if any product Name is null in database then will give error
+                //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
+                var list = context.Products.Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                return list;
             }
         }
 

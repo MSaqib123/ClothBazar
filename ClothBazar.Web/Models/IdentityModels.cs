@@ -31,5 +31,7 @@ namespace ClothBazar.Web.Models
         }
 
         public System.Data.Entity.DbSet<ClothBazar.Entities.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<ClothBazar.Entities.Product> Products { get; set; }
     }
 }
