@@ -4,21 +4,29 @@
     ViewBag.Title = "ProductList";
 }
 
-<div id="tableContainer">
+@*<div id="tableContainer">*@
 
     <h2>ProductList</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-
     <br />
-    <form method="get" action="/Product/ProductList">
-        <div class="form-inline">
-            <input type="text" class="form-control" id="txtSearch" />
-            <button type="button" class="btn btn-primary" id="btnSearch">Submit</button>
+    <div class="row">
+        <div class="col-lg-10">
+            <form method="get" action="/Product/ProductList">
+                <div class="form-inline">
+                    <input type="text" class="form-control" id="txtSearch" />
+                    <button type="button" class="btn btn-primary" id="btnSearch">Submit</button>
+                </div>
+            </form>
         </div>
-    </form>
+        <div class="col-lg-1">
+            <p>
+                <button class="btn btn-primary" id="newBtn">New Product</button>
+            </p>
+        </div>
+    </div>
+    
+    
+
     <br />
 
     <table class="table">
@@ -60,16 +68,18 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    <button type="button" class="btn btn-primary editBtn" data-id="@item.Id">Edit</button> |
+                    <button type="button" class="btn btn-danger deleteBtn" data-id="@item.Id">Delete</button>
                 </td>
             </tr>
         }
 
     </table>
+@*</div>
 
-</div>
+<div id="newForm">
+
+</div>*@
 
 <script>
     $("#btnSearch").click(function () {
@@ -88,5 +98,61 @@
         .fail(function () {
             alert("fail");
         })
+    })
+
+    $("#newBtn").click(function () {
+        $.ajax({
+            url: "/Product/Create/",
+        })
+        .done(function (response) {
+            alert(response);
+            $("#newForm").html(response);
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    $(".editBtn").click(function () {
+        @*alert($(this).attr("data-id"));*@
+        debugger;
+        var pid = $(this).attr("data-id");
+        $.ajax({
+            url: "/Product/Edit/",
+            data: {
+                id: pid
+            }
+        })
+        .done(function (response) {
+            @*alert(response);*@
+            $("#newForm").html(response);
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    $(".deleteBtn").click(function () {
+        @* alert($(this).attr("data-id"));*@
+        var r = confirm("Do u want to delet ??");
+        if (r==true) {
+            var pid = $(this).attr("data-id");
+            $.ajax({
+                type: "Post",
+                url: "/Product/Delete/",
+                data: {
+                    id: pid
+                }
+            })
+            .done(function (response) {
+                @* alert(response);*@
+                $("#tableContainer").html(response);
+                alert("Deleted Successfuly")
+            })
+            .fail(function () {
+                alert("fail");
+            })
+        }
+        
     })
 </script>

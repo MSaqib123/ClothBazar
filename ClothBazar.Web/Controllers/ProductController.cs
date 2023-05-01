@@ -18,7 +18,7 @@ namespace ClothBazar.Web.Controllers
             return View();
         }
 
-        //_____ Partial Search ________
+        //_____ Partial List + Saerch ________
         public ActionResult ProductList(string search)
         {
             var list = service.GetList();
@@ -30,20 +30,40 @@ namespace ClothBazar.Web.Controllers
             return PartialView(list);
         }
 
-
-
-        //_______________  Create ________________
-        //Just for adding record  ----> yaa bhi  ----->  Ajax krnaa ha  agaaa
+        //____ Parital create _______
         public ActionResult Create()
         {
             //return View();
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult Create(Product model)
         {
             service.Save(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductList");
+        }
+
+
+        //____ Parital Edit _______
+        public ActionResult Edit(int id)
+        {
+            var record = service.GetSingleRecord(id);
+            return PartialView(record);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product model)
+        {
+            service.Update(model);
+            return RedirectToAction("ProductList");
+        }
+
+        //____ Delete _______
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var record = service.GetSingleRecord(id);
+            service.Delete(record);
+            return RedirectToAction("ProductList");
         }
     }
 }

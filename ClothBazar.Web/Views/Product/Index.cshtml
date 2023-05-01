@@ -3,9 +3,13 @@
     ViewBag.Title = "Index";
 }
 
+<div id="tableContainer">
+    @{
+        Html.RenderAction("ProductList");
+    }
 
+</div>
 
+<div id="newForm">
 
-@{ 
-    Html.RenderAction("ProductList");
-}
+</div>

@@ -1,19 +1,20 @@
 ﻿@model ClothBazar.Entities.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
 
-<form id="createForm">
+<form id="editForm">
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">  
+
+    <div class="form-horizontal">
         <hr />
-        <h2>Create Product</h2>
+        <h2>Edit Product</h2>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,20 +41,19 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" id="createBtn" class="btn btn-default" />
+                <input type="button" value="Update" id="editBtn" class="btn btn-default" />
             </div>
         </div>
     </div>
 </form>
 
 <script>
-    $("#createBtn").click(function () {
-        alert("good");
-
+    $("#editBtn").click(function () {
+        @*alert("good");*@
         $.ajax({
             type: "POST",
-            url: "/Product/Create/",
-            data: $("#createForm").serialize(),
+            url: "/Product/Edit/",
+            data: $("#editForm").serialize(),
         })
         .done(function (response) {
             $("#tableContainer").html(response);
