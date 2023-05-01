@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ClothBazar.Entities.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<div class="row">
+    <div class="col-lg-10">
+        <h2>Categories</h2>
+    </div>
+    <div class="col-lg-2 text-right">
+        <p style="margin-top:17px">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+</div>
+<br />
+
+
+<table class="table table-hover table-striped">
+    <tr>
+        <th width="5%">
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th width="20%">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th width="50%">
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th width="30%"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Detail", "Detail", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

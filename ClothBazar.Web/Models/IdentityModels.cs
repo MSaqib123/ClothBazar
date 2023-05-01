@@ -29,5 +29,7 @@ namespace ClothBazar.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ClothBazar.Entities.Category> Categories { get; set; }
     }
 }
