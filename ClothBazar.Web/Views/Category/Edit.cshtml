@@ -3,24 +3,142 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit Category</h2>
 
-<form method="post">
-    <input hidden value="@Model.Id"/>
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" name="Name" value="@Model.Name"/>
-    </div>
-    <div class="form-group">
-        <label>Description</label>
-        <input type="text" class="form-control" name="Description" value="@Model.Description"/>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Create" />
-    </div>
-</form>
+<br />
+<div class="container">
+    <h2>Update Category</h2>
+    <br />
 
-@Html.ActionLink("Go Back", "Index")
+    <form method="post">
+        <input hidden value="@Model.Id" />
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="Name" value="@Model.Name" />
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="Description" value="@Model.Description" />
+        </div>
+        <div class="form-group">
+            <label>Category_Image</label>
+            <input id="OldImage" hidden="hidden" value="@Model.ImageURL"/>
+            <input id="ImageURL" name="ImageURL" value="@Model.ImageURL" hidden />
+            <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+            <img src="@Model.ImageURL" id="categoryImage" width="200" />
+        </div>
+
+        <div class="form-group">
+            <div class="button">
+                <button type="submit">Update</button>
+            </div>
+        </div>
+    </form>
+
+    @Html.ActionLink("Go Back", "Index")
+
+ </div>
+<br /><br />
+
+<script>
+
+    //______________ Upload Image _________________
+    /*
+    $("#imageUpload").change(function () {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("photo", file);
+
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Shared/UploadImage/",
+            data: formData,
+            //___ when working with iamge ___
+            contentType: false,
+            processData: false,
+            dataType:"json"
+        })
+        .done(function (response) {
+            console.log(response);
+
+            if (response.Success) {
+                $("#categoryImage").attr("src", response.ImageURL);
+                $("#ImageURL").val(response.ImageURL);
+            }
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+    */
+
+
+    //______________ Upload / Delete Old Image_________________
+    var isImageUpdated = false;
+
+    $("#imageUpload").change(function () {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("photo", file);
+            @* alert(file);*@
+        }
+
+        isImageUpdated = true;
+        uploadNewImage(formData);
+    });
+
+    $("form").submit(function () {
+        if (isImageUpdated) {
+            @*alert();*@
+            var imageURL = $("#OldImage").val();
+            deleteOldImage(imageURL);
+        }
+    });
+
+    function uploadNewImage(formData) {
+        $.ajax({
+            type: "POST",
+            url: "/Shared/UploadImage/",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json"
+        })
+            .done(function (response) {
+                console.log(response);
+                if (response.Success) {
+                    $("#categoryImage").attr("src", response.ImageURL);
+                    $("#ImageURL").val(response.ImageURL);
+                }
+            })
+            .fail(function () {
+                alert("fail");
+            });
+    }
+
+    function deleteOldImage(imageURL) {
+        $.ajax({
+            type: "POST",
+            url: "/Shared/DeleteImage/",
+            data: { imageURL: imageURL },
+            dataType: "json"
+        })
+            .done(function (response) {
+                console.log(response);
+            })
+            .fail(function () {
+                alert("fail");
+            });
+    }
+</script>
 
 
 

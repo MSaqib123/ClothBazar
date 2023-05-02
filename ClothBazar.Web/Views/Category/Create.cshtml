@@ -2,24 +2,73 @@
 @{
     ViewBag.Title = "Create";
 }
+<div class="container">
 
-<h2>Create Category</h2>
+    <h2>Create Category</h2>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="Name" />
+        </div>
+        <div class="form-group">
+            <label>Discription</label>
+            <input type="text" class="form-control" name="Description" />
+        </div>
+        <div class="form-group">
+            <label>Category_Image</label>
+            <input id="ImageURL" name="ImageURL" hidden />
+            <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+            <img id="categoryImage" width="70" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </div>
+    </form>
+
+    @Html.ActionLink("Go Back", "Index")
+
+</div>
+
+<script>
+    //______________ Upload Image _________________
+    
+    $("#imageUpload").change(function () {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("photo", file);
+            
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Shared/UploadImage/",
+            data: formData,
+            //___ when working with iamge ___
+            contentType: false,
+            processData: false,
+            dataType:"json"
+        })
+        .done(function (response) {
+            console.log(response);
+                
+            if (response.Success) {
+                $("#categoryImage").attr("src", response.ImageURL);
+                $("#ImageURL").val(response.ImageURL);
+            }
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+    
 
 
-<form method="post">
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" name="Name" />
-    </div>
-    <div class="form-group">
-        <label>Discription</label>
-        <input type="text" class="form-control" name="Description" />
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Create" />
-    </div>
-</form>
-
-@Html.ActionLink("Go Back","Index")
+    
+</script>
 
 
