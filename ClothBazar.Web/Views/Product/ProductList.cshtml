@@ -6,21 +6,27 @@
 
 @*<div id="tableContainer">*@
 
-    <h2>ProductList</h2>
+<br />
+    <h2 class="display-4">Products</h2>
 
     <br />
     <div class="row">
         <div class="col-lg-10">
             <form method="get" action="/Product/ProductList">
-                <div class="form-inline">
-                    <input type="text" class="form-control" id="txtSearch" />
-                    <button type="button" class="btn btn-primary" id="btnSearch">Submit</button>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" id="txtSearch" />
+                    </div>
+                    <div>
+                        <button type="button" class="mt-1" id="btnSearch">Submit</button>
+                    </div>
                 </div>
             </form>
         </div>
-        <div class="col-lg-1">
+        <br />
+        <div class="col-lg-2">
             <p>
-                <button class="btn btn-primary" id="newBtn">New Product</button>
+                <button type="submit" class="bg-primary" id="newBtn">New Product</button>
             </p>
         </div>
     </div>
@@ -31,22 +37,22 @@
 
     <table class="table">
         <tr>
-            <th>
+            <th width="5%">
                 Id
             </th>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th width="30%">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category.Name)
+            <th width="10%">
+                Category
             </th>
-            <th></th>
+            <th width="20%"></th>
         </tr>
 
         @foreach (var item in Model)
@@ -65,7 +71,14 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
+                    @if (item.Category != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    }
+                    else
+                    {
+                        <p>-</p>
+                    }
                 </td>
                 <td>
                     <button type="button" class="btn btn-primary editBtn" data-id="@item.Id">Edit</button> |
@@ -75,6 +88,9 @@
         }
 
     </table>
+
+<br />
+<br />
 @*</div>
 
 <div id="newForm">
@@ -105,7 +121,7 @@
             url: "/Product/Create/",
         })
         .done(function (response) {
-            alert(response);
+            @*alert(response);*@
             $("#newForm").html(response);
         })
         .fail(function () {

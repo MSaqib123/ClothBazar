@@ -1,5 +1,6 @@
 ﻿using ClothBaza.Services;
 using ClothBazar.Entities;
+using ClothBazar.Web.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,9 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Create()
         {
             //return View();
-            return PartialView();
+            CategoriesService category = new CategoriesService();
+            var list = category.GetList();
+            return PartialView(list);
         }
         [HttpPost]
         public ActionResult Create(Product model)
@@ -47,12 +50,24 @@ namespace ClothBazar.Web.Controllers
         //____ Parital Edit _______
         public ActionResult Edit(int id)
         {
-            var record = service.GetSingleRecord(id);
-            return PartialView(record);
+            ProductVM vm = new ProductVM();
+
+            vm.Product = service.GetSingleRecord(id);
+            CategoriesService category = new CategoriesService();
+            vm.categoryList = category.GetList();
+
+            return PartialView(vm);
         }
         [HttpPost]
         public ActionResult Edit(Product model)
         {
+            //var product = new Product();
+            //product.Id = model.Product.Id;
+            //product.Name = model.Product.Name;
+            //product.Price = model.Product.Price;
+            //product.CategoryId = model.Product.CategoryId;
+            //product.Description = model.Product.Description;
+
             service.Update(model);
             return RedirectToAction("ProductList");
         }

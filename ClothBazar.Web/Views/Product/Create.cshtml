@@ -1,51 +1,53 @@
-﻿@model ClothBazar.Entities.Product
-
+﻿@model IEnumerable<Category>
 @{
     ViewBag.Title = "Create";
 }
 
 
 <form id="createForm">
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">  
+
+    <div class="form-horizontal">
         <hr />
+
         <h2>Create Product</h2>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+        <br />
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
+            <label>Category</label>
+            <select name="CategoryId">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
+            <label>Name</label>
+            <input type="text" class="form-control" name="Name" />
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="Description" />
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
+            <label>Price</label>
+            <input type="text" class="form-control" name="Price" />
         </div>
 
+        @*<div class="form-group">
+            <label>Category_Image</label>
+            <input id="ImageURL" name="ImageURL" hidden />
+            <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+            <img id="categoryImage" width="70" />
+        </div>*@
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" id="createBtn" class="btn btn-default" />
-            </div>
+            <button type="button" id="createBtn"> Create </button>
         </div>
     </div>
 </form>
 
+<br />
 <script>
     $("#createBtn").click(function () {
         @*alert("good");*@

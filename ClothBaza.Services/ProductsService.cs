@@ -24,12 +24,17 @@ namespace ClothBaza.Services
         //_____ List ________
         public List<Product> GetList()
         {
+            //______ if add Vertual ______
+            //var context = new CBContext();
+            //return context.Products.ToList();
+
+            //______ with Using  block ---> add Include() _____________
             using (var context = new CBContext())
             {
-                return context.Products.ToList();
+                return context.Products.Include(x=>x.Category).ToList();
             }
         }
-        
+
         //_____ Single Record ________
         public Product GetSingleRecord(int Id)
         {
