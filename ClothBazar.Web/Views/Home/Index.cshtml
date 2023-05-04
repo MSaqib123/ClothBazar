@@ -185,7 +185,7 @@
     #region Category
 
     @*var firstCategory = Model.CategoryList.Where(x=>x.ImageURL != null).First();*@
-    var categoryModel = Model.CategoryList.ToList();
+    var categoryModel = Model.FeatureCategoryList.ToList();
     string[] imageUrl = new string[4];
     string[] categoryName = new string[4];
     //_________ Null Error ___ image is null then  going to big problem _____________

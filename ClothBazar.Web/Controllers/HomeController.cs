@@ -15,7 +15,7 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Index()
         {
             HomeVM vm = new HomeVM();
-            vm.CategoryList = service.GetList();
+            vm.FeatureCategoryList = service.GetFeaturedList();
             return View(vm);
         }
 

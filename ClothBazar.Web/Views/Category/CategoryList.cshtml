@@ -1,0 +1,177 @@
+﻿@model IEnumerable<ClothBazar.Entities.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    Categories
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <form>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" id="txtSearch" placeholder="search"/>
+                    </div>
+                    <div>
+                        <button type="button" class="mt-1" id="btnSearch">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-2">
+            <p>
+                <button class="bg-primary" id="newBtn">Create</button>
+            </p>
+        </div>
+    </div>
+    <br />
+
+
+    <table class="table table-hover table-striped">
+        <tr>
+            <th width="5%">
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <td>
+                Image
+            </td>
+            <th width="20%">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th width="10%">
+                TotalProduct
+            </th>
+            <th width="30%">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.isFeatured)
+            </th>
+            <th width="35%"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Id)
+                </td>
+                <td>
+                    @if (item.ImageURL != null)
+                    {
+                        <img src="@Url.Content(item.ImageURL)" width="60" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <th>
+                    <p>@item.Products.Count</p>
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <label>@(item.isFeatured ? "Yes" : "No")</label>
+                </td>
+                <td>
+                    <button class="editBtn btn-sm bg-primary" data-id="@item.Id">Edit</button>
+                    <button class="deleteBtn btn-sm" data-id="@item.Id">Delete</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+<br />
+<br />
+
+
+<script>
+
+    $("#btnSearch").click(function () {
+        var searchVal = $("#txtSearch").val();
+        @* alert(searchVal);*@
+
+        $.ajax({
+            url: "/Category/CategoryList",
+            data: { search: searchVal }
+        })
+        .done(function (response) {
+            @* alert("working good");*@
+        @*alert(response);*@
+            $("#tableContainer").html(response);
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+
+    $("#newBtn").click(function () {
+        $.ajax({
+            type:"get",
+            url: "/Category/Create"
+        })
+        .done(function (response) {
+            @* alert("working good");*@
+            @* alert(response);*@
+            $("#newForm").html(response);
+            focusAction();
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    $(".editBtn").click(function () {
+        var catId = $(this).attr("data-id");
+        $.ajax({
+            type:"get",
+            url: "/Category/Edit",
+            data: {id:catId}
+        })
+        .done(function (response) {
+            @* alert("working good");*@
+            @* alert(response);*@
+            $("#newForm").html(response);
+
+            focusAction();
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    $(".deleteBtn").click(function () {
+        var catId = $(this).attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "/Category/Delete",
+            data: { id: catId }
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    function focusAction() {
+        $('html,body').animate({
+            scrollTop: $("#newForm").offset().top - 100
+        },1000)
+    }
+</script>
+

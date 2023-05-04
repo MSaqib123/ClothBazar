@@ -4,61 +4,162 @@
     ViewBag.Title = "Edit";
 }
 
-
 <form id="editForm">
-
     <div class="form-horizontal">
-        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <h2 class="title">
+                        Update Product
+                    </h2>
+                </div><!-- /.title-section -->
+            </div><!-- /.col-md-12 -->
+        </div>
 
-        <h2>Create Product</h2>
-        <br />
+        <div class="row">
+            <div class="col-8">
+                <input name="Id" type="hidden" value="@Model.Product.Id" />
 
-        <input name="Id" type="hidden" value="@Model.Product.Id"/>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="CategoryId">
+                        @foreach (var item in Model.categoryList)
+                        {
+                            if (item.Id == Model.Product.CategoryId)
+                            {
+                                <option value="@item.Id" selected>@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
 
-        <div class="form-group">
-            <label>Category</label>
-            <select name="CategoryId">
-                @foreach (var item in Model.categoryList)
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" value="@Model.Product.Name" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" name="Description" value="@Model.Product.Description" />
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" class="form-control" name="Price" value="@Model.Product.Price" />
+                </div>
+
+                <br />
+                <div class="form-group">
+                    <label>IsFeatured ?</label> &nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" name="isFeatured" id="isFeatured" value="true" @(Model.Product.isFeatured ? "checked=\"checked\"" : "") style="display:inline" />
+                </div>
+
+                <div class="form-group">
+                    <label>Category_Image</label>
+                    <input id="OldImage" hidden="hidden" value="@Model.Product.ImageURL" />
+                    <input id="ImageURL" name="ImageURL" value="@Model.Product.ImageURL" hidden />
+                    <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+                </div>
+
+                <div class="form-group">
+                    <button type="button" id="editBtn">Update</button>
+                </div>
+            </div>
+            
+            <div class="col-4">
+                @*@if (@Model.Product.ImageURL != null)
                 {
-                    if (item.Id == Model.Product.CategoryId)
-                    {
-                        <option value="@item.Id" selected>@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
+                    <img src="@Model.Product.ImageURL" id="Image" class="img-fluid card" />
                 }
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="Name" value="@Model.Product.Name"/>
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="Description"  value="@Model.Product.Description"/>
-        </div>
-
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" class="form-control" name="Price" value="@Model.Product.Price"/>
-        </div>
-
-        @*<div class="form-group">
-                <label>Category_Image</label>
-                <input id="ImageURL" name="ImageURL" hidden />
-                <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
-                <img id="categoryImage" width="70" />
-            </div>*@
-        <div class="form-group">
-            <button type="button"  id="editBtn">Update</button>
+                else
+                {
+                    <img src="~/Content/images/No_Image.jpg" id="Image" class="img-fluid card" />
+                }*@
+                @{ 
+                    var imgPath = !string.IsNullOrEmpty(Model.Product.ImageURL) ? Model.Product.ImageURL : "/Content/images/No_Image.jpg";
+                }
+                <img src="@imgPath" id="Image" class="img-fluid card" />
+            </div>
         </div>
     </div>
 </form>
 
 <script>
+    //______________ Upload / Delete Old Image_________________
+    var isImageUpdated = false;
+
+    $("#imageUpload").change(function () {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("photo", file);
+            @* alert(file);*@
+        }
+
+        isImageUpdated = true;
+        uploadNewImage(formData);
+    });
+
+    @* $("form").submit(function () {
+
+        //________ this will don in now    edit by ajax _____________
+        if (isImageUpdated) {
+            var imageURL = $("#OldImage").val();
+            deleteOldImage(imageURL);
+        }
+    });*@
+
+    function uploadNewImage(formData) {
+        //___ Image Image upload ________
+        if (isImageUpdated) {
+            var imageURL = $("#OldImage").val();
+            deleteOldImage(imageURL);
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Shared/UploadImage/",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json"
+        })
+        .done(function (response) {
+            console.log(response);
+            if (response.Success) {
+                $("#Image").attr("src", response.ImageURL);
+                $("#ImageURL").val(response.ImageURL);
+            }
+        })
+        .fail(function () {
+            alert("fail");
+        });
+    }
+
+    function deleteOldImage(imageURL) {
+        $.ajax({
+            type: "POST",
+            url: "/Shared/DeleteImage/",
+            data: { imageURL: imageURL },
+            dataType: "json"
+        })
+        .done(function (response) {
+            console.log(response);
+        })
+        .fail(function () {
+            alert("fail");
+        });
+    }
+
+
+
+
     $("#editBtn").click(function () {
         @*alert("good");*@
         $.ajax({

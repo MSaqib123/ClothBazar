@@ -35,6 +35,17 @@ namespace ClothBaza.Services
             }
         }
 
+        //_____ Feature List ________
+        public List<Product> GetFeaturedList()
+        {
+            using (var context = new CBContext())
+            {
+                return context.Products.Include(x => x.Category).Where(x => x.isFeatured).ToList();
+            }
+        }
+
+
+
         //_____ Single Record ________
         public Product GetSingleRecord(int Id)
         {
@@ -65,14 +76,14 @@ namespace ClothBaza.Services
             }
         }
 
-        //_____ Delete Record ________
+        //_____ Search Record ________
         public List<Product> SearchRecords(string search)
         {
             using (var context = new CBContext())
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
-                var list = context.Products.Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                var list = context.Products.Include(x => x.Category).Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
                 return list;
             }
         }

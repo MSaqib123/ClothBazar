@@ -26,7 +26,16 @@ namespace ClothBaza.Services
         {
             using (var context = new CBContext())
             {
-                return context.categories.ToList();
+                return context.categories.Include(x=>x.Products).ToList();
+            }
+        }
+        
+        //_____ Feature List ________
+        public List<Category> GetFeaturedList()
+        {
+            using (var context = new CBContext())
+            {
+                return context.categories.Include(x => x.Products).Where(x=>x.isFeatured).ToList();
             }
         }
         
@@ -57,6 +66,18 @@ namespace ClothBaza.Services
             {
                 context.Entry(model).State = EntityState.Deleted;
                 context.SaveChanges();
+            }
+        }
+
+        //_____ Search Record ________
+        public List<Category> SearchRecords(string search)
+        {
+            using (var context = new CBContext())
+            {
+                //if any product Name is null in database then will give error
+                //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
+                var list = context.categories.Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                return list;
             }
         }
 

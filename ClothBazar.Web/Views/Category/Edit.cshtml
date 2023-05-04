@@ -3,79 +3,65 @@
     ViewBag.Title = "Edit";
 }
 
-
-<br />
 <div class="container">
-    <h2>Update Category</h2>
-    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    Update Category
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>
 
-    <form method="post">
-        <input hidden value="@Model.Id" />
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="Name" value="@Model.Name" />
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="Description" value="@Model.Description" />
-        </div>
-        <div class="form-group">
-            <label>Category_Image</label>
-            <input id="OldImage" hidden="hidden" value="@Model.ImageURL"/>
-            <input id="ImageURL" name="ImageURL" value="@Model.ImageURL" hidden />
-            <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
-            <img src="@Model.ImageURL" id="categoryImage" width="200" />
-        </div>
+    <form id="editForm">
+        <input hidden name="Id" value="@Model.Id" />
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" value="@Model.Name" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" name="Description" value="@Model.Description" />
+                </div>
+                <div class="form-group">
+                    <label>Category_Image</label>
+                    <input id="OldImage" hidden="hidden" value="@Model.ImageURL" />
+                    <input id="ImageURL" name="ImageURL" value="@Model.ImageURL" hidden />
+                    <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>IsFeatured ?</label> &nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" name="isFeatured" id="isFeatured" value="true" @(Model.isFeatured ? "checked=\"checked\"" : "") style="display:inline" />
+                </div>
 
-        <div class="form-group">
-            <div class="button">
-                <button type="submit">Update</button>
+                <div class="form-group">
+                    <div class="button">
+                        <button type="button" id="editBtn">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @if (@Model.ImageURL != null)
+                {
+                    <img src="@Model.ImageURL" id="Image" class="img-fluid card" />
+                }
+                else
+                {
+                    <img src="~/Content/images/No_Image.jpg" id="Image" class="img-fluid card" />
+                }
             </div>
         </div>
     </form>
-
-    @Html.ActionLink("Go Back", "Index")
-
- </div>
+</div>
 <br /><br />
 
 <script>
 
-    //______________ Upload Image _________________
-    /*
-    $("#imageUpload").change(function () {
-        var element = this;
-        var formData = new FormData();
-        var totalFiles = element.files.length;
-
-        for (var i = 0; i < totalFiles; i++) {
-            var file = element.files[i];
-            formData.append("photo", file);
-
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/Shared/UploadImage/",
-            data: formData,
-            //___ when working with iamge ___
-            contentType: false,
-            processData: false,
-            dataType:"json"
-        })
-        .done(function (response) {
-            console.log(response);
-
-            if (response.Success) {
-                $("#categoryImage").attr("src", response.ImageURL);
-                $("#ImageURL").val(response.ImageURL);
-            }
-        })
-        .fail(function () {
-            alert("fail");
-        })
-    })
-    */
+    
 
 
     //______________ Upload / Delete Old Image_________________
@@ -95,13 +81,14 @@
         uploadNewImage(formData);
     });
 
-    $("form").submit(function () {
+    @*$("form").submit(function () {
+
+        //________ this will don in now    edit by ajax _____________
         if (isImageUpdated) {
-            @*alert();*@
             var imageURL = $("#OldImage").val();
             deleteOldImage(imageURL);
         }
-    });
+    });*@
 
     function uploadNewImage(formData) {
         $.ajax({
@@ -112,16 +99,16 @@
             processData: false,
             dataType: "json"
         })
-            .done(function (response) {
-                console.log(response);
-                if (response.Success) {
-                    $("#categoryImage").attr("src", response.ImageURL);
-                    $("#ImageURL").val(response.ImageURL);
-                }
-            })
-            .fail(function () {
-                alert("fail");
-            });
+        .done(function (response) {
+            console.log(response);
+            if (response.Success) {
+                $("#Image").attr("src", response.ImageURL);
+                $("#ImageURL").val(response.ImageURL);
+            }
+        })
+        .fail(function () {
+            alert("fail");
+        });
     }
 
     function deleteOldImage(imageURL) {
@@ -131,13 +118,39 @@
             data: { imageURL: imageURL },
             dataType: "json"
         })
-            .done(function (response) {
-                console.log(response);
-            })
-            .fail(function () {
-                alert("fail");
-            });
+        .done(function (response) {
+            console.log(response);
+        })
+        .fail(function () {
+            alert("fail");
+        });
     }
+
+
+
+    //________________ ajax Edit __________________
+    $("#editBtn").click(function () {
+        @* alert("good");*@
+
+        //___ Image Image upload ________
+        if (isImageUpdated) {
+            var imageURL = $("#OldImage").val();
+            deleteOldImage(imageURL);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Category/Edit/",
+            data: $("#editForm").serialize(),
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+            $("#newForm").html("");
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
 </script>
 
 

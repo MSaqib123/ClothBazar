@@ -14,50 +14,61 @@ namespace ClothBazar.Web.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult CategoryList(string search)
+        {
             var list = service.GetList();
-            return View(list);
+            if (search != "" && search!=null )
+            {
+                list = service.SearchRecords(search);
+            }
+            return PartialView(list);
         }
 
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult Create(Category model)
         {
             service.Save(model);
-            return View(model);
+            return RedirectToAction("CategoryList");
         }
 
 
         public ActionResult Edit(int id)
         {
             var record = service.GetSingleRecord(id);
-            return View(record);
+            return PartialView(record);
         }
         [HttpPost]
         public ActionResult Edit(Category model)
         {
             service.Update(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("CategoryList");
         }
 
-        public ActionResult Detail(int id)
-        {
-            var record = service.GetSingleRecord(id);
-            return View(record);
-        }
+        //public ActionResult Detail(int id)
+        //{
+        //    var record = service.GetSingleRecord(id);
+        //    return View(record);
+        //}
 
+        //public ActionResult Delete(int id)
+        //{
+        //    var record = service.GetSingleRecord(id);
+        //    return View(record);
+        //}
+
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var record = service.GetSingleRecord(id);
-            return View(record);
-        }
-        [HttpPost]
-        public ActionResult Delete(Category model)
-        {
-            service.Delete(model);
-            return RedirectToAction("Index");
+            service.Delete(record);
+            return RedirectToAction("CategoryList");
         }
 
 

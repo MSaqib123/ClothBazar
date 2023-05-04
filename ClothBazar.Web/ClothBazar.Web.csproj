@@ -177,6 +177,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305031450320_addedIsfeatured.cs" />
+    <Compile Include="Migrations\202305031450320_addedIsfeatured.designer.cs">
+      <DependentUpon>202305031450320_addedIsfeatured.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -516,6 +520,7 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Shared\_Layoutold.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -538,6 +543,11 @@
       <Project>{CBCA4F91-6063-492B-979D-0554E455FD4B}</Project>
       <Name>ClothBazar.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202305031450320_addedIsfeatured.resx">
+      <DependentUpon>202305031450320_addedIsfeatured.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

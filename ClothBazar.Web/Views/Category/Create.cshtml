@@ -4,30 +4,47 @@
 }
 <div class="container">
 
-    <h2>Create Category</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    Create Category
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>
 
-    <form method="post">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="Name" />
+    <form id="createForm">
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" />
+                </div>
+                <div class="form-group">
+                    <label>Discription</label>
+                    <input type="text" class="form-control" name="Description" />
+                </div>
+                <div class="form-group">
+                    <label>Category_Image</label>
+                    <input id="ImageURL" name="ImageURL" hidden />
+                    <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
+                </div>
+                <div class="form-group">
+                    <label>IsFeatured ?</label>
+                    <input type="checkbox" name="isFeatured" id="checkbox1" value="true" style="display:inline" />
+                </div>
+
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" value="Create" id="createBtn" />
+                </div>
+            </div>
+            <div class="col-4">
+                <img id="Image" class="img-fluid" src="~/Content/images/No_Image.jpg"/>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Discription</label>
-            <input type="text" class="form-control" name="Description" />
-        </div>
-        <div class="form-group">
-            <label>Category_Image</label>
-            <input id="ImageURL" name="ImageURL" hidden />
-            <input type="file" class="form-control" id="imageUpload" name="Image" accept=".png,.jpg" />
-            <img id="categoryImage" width="70" />
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Create" />
-        </div>
+       
     </form>
-
-    @Html.ActionLink("Go Back", "Index")
-
 </div>
 
 <script>
@@ -57,7 +74,7 @@
             console.log(response);
                 
             if (response.Success) {
-                $("#categoryImage").attr("src", response.ImageURL);
+                $("#Image").attr("src", response.ImageURL);
                 $("#ImageURL").val(response.ImageURL);
             }
         })
@@ -67,8 +84,25 @@
     })
     
 
+    //______________  Create Category _________________
+    $("#createBtn").click(function () {
+         alert("good");
 
+        $.ajax({
+            type: "POST",
+            url: "/Category/Create/",
+            data: $("#createForm").serialize(),
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+            $("#newForm").html("");
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
     
 </script>
+
 
 
