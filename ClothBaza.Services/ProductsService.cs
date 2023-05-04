@@ -51,7 +51,17 @@ namespace ClothBaza.Services
         {
             using (var context = new CBContext())
             {
-                return context.Products.Find(Id);
+                //return context.Products.Where(x => x.Id == Id).Include(x=>x.Category).FirstOrDefault();
+                return context.Products.Find(Id); //on the base  primary key automaticlay find  category as well as
+            }
+        }
+
+        //_____ GetProductList base on  Ids List ________ Add to Cart
+        public List<Product> GetListRecordbyListIds(List<int> Id)
+        {
+            using (var context = new CBContext())
+            {
+                return context.Products.Where(x => Id.Contains(x.Id)).Include(x=>x.Category).ToList();
             }
         }
 

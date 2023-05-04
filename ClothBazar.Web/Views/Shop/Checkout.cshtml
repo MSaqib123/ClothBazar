@@ -1,0 +1,113 @@
+﻿@model CheckoutVM
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<div class="container">
+
+    @if (Model != null)
+    {
+        //2nd Way  TotalBill
+        decimal totalBill = 0;
+
+
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <h2 class="title">
+                        Your Carts
+                    </h2>
+                </div><!-- /.title-section -->
+            </div><!-- /.col-md-12 -->
+        </div>
+
+        if (Model.CartProducts != null && Model.CartProducts.Count > 0)
+        {
+            #region
+            @*
+                <div>
+                @foreach (var products in Model.CartProducts)
+                {
+                    var productQuentity = Model.CartProductsID.Where(x => x == products.Id).Count();
+                    <div>
+                        Name : @products.Name ___ Price : @products.Price  ___ Quentity : @productQuentity ___ TotalPrice @(products.Price * productQuentity)
+                    </div>
+                }
+                </div>
+                <div>
+                    <b>Total Bill : @Model.CartProducts.Sum(p => p.Price * Model.CartProductsID.Where(x => x == p.Id).Count())</b>
+                </div>
+            *@
+            #endregion
+
+            <table class="table">
+                <tr class="font-weight-bold">
+                    <th width="5%">
+                        Product_Id
+                    </th>
+                    <th width="10%">
+                        Name
+                    </th>
+                    <th width="10%">
+                        Price
+                    </th>
+                    <th width="10%">
+                        Quentity
+                    </th>
+                    <th width="10%">
+                        TotalPrice
+                    </th>
+                    <th width="10%"></th>
+                </tr>
+                @foreach (var products in Model.CartProducts)
+                {
+                    var productQuentity = Model.CartProductsID.Where(x => x == products.Id).Count();
+
+                    totalBill = totalBill + (productQuentity * products.Price);
+
+                    <tr>
+                        <td>@products.Id</td>
+                        <td>@products.Name</td>
+                        <td>@products.Price</td>
+                        <td>@productQuentity</td>
+                        <td>@(products.Price * productQuentity)</td>
+                        <td>
+                            <button class="btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    
+                }
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>
+                        <b>Total Bill 1st Way</b>
+                    </td>
+                    <td>
+                        <b>@Model.CartProducts.Sum(p => p.Price * Model.CartProductsID.Where(x => x == p.Id).Count())</b>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>
+                        <b>Total Bill 2nd Way</b>
+                    </td>
+                    <td>
+                        <b>@totalBill</b>
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                No Product in Cart
+            </div>
+        }
+    }
+</div>
+<br />

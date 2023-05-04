@@ -187,25 +187,89 @@
     //__________________ Delete Record ______________________
     $(".deleteBtn").click(function () {
         @* alert($(this).attr("data-id"));*@
-        var r = confirm("Do u want to delet ??");
-        if (r==true) {
-            var pid = $(this).attr("data-id");
+        var id = $(this).attr("data-id");
+        var isDeleted = false; 
+
+        //sweetAlert
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert Record!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                isDeleted = true;
+                deleteRecord(isDeleted,id);
+                @*Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )*@
+            }
+        })
+    })
+    function deleteRecord(isDeleted,id){
+        //Alert 
+        @*var r = confirm("Do u want to delet ??");*@
+        if (isDeleted == true) {
             $.ajax({
                 type: "Post",
                 url: "/Product/Delete/",
                 data: {
-                    id: pid
+                    id: id
                 }
             })
             .done(function (response) {
                 @* alert(response);*@
                 $("#tableContainer").html(response);
-                alert("Deleted Successfuly")
+                @*alert("Deleted Successfuly")*@
+
+                Swal.fire(
+                    'Deleted!',
+                    'Your Record has been deleted.',
+                    'success'
+                )
             })
             .fail(function () {
-                alert("fail");
+                Swal.fire(
+                    'Error!',
+                    'Record Not delete.',
+                    'error'
+                )
             })
         }
-    })
+    }
 
+
+    //__________________ AddToCart Product ______________________
+    var list = [];
+    $(".addToCartBtn").click(function () {
+        var productId = $(this).attr("data-id");
+        list.push(productId);
+        $.cookie('CartProducts', list.join('-'), { path: '/' });
+
+        @*alert("Added to Cart");*@
+
+        //________ SweetAlert Toaster _________
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            background: '#FF6D60',//'#fff',
+            color:'#fff',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Add ToCart Successfully'
+        })
+    })
 </script>
