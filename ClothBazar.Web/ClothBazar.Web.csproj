@@ -190,6 +190,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CheckoutVM.cs" />
     <Compile Include="ViewModel\HomeVM.cs" />
+    <Compile Include="ViewModel\ProductSearchVM.cs" />
     <Compile Include="ViewModel\ProductVM.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,15 +20,22 @@ namespace ClothBazar.Web.Controllers
         }
 
         //_____ Partial List + Saerch ________
-        public ActionResult ProductList(string search)
+        public ActionResult ProductList(string search,int? pageNo)
         {
-            var list = ProductsService.Instance.GetList();
+            //___________________ Pagination ____________________
+            ProductSearchVM vm = new ProductSearchVM();
+            
+            vm.TotalPages = Math.Ceiling(ProductsService.Instance.GetList().Count / 5.0);
+            int totalPage = Convert.ToInt32(vm.TotalPages);
+            vm.pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? (pageNo.Value > totalPage ? totalPage : pageNo.Value ) : 1) : 1;
+            vm.ProductsList = ProductsService.Instance.GetList(vm.pageNo.Value);
+
             if (search != null && search != "")
             {
-                list = ProductsService.Instance.SearchRecords(search);
+                vm.SearchTerms = search;
+                vm.ProductsList = ProductsService.Instance.SearchRecords(search);
             }
-            //return View(list);
-            return PartialView(list);
+            return PartialView(vm);
         }
 
         //____ Parital create _______

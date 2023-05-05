@@ -52,6 +52,14 @@ namespace ClothBaza.Services
                 return context.Products.Include(x=>x.Category).ToList();
             }
         }
+        public List<Product> GetList(int pageNo)
+        {
+            int pageSize = 5;
+            using (var context = new CBContext())
+            {
+                return context.Products.OrderBy(x=>x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+            }
+        }
 
         //_____ Feature List ________
         public List<Product> GetFeaturedList()
