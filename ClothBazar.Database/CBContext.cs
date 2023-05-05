@@ -20,5 +20,6 @@ namespace ClothBazar.Database
 
         public  DbSet<Product> Products { get; set; }
         public  DbSet<Category> categories{ get; set; }
+        public  DbSet<Conf> configuraton{ get; set; }
     }
 }

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    ConfigurationService config = new ConfigurationService();
+}
+
+<!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
@@ -189,12 +193,14 @@
                                     </div>
                                 </div>
                             </form>
+                            
+                            
                             <ul class="flat-social">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="@config.GetConfig("facebookUrl").Value"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@config.GetConfig("twetterUrl").Value"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="@config.GetConfig("linkedInUrl").Value"><i class="fa fa-linkedin"></i></a></li>
                             </ul><!-- /.flat-social -->
                         </div><!-- /.subscribe -->
                     </div>
@@ -241,9 +247,9 @@
                                 <a href="index.html"><img src="~/Content/images/logo%402x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">112 Kingdom, NA 12, New York</li>
-                                <li class="phone">+12 345 678 910</li>
-                                <li class="email">infor.deercreative@gmail.com</li>
+                                <li class="address">@config.GetConfig("companyAddress").Value</li>
+                                <li class="phone">@config.GetConfig("phoneNumber").Value</li>
+                                <li class="email">@config.GetConfig("email").Value</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-3 -->
