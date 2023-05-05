@@ -18,6 +18,13 @@ namespace ClothBazar.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            ////______ Custom URL for   Search_Category ___________
+            //routes.MapRoute(
+            //    name: "AllCategories",
+            //    url: "search/all",//"categories/all",
+            //    defaults: new { controller = "Category", action = "CategoryList" }
+            //);
         }
     }
 }

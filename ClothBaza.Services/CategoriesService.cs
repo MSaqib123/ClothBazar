@@ -76,7 +76,7 @@ namespace ClothBaza.Services
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
-                var list = context.categories.Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                var list = context.categories.Include(x => x.Products).Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
                 return list;
             }
         }

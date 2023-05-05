@@ -467,6 +467,8 @@
     <Content Include="Content\rev-slider\fonts\revicons\revicons90c690c6.eot" />
     <Content Include="Content\rev-slider\fonts\revicons\revicons90c690c6.ttf" />
     <Content Include="Content\rev-slider\fonts\revicons\revicons90c690c6.woff" />
+    <Content Include="libman.json" />
+    <Content Include="Content\stylesheets\bootstrap.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -527,6 +529,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\bootstrap\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

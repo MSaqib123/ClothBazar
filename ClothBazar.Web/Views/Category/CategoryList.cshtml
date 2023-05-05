@@ -76,7 +76,13 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <th>
-                    <p>@item.Products.Count</p>
+                    <p>@item.Products.Count</p><br />
+                    @foreach (var p in item.Products)
+                    {
+                        @*<span>@p.Name ,</span>*@
+                        <span>@p.Name</span> 
+                        if (p != item.Products.Last()) {<span>,</span>}
+                    }
                 </th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
@@ -102,10 +108,16 @@
     //_________________ Search _____________________
     $("#btnSearch").click(function () {
         var searchVal = $("#txtSearch").val();
+        
         @* alert(searchVal);*@
 
         $.ajax({
-            url: "/Category/CategoryList",
+            type:'get',
+            //__________ 1. Url Helper ___________
+            url: '@Url.Action("CategoryList", "Category")',//"/Category/CategoryList",
+            //__________ 2. Customize above URL ______________
+            //1. goto RoutConfig
+
             data: { search: searchVal }
         })
         .done(function (response) {
