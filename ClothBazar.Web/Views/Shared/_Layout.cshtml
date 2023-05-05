@@ -1,5 +1,5 @@
 ﻿@{ 
-    ConfigurationService config = new ConfigurationService();
+    //ConfigurationService config;// = new ConfigurationService();
 }
 
 <!DOCTYPE html>
@@ -198,11 +198,11 @@
                             
                             
                             <ul class="flat-social">
-                                <li><a href="@config.GetConfig("facebookUrl").Value"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="@config.GetConfig("twetterUrl").Value"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="@ConfigurationService.Instance.GetConfig("facebookUrl").Value"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@ConfigurationService.Instance.GetConfig("twetterUrl").Value"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                <li><a href="@config.GetConfig("linkedInUrl").Value"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="@ConfigurationService.Instance.GetConfig("linkedInUrl").Value"><i class="fa fa-linkedin"></i></a></li>
                             </ul><!-- /.flat-social -->
                         </div><!-- /.subscribe -->
                     </div>
@@ -249,9 +249,9 @@
                                 <a href="index.html"><img src="~/Content/images/logo%402x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">@config.GetConfig("companyAddress").Value</li>
-                                <li class="phone">@config.GetConfig("phoneNumber").Value</li>
-                                <li class="email">@config.GetConfig("email").Value</li>
+                                <li class="address">@ConfigurationService.Instance.GetConfig("companyAddress").Value</li>
+                                <li class="phone">@ConfigurationService.Instance.GetConfig("phoneNumber").Value</li>
+                                <li class="email">@ConfigurationService.Instance.GetConfig("email").Value</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-3 -->

@@ -10,6 +10,24 @@ namespace ClothBaza.Services
 {
     public class ConfigurationService
     {
+        //____________________ SingleTone _________________________________
+        //humain barr object create nhin krna paraa gaa
+        //bulkaa hum Object create krna ke zimadarum  --> single ton ko da dain gaa
+        #region SingleTone
+        public static  ConfigurationService Instance
+        {
+            get
+            {
+                if (instance == null) instance = new ConfigurationService();
+                return instance;
+            }
+        }
+
+        private static ConfigurationService instance { get; set; }
+        private ConfigurationService(){}
+        #endregion
+
+
         public Conf GetConfig(string Key)
         {
             using (var context = new CBContext())

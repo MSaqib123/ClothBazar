@@ -11,6 +11,24 @@ namespace ClothBaza.Services
 {
     public class ProductsService
     {
+        //____________________ SingleTone _________________________________
+        //humain barr object create nhin krna paraa gaa
+        //bulkaa hum Object create krna ke zimadarum  --> single ton ko da dain gaa
+        #region SingleTone
+        public static ProductsService Instance
+        {
+            get
+            {
+                if (instance == null) instance = new ProductsService();
+                return instance;
+            }
+        }
+
+        private static ProductsService instance { get; set; }
+        private ProductsService() { }
+        #endregion
+
+
         //____ create ______
         public void Save(Product model)
         {

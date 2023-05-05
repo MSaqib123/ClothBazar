@@ -11,7 +11,7 @@ namespace ClothBazar.Web.Controllers
     public class ShopController : Controller
     {
         // GET: Shop
-        ProductsService ProductServices = new ProductsService();
+        //ProductsService ProductServices = new ProductsService();
         public ActionResult Index()
         {
             return View();
@@ -37,7 +37,7 @@ namespace ClothBazar.Web.Controllers
 
                 //_________ create services __________
                 //service method jo  --> List Ids  laa ker ---> List Product return kraa
-                var List = ProductServices.GetListRecordbyListIds(IDs);
+                var List = ProductsService.Instance.GetListRecordbyListIds(IDs);
                 vm.CartProducts = List;
                 // for Product Quentitys
                 vm.CartProductsID = IDs;

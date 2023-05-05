@@ -11,7 +11,7 @@ namespace ClothBazar.Web.Controllers
 {
     public class ProductController : Controller
     {
-        ProductsService service = new ProductsService();
+        //ProductsService service = new ProductsService();
         // GET: Product
 
         public ActionResult Index()
@@ -22,10 +22,10 @@ namespace ClothBazar.Web.Controllers
         //_____ Partial List + Saerch ________
         public ActionResult ProductList(string search)
         {
-            var list = service.GetList();
+            var list = ProductsService.Instance.GetList();
             if (search != null && search != "")
             {
-                list = service.SearchRecords(search);
+                list = ProductsService.Instance.SearchRecords(search);
             }
             //return View(list);
             return PartialView(list);
@@ -35,14 +35,14 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Create()
         {
             //return View();
-            CategoriesService category = new CategoriesService();
-            var list = category.GetList();
+            //CategoriesService category = new CategoriesService();
+            var list = CategoriesService.Instance.GetList();
             return PartialView(list);
         }
         [HttpPost]
         public ActionResult Create(Product model)
         {
-            service.Save(model);
+            ProductsService.Instance.Save(model);
             return RedirectToAction("ProductList");
         }
 
@@ -52,9 +52,9 @@ namespace ClothBazar.Web.Controllers
         {
             ProductVM vm = new ProductVM();
 
-            vm.Product = service.GetSingleRecord(id);
-            CategoriesService category = new CategoriesService();
-            vm.categoryList = category.GetList();
+            vm.Product = ProductsService.Instance.GetSingleRecord(id);
+            //CategoriesService category = new CategoriesService();
+            vm.categoryList = CategoriesService.Instance.GetList();
 
             return PartialView(vm);
         }
@@ -68,7 +68,7 @@ namespace ClothBazar.Web.Controllers
             //product.CategoryId = model.Product.CategoryId;
             //product.Description = model.Product.Description;
 
-            service.Update(model);
+            ProductsService.Instance.Update(model);
             return RedirectToAction("ProductList");
         }
 
@@ -76,8 +76,8 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var record = service.GetSingleRecord(id);
-            service.Delete(record);
+            var record = ProductsService.Instance.GetSingleRecord(id);
+            ProductsService.Instance.Delete(record);
             return RedirectToAction("ProductList");
         }
     }

@@ -10,7 +10,7 @@ namespace ClothBazar.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoriesService service = new CategoriesService();
+        //CategoriesService service = new CategoriesService();
 
         public ActionResult Index()
         {
@@ -19,10 +19,10 @@ namespace ClothBazar.Web.Controllers
 
         public ActionResult CategoryList(string search)
         {
-            var list = service.GetList();
+            var list = CategoriesService.Instance.GetList();
             if (search != "" && search!=null )
             {
-                list = service.SearchRecords(search);
+                list = CategoriesService.Instance.SearchRecords(search);
             }
             return PartialView(list);
         }
@@ -34,20 +34,20 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Create(Category model)
         {
-            service.Save(model);
+            CategoriesService.Instance.Save(model);
             return RedirectToAction("CategoryList");
         }
 
 
         public ActionResult Edit(int id)
         {
-            var record = service.GetSingleRecord(id);
+            var record = CategoriesService.Instance.GetSingleRecord(id);
             return PartialView(record);
         }
         [HttpPost]
         public ActionResult Edit(Category model)
         {
-            service.Update(model);
+            CategoriesService.Instance.Update(model);
             return RedirectToAction("CategoryList");
         }
 
@@ -66,8 +66,8 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var record = service.GetSingleRecord(id);
-            service.Delete(record);
+            var record = CategoriesService.Instance.GetSingleRecord(id);
+            CategoriesService.Instance.Delete(record);
             return RedirectToAction("CategoryList");
         }
 
