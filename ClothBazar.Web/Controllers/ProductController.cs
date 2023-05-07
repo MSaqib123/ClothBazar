@@ -87,5 +87,6 @@ namespace ClothBazar.Web.Controllers
             ProductsService.Instance.Delete(record);
             return RedirectToAction("ProductList");
         }
+
     }
 }
