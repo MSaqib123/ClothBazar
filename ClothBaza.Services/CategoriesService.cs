@@ -28,8 +28,6 @@ namespace ClothBaza.Services
         private CategoriesService() { }
         #endregion
 
-
-
         //____ create ______
         public void Save(Category model)
         {
@@ -48,7 +46,15 @@ namespace ClothBaza.Services
                 return context.categories.Include(x=>x.Products).ToList();
             }
         }
-        
+        public List<Category> GetList(int pageNo)
+        {
+            int pageSize = 5;
+            using (var context = new CBContext())
+            {
+                return context.categories.OrderBy(x => x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Products).ToList();
+            }
+        }
+
         //_____ Feature List ________
         public List<Category> GetFeaturedList()
         {
@@ -63,7 +69,7 @@ namespace ClothBaza.Services
         {
             using (var context = new CBContext())
             {
-                return context.categories.Find(Id);
+                return context.categories.Include(x=>x.Products).Where(x=>x.Id == Id).FirstOrDefault();
             }
         }
 

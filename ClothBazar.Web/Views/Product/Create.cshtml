@@ -84,7 +84,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Shared/UploadImage/",
+            url:'@Url.Action("UploadImage", "Shared")',//"/Shared/UploadImage/",
             data: formData,
             //___ when working with iamge ___
             contentType: false,
@@ -111,7 +111,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Product/Create/",
+            url: '@Url.Action("Create", "Product")',
             data: $("#createForm").serialize(),
         })
         .done(function (response) {

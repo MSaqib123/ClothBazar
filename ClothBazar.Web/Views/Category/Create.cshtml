@@ -49,7 +49,7 @@
 
 <script>
     //______________ Upload Image _________________
-    
+
     $("#imageUpload").change(function () {
         var element = this;
         var formData = new FormData();
@@ -58,12 +58,12 @@
         for (var i = 0; i < totalFiles; i++) {
             var file = element.files[i];
             formData.append("photo", file);
-            
+
         }
 
         $.ajax({
             type: "POST",
-            url: "/Shared/UploadImage/",
+            url: '@Url.Action("UploadImage", "Shared")',//"/Shared/UploadImage/",
             data: formData,
             //___ when working with iamge ___
             contentType: false,
@@ -72,7 +72,7 @@
         })
         .done(function (response) {
             console.log(response);
-                
+
             if (response.Success) {
                 $("#Image").attr("src", response.ImageURL);
                 $("#ImageURL").val(response.ImageURL);
@@ -82,7 +82,7 @@
             alert("fail");
         })
     })
-    
+
 
     //______________  Create Category _________________
     $("#createBtn").click(function () {
@@ -90,7 +90,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Category/Create/",
+            url: '@Url.Action("Create", "Category")', //"/Category/Create/",
             data: $("#createForm").serialize(),
         })
         .done(function (response) {
@@ -101,7 +101,7 @@
             alert("fail");
         })
     })
-    
+
 </script>
 
 

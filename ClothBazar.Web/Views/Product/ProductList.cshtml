@@ -4,9 +4,6 @@
     ViewBag.Title = "ProductList";
 }
 
-<link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
 @*<div id="tableContainer">*@
 <br />
 <div class="row">
@@ -20,31 +17,28 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-10">
-        <form method="get">
+    <div class="col-lg-12">
+        <form id="searchForm">
             <div class="row">
-                <div class="col-4">
-                    <input type="text" id="txtSearch" placeholder="Search" />
+                <div class="col-8">
+                    <input type="text" id="txtSearch" placeholder="Search" value="@Model.SearchTerms"/>
                 </div>
-                <div>
-                    <button type="button" class="mt-1" id="btnSearch">Search</button>
+                <div class="col-4">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="mt-1 bg-primary" id="btnSearch">Search</button>
+                        <button type="button" class="mt-1 bg-primary" id="reset">Reset</button>
+                        <button type="button" class="mt-1" id="newBtn">New Product</button>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
     <br />
-    <div class="col-lg-2">
-        <p>
-            <button class="bg-primary" id="newBtn">New Product</button>
-        </p>
-    </div>
 </div>
-
-
 
 <br />
 
-<table class="table" id="ProductTable">
+<table class="table">
     <thead>
         <tr>
             <th width="5%">
@@ -128,66 +122,64 @@
     </tbody>
 </table>
 
-@*
-    <div class="blog-pagination clearfix">
-        <ul class="flat-pagination">
-            @{
-                var totalPages = Model.TotalPages;
-            }
-
-            <li class="prev">
-                <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
-            </li>
-
-            @for (int i = 0; i < totalPages; i++)
+<div class="blog-pagination clearfix">
+    <ul class="flat-pagination">
+        @{
+            var totalPages = Model.TotalPages;
+        }
+        <li class="prev">
+            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
+        </li>
+        @for (int i = 0; i < totalPages; i++)
+        {
+            if (Model.pageNo == (i+1))
             {
-                if (Model.pageNo == (i+1))
-                {
-                    <li class="active">
-                        <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                    </li>
-                }
+                <li class="active">
+                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                </li>
             }
+            else
+            {
+                <li>
+                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                </li>
+            }
+        }
 
-            <li>
-                <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul><!-- /.flat-pagination -->
-    </div><!-- /.blog-pagination -->
-*@
+        <li>
+            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul><!-- /.flat-pagination -->
+</div><!-- /.blog-pagination -->
+
 
 <br />
 <br />
 @*</div>
-
     <div id="newForm">
-
-    </div>*@
+</div>*@
 
 <script>
+    $("#searchForm").submit(function (e) {
+        e.preventDefault();
+    })
+
     //_________________________ Datatable _____________________________
     //jb humain 100000 so  data   par work krnaa ho to hum ---- > Datatable use krtaa han
     //--------- but for learning   we will work on customize  things _______
-    $("#ProductTable").DataTable();
-
+    @*$("#ProductTable").DataTable();*@
 
     //_________________________ Pagination _____________________
-    @*$(".pageButton").click(function (e) {
+    $(".pageButton").click(function (e) {
         e.preventDefault();
 
         //var searchVal = $("#txtSearch").val();
         // alert(searchVal);
 
         $.ajax({
-            url: "/Product/ProductList",
+            url: '@Url.Action("ProductList", "Product")',//"/Product/ProductList",
             data: {
                 //search: searchVal
                 pageNo: $(this).attr("data-pageNo")
@@ -200,7 +192,23 @@
             alert("fail");
         })
     })
-    *@
+
+    //__________________ reset __________________
+    $("#reset").click(function () {
+        var searchVal = "";
+        $.ajax({
+            url: '@Url.Action("ProductList", "Product")',//"/Product/ProductList",
+            data: { search: searchVal }
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+            $("#txtSearch").val("");
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
 
     //__________________ Search __________________
     $("#btnSearch").click(function () {
@@ -208,13 +216,14 @@
         @*alert(searchVal);*@
 
         $.ajax({
-            url: "/Product/ProductList",
+            url: '@Url.Action("ProductList", "Product")', //"/Product/ProductList",
             data: { search: searchVal }
         })
         .done(function (response) {
         @*alert("working good");*@
             @*alert(response);*@
             $("#tableContainer").html(response);
+            $("#txtSearch").val();
         })
         .fail(function () {
             alert("fail");
@@ -225,7 +234,7 @@
     //__________________ show create form ______________________
     $("#newBtn").click(function () {
         $.ajax({
-            url: "/Product/Create/",
+            url:'@Url.Action("Create", "Product")',// "/Product/Create/",
         })
         .done(function (response) {
             @*alert(response);*@
@@ -244,7 +253,7 @@
         debugger;
         var pid = $(this).attr("data-id");
         $.ajax({
-            url: "/Product/Edit/",
+            url: '@Url.Action("Edit", "Product")',// "/Product/Edit/",
             data: {
                 id: pid
             }
@@ -265,6 +274,7 @@
             scrollTop: $("#newForm").offset().top - 100
         }, 1000)
     }
+
 
     //__________________ Delete Record ______________________
     $(".deleteBtn").click(function () {
@@ -299,7 +309,7 @@
         if (isDeleted == true) {
             $.ajax({
                 type: "Post",
-                url: "/Product/Delete/",
+                url:'@Url.Action("Delete", "Product")',// "/Product/Delete/",
                 data: {
                     id: id
                 }
@@ -354,4 +364,5 @@
             title: 'Add ToCart Successfully'
         })
     })
+
 </script>

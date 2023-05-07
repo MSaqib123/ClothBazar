@@ -121,10 +121,9 @@
             deleteOldImage(imageURL);
         }
 
-
         $.ajax({
             type: "POST",
-            url: "/Shared/UploadImage/",
+            url: "@Url.Action("UploadImage", "Shared")",
             data: formData,
             contentType: false,
             processData: false,
@@ -145,7 +144,7 @@
     function deleteOldImage(imageURL) {
         $.ajax({
             type: "POST",
-            url: "/Shared/DeleteImage/",
+            url: '@Url.Action("DeleteImage", "Shared")',
             data: { imageURL: imageURL },
             dataType: "json"
         })
@@ -157,14 +156,11 @@
         });
     }
 
-
-
-
     $("#editBtn").click(function () {
         @*alert("good");*@
         $.ajax({
             type: "POST",
-            url: "/Product/Edit/",
+            url: '@Url.Action("Product", "Edit")',//"/Product/Edit/",
             data: $("#editForm").serialize(),
         })
         .done(function (response) {

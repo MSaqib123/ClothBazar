@@ -1,103 +1,136 @@
-﻿@model IEnumerable<ClothBazar.Entities.Category>
+﻿@model CategorySearchVM
 
 @{
     ViewBag.Title = "Index";
 }
 
-    <br />
-    <div class="row">
-        <div class="col-md-12">
-            <div class="title-section">
-                <h2 class="title">
-                    Categories
-                </h2>
-            </div><!-- /.title-section -->
-        </div><!-- /.col-md-12 -->
-    </div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="title-section">
+            <h2 class="title">
+                Categories
+            </h2>
+        </div><!-- /.title-section -->
+    </div><!-- /.col-md-12 -->
+</div>
 
-    <div class="row">
-        <div class="col-lg-10">
-            <form>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="text" id="txtSearch" placeholder="search"/>
-                    </div>
-                    <div>
-                        <button type="button" class="mt-1" id="btnSearch">Submit</button>
+<div class="row">
+    <div class="col-lg-12">
+        <form id="searchForm">
+            <div class="row">
+                <div class="col-8">
+                    <input type="text" id="txtSearch" placeholder="Search" value="@Model.SearchTerms" />
+                </div>
+                <div class="col-4">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="mt-1 bg-primary" id="btnSearch">Search</button>
+                        <button type="button" class="mt-1 bg-primary" id="reset">Reset</button>
+                        <button type="button" class="mt-1" id="newBtn">New Product</button>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-lg-2">
-            <p>
-                <button class="bg-primary" id="newBtn">Create</button>
-            </p>
-        </div>
+            </div>
+        </form>
     </div>
-    <br />
+</div>
+<br />
 
 
-    <table class="table table-hover table-striped">
+<table class="table table-hover table-striped">
+    <tr>
+        <th width="5%">
+            Id
+        </th>
+        <td>
+            Image
+        </td>
+        <th width="20%">
+            Name
+        </th>
+        <th width="10%">
+            TotalProduct
+        </th>
+        <th width="30%">
+            Description
+        </th>
+        <th width="10%">
+            IsFeatured
+        </th>
+        <th width="35%"></th>
+    </tr>
+
+    @foreach (var item in Model.CategoryList)
+    {
         <tr>
-            <th width="5%">
-                @Html.DisplayNameFor(model => model.Id)
+            <td>
+                @Html.DisplayFor(model => item.Id)
+            </td>
+            <td>
+                @if (item.ImageURL != null)
+                {
+                    <img src="@Url.Content(item.ImageURL)" width="60" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <th>
+                <p>@item.Products.Count</p><br />
+                @foreach (var p in item.Products)
+                {
+                    @*<span>@p.Name ,</span>*@
+                    <span>@p.Name</span>
+                    if (p != item.Products.Last())
+                    {<span>,</span>}
+                }
             </th>
             <td>
-                Image
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <th width="20%">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th width="10%">
-                TotalProduct
-            </th>
-            <th width="30%">
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th width="10%">
-                @Html.DisplayNameFor(model => model.isFeatured)
-            </th>
-            <th width="35%"></th>
+            <td>
+                <label>@(item.isFeatured ? "Yes" : "No")</label>
+            </td>
+            <td>
+                <button class="editBtn btn-sm bg-primary" data-id="@item.Id">Edit</button>
+                <button class="deleteBtn btn-sm" data-id="@item.Id">Delete</button>
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.Id)
-                </td>
-                <td>
-                    @if (item.ImageURL != null)
-                    {
-                        <img src="@Url.Content(item.ImageURL)" width="60" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <th>
-                    <p>@item.Products.Count</p><br />
-                    @foreach (var p in item.Products)
-                    {
-                        @*<span>@p.Name ,</span>*@
-                        <span>@p.Name</span> 
-                        if (p != item.Products.Last()) {<span>,</span>}
-                    }
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <label>@(item.isFeatured ? "Yes" : "No")</label>
-                </td>
-                <td>
-                    <button class="editBtn btn-sm bg-primary" data-id="@item.Id">Edit</button>
-                    <button class="deleteBtn btn-sm" data-id="@item.Id">Delete</button>
-                </td>
-            </tr>
+</table>
+<div class="blog-pagination clearfix">
+    <ul class="flat-pagination">
+        @{
+            var totalPages = Model.TotalPages;
         }
 
-    </table>
+        <li class="prev">
+            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
+        </li>
+
+        @for (int i = 0; i < totalPages; i++)
+        {
+            if (Model.pageNo == (i + 1))
+            {
+                <li class="active">
+                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                </li>
+            }
+        }
+
+        <li>
+            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul><!-- /.flat-pagination -->
+</div><!-- /.blog-pagination -->
 
 <br />
 <br />
@@ -105,10 +138,52 @@
 
 <script>
 
+    $("#searchForm").submit(function (e) {
+        e.preventDefault();
+    })
+
+    //_________________________ Pagination _____________________
+    $(".pageButton").click(function (e) {
+        e.preventDefault();
+
+        //var searchVal = $("#txtSearch").val();
+        // alert(searchVal);
+
+        $.ajax({
+            url: '@Url.Action("CategoryList", "Category")',
+            data: {
+                //search: searchVal
+                pageNo: $(this).attr("data-pageNo")
+            }
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
+    //__________________ reset __________________
+    $("#reset").click(function () {
+        var searchVal = "";
+        $.ajax({
+            url: '@Url.Action("CategoryList", "Category")',//"/Product/ProductList",
+            data: { search: searchVal }
+        })
+        .done(function (response) {
+            $("#tableContainer").html(response);
+            $("#txtSearch").val("");
+        })
+        .fail(function () {
+            alert("fail");
+        })
+    })
+
     //_________________ Search _____________________
     $("#btnSearch").click(function () {
         var searchVal = $("#txtSearch").val();
-        
+
         @* alert(searchVal);*@
 
         $.ajax({
@@ -134,7 +209,7 @@
     $("#newBtn").click(function () {
         $.ajax({
             type:"get",
-            url: "/Category/Create"
+            url: '@Url.Action("Create", "Category")',//"/Category/Create"
         })
         .done(function (response) {
             @* alert("working good");*@
@@ -152,7 +227,7 @@
         var catId = $(this).attr("data-id");
         $.ajax({
             type:"get",
-            url: "/Category/Edit",
+            url:'@Url.Action("Edit", "Category")',// "/Category/Edit",
             data: {id:catId}
         })
         .done(function (response) {
@@ -177,7 +252,7 @@
     //_________________ Navigate to divForm _____________________
     $(".deleteBtn").click(function () {
         var id = $(this).attr("data-id");
-        var isDeleted = false; 
+        var isDeleted = false;
 
         //sweetAlert
         Swal.fire({
@@ -201,7 +276,7 @@
         if (isDeleted == true) {
             $.ajax({
                 type: "POST",
-                url: "/Category/Delete",
+                url: '@Url.Action("Delete", "Category")',// "/Category/Delete",
                 data: { id: id }
             })
             .done(function (response) {

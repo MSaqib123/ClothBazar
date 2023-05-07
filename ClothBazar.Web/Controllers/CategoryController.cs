@@ -1,5 +1,6 @@
 ﻿using ClothBaza.Services;
 using ClothBazar.Entities;
+using ClothBazar.Web.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,22 @@ namespace ClothBazar.Web.Controllers
             return View();
         }
 
-        public ActionResult CategoryList(string search)
+        public ActionResult CategoryList(string search, int? pageNo)
         {
-            var list = CategoriesService.Instance.GetList();
-            if (search != "" && search!=null )
+            //___________________ Pagination ____________________
+            CategorySearchVM vm = new CategorySearchVM();
+
+            vm.TotalPages = Math.Ceiling(CategoriesService.Instance.GetList().Count / 5.0);
+            int totalPage = Convert.ToInt32(vm.TotalPages);
+            vm.pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? (pageNo.Value > totalPage ? totalPage : pageNo.Value) : 1) : 1;
+            vm.CategoryList = CategoriesService.Instance.GetList(vm.pageNo.Value);
+
+            if (search != null && search != "")
             {
-                list = CategoriesService.Instance.SearchRecords(search);
+                vm.SearchTerms = search;
+                vm.CategoryList = CategoriesService.Instance.SearchRecords(search);
             }
-            return PartialView(list);
+            return PartialView(vm);
         }
 
         public ActionResult Create()
