@@ -88,5 +88,15 @@ namespace ClothBazar.Web.Controllers
             return RedirectToAction("ProductList");
         }
 
+
+        //______________ Detail Product ________________
+        public ActionResult ProductDetails(int id)
+        {
+            ProductDetailVM vm = new ProductDetailVM();
+            vm.Product = ProductsService.Instance.GetSingleRecord(id);
+            return View(vm);
+        }
+
+
     }
 }

@@ -192,6 +192,7 @@
     <Compile Include="ViewModel\CategorySearchVM.cs" />
     <Compile Include="ViewModel\CheckoutVM.cs" />
     <Compile Include="ViewModel\HomeVM.cs" />
+    <Compile Include="ViewModel\ProductDetailVM.cs" />
     <Compile Include="ViewModel\ProductSearchVM.cs" />
     <Compile Include="ViewModel\ProductsWidgetVM.cs" />
     <Compile Include="ViewModel\ProductVM.cs" />
@@ -533,6 +534,7 @@
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Widget\Products.cshtml" />
+    <Content Include="Views\Product\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

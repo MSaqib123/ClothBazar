@@ -72,7 +72,7 @@ namespace ClothBaza.Services
         }
         public List<Product> GetLatestList(int pageNo, int pageSize)
         {
-            //geting number  latest Product based on Category
+            //geting number  latest Product based on Categories
             //pageSize == totalitem toShow
             using (var context = new CBContext())
             {
@@ -80,6 +80,16 @@ namespace ClothBaza.Services
                 //return context.Products.Include(x => x.Category).ToList();
             }
         }
+
+        public List<Product> GetListByCategory(int CategoryId, int pageSize)
+        {
+            //Get ListProducts Based on Cateogyr
+            using (var context = new CBContext())
+            {
+                return context.Products.Where(x=>x.Category.Id == CategoryId).OrderByDescending(x => x.Id).Take(pageSize).Include(x => x.Category).ToList();
+            }
+        }
+
 
         //_____ Feature List ________
         public List<Product> GetFeaturedList()
@@ -97,7 +107,7 @@ namespace ClothBaza.Services
             using (var context = new CBContext())
             {
                 //return context.Products.Where(x => x.Id == Id).Include(x=>x.Category).FirstOrDefault();
-                return context.Products.Find(Id); //on the base  primary key automaticlay find  category as well as
+                return context.Products.Include(x=>x.Category).Where(x=>x.Id == Id).FirstOrDefault(); //on the base  primary key automaticlay find  category as well as
             }
         }
 
