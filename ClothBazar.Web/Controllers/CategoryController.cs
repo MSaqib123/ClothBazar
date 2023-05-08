@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace ClothBazar.Web.Controllers
 {
@@ -22,18 +23,21 @@ namespace ClothBazar.Web.Controllers
         {
             //___________________ Pagination ____________________
             CategorySearchVM vm = new CategorySearchVM();
+            //vm.CategoryList = CategoriesService.Instance.GetList();
+            pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+            vm.CategoryList = CategoriesService.Instance.GetList(search,pageNo.Value);
 
-            vm.TotalPages = Math.Ceiling(CategoriesService.Instance.GetList().Count / 5.0);
-            int totalPage = Convert.ToInt32(vm.TotalPages);
-            vm.pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? (pageNo.Value > totalPage ? totalPage : pageNo.Value) : 1) : 1;
-            vm.CategoryList = CategoriesService.Instance.GetList(vm.pageNo.Value);
-
-            if (search != null && search != "")
+            //___ count Total Records _____
+            vm.SearchTerms = search;
+            var totalPages = CategoriesService.Instance.GetListCount(search);
+            
+            if (vm.CategoryList != null)
             {
-                vm.SearchTerms = search;
-                vm.CategoryList = CategoriesService.Instance.SearchRecords(search);
+                var paginationSize = ConfigurationService.Instance.GetConfig("paginationSize").Value;
+                vm.Pager = new Pager(totalPages, pageNo, Convert.ToInt32(paginationSize));
+                return PartialView(vm);
             }
-            return PartialView(vm);
+            return HttpNotFound();
         }
 
         public ActionResult Create()

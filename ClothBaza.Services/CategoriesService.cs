@@ -46,12 +46,35 @@ namespace ClothBaza.Services
                 return context.categories.Include(x=>x.Products).ToList();
             }
         }
-        public List<Category> GetList(int pageNo)
+       
+        public List<Category> GetList(string search,int pageNo)
         {
-            int pageSize = 5;
+            int pageSize = Convert.ToInt32(ConfigurationService.Instance.GetConfig("paginationSize").Value);
             using (var context = new CBContext())
             {
-                return context.categories.OrderBy(x => x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Products).ToList();
+                if (search != null && search != "")
+                {
+                    var list = context.categories.Where(x => x.Name != null && x.Name.ToLower()
+                   .Contains(search.ToLower()))
+                   .OrderBy(x => x.Id)
+                   .Skip((pageNo - 1) * pageSize)
+                   .Take(pageSize)
+                   .Include(x => x.Products)
+                   .ToList();
+
+                    return list;
+                }
+                else
+                {
+                    var list = context.categories
+                   .OrderBy(x => x.Id)
+                   .Skip((pageNo - 1) * pageSize)
+                   .Take(pageSize)
+                   .Include(x => x.Products)
+                   .ToList();
+                    return list;
+                }
+                
             }
         }
 
@@ -101,8 +124,33 @@ namespace ClothBaza.Services
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
-                var list = context.categories.Include(x => x.Products).Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                var list = context.categories
+                    .Include(x => x.Products)
+                    .Where(x => x.Name != null && x.Name.ToLower()
+                    .Contains(search.ToLower()))
+                    .ToList();
                 return list;
+            }
+        }
+         //_____ ListCount ________
+        public int GetListCount(string search)
+        {
+            using (var context = new CBContext())
+            {
+                if (search != null && search!="")
+                {
+                    var list = context.categories
+                   .Include(x => x.Products)
+                   .Where(x => x.Name != null && x.Name.ToLower()
+                   .Contains(search.ToLower()))
+                   .ToList().Count;
+                    return list;
+                }
+                else
+                {
+                    return context.categories.Include(x => x.Products).ToList().Count;
+                }
+                
             }
         }
 

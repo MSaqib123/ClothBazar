@@ -99,37 +99,73 @@
 
 </table>
 <div class="blog-pagination clearfix">
+    @* <ul class="flat-pagination">
+            @{
+                var totalPages = Model.TotalPages;
+            }
+
+            <li class="prev">
+                <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
+            </li>
+
+            @for (int i = 0; i < totalPages; i++)
+            {
+                if (Model.pageNo == (i + 1))
+                {
+                    <li class="active">
+                        <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
+                    </li>
+                }
+            }
+
+            <li>
+                <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul><!-- /.flat-pagination -->*@
+    @*@if (Model.Pager != null)
+    {*@
     <ul class="flat-pagination">
-        @{
-            var totalPages = Model.TotalPages;
-        }
-
-        <li class="prev">
-            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
-        </li>
-
-        @for (int i = 0; i < totalPages; i++)
+        @if (Model.Pager.CurrentPage > 1)
         {
-            if (Model.pageNo == (i + 1))
-            {
-                <li class="active">
-                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                </li>
-            }
+            <li class="prev">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.CurrentPage-1)"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            <li class="first">
+                <a href="#" class="pageButton" data-pageNo="1"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+        @for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+        {
+            string activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
+            <li class="@activeClass">
+                <a href="#" class="pageButton" data-pageNo="@page">@page</a>
+            </li>
         }
 
-        <li>
-            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </li>
-    </ul><!-- /.flat-pagination -->
+
+        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+        {
+            <li class="end">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.EndPage)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.CurrentPage+1)">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+        }
+    </ul>
+    @*}*@
 </div><!-- /.blog-pagination -->
 
 <br />
@@ -146,14 +182,15 @@
     $(".pageButton").click(function (e) {
         e.preventDefault();
 
-        //var searchVal = $("#txtSearch").val();
+        var searchVal = $("#txtSearch").val();
         // alert(searchVal);
 
         $.ajax({
             url: '@Url.Action("CategoryList", "Category")',
             data: {
                 //search: searchVal
-                pageNo: $(this).attr("data-pageNo")
+                pageNo: $(this).attr("data-pageNo"),
+                search: '@Model.SearchTerms'//searchVal
             }
         })
         .done(function (response) {

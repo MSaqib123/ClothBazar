@@ -193,6 +193,7 @@
     <Compile Include="ViewModel\HomeVM.cs" />
     <Compile Include="ViewModel\ProductSearchVM.cs" />
     <Compile Include="ViewModel\ProductVM.cs" />
+    <Compile Include="ViewModel\SharedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont5b62.html" />
