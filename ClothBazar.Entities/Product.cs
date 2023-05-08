@@ -14,6 +14,8 @@ namespace ClothBazar.Entities
         public int Id { get; set; }
         //public string Name { get; set; }
         //public string Description { get; set; }
+        [Range(1,1000000)]
+        [Required]
         public decimal Price { get; set; }
         public string ImageURL { get; set; }
         public bool isFeatured { get; set; }

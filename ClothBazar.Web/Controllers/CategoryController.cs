@@ -47,8 +47,16 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Create(Category model)
         {
-            CategoriesService.Instance.Save(model);
-            return RedirectToAction("CategoryList");
+            if (ModelState.IsValid)
+            {
+                CategoriesService.Instance.Save(model);
+                return RedirectToAction("CategoryList");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500); //500 internal Error
+            }
+            
         }
 
 

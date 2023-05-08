@@ -76,6 +76,10 @@
     <Compile Include="Migrations\202305050553064_addingMigrationtable.designer.cs">
       <DependentUpon>202305050553064_addingMigrationtable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305080342240_AddingValidation.cs" />
+    <Compile Include="Migrations\202305080342240_AddingValidation.designer.cs">
+      <DependentUpon>202305080342240_AddingValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305050553064_addingMigrationtable.resx">
       <DependentUpon>202305050553064_addingMigrationtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305080342240_AddingValidation.resx">
+      <DependentUpon>202305080342240_AddingValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,14 @@
 @{
     ViewBag.Title = "Create";
 }
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Content/Validation/jquery.validate.min.js"></script>
+<style>
+    .error{
+        color:red
+    }
+</style>
 <div class="container">
 
     <div class="row">
@@ -14,12 +22,17 @@
         </div><!-- /.col-md-12 -->
     </div>
 
+    @*______ Html Validation (required) _________
+        1 -->  only work when  form is submtied
+        2 --> but we  workig using Ajax
+        3 --> we will  use  Jquery Validation
+        *@
     <form id="createForm">
         <div class="row">
             <div class="col-8">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="Name" />
+                    <label>Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="Name"  />
                 </div>
                 <div class="form-group">
                     <label>Discription</label>
@@ -40,10 +53,10 @@
                 </div>
             </div>
             <div class="col-4">
-                <img id="Image" class="img-fluid" src="~/Content/images/No_Image.jpg"/>
+                <img id="Image" class="img-fluid" src="~/Content/images/No_Image.jpg" />
             </div>
         </div>
-       
+
     </form>
 </div>
 
@@ -84,22 +97,87 @@
     })
 
 
+    //______________  JQuery Validation _________________
+    $('#createForm').validate({ // initialize the plugin
+        rules: {
+            Name: {
+                required: true,
+                @*email: true*@
+                minlength: 5,
+                maxlength: 50,
+            },
+            Description: {
+                required: true,
+                maxlength: 500
+            }
+        },
+        messages: {
+            Name: {
+                required: "Name is Required",
+                @* email: true *@
+                minlength: "Maximum length is 5",
+                maxlength: "Minimum length is 50",
+            },
+            Description: {
+                required: "descripton is Required",
+                maxlength: "Minimum length is 500"
+            }
+        }
+    });
+
+    
+
     //______________  Create Category _________________
     $("#createBtn").click(function () {
-         alert("good");
+        alert("good");
 
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("Create", "Category")', //"/Category/Create/",
-            data: $("#createForm").serialize(),
-        })
-        .done(function (response) {
-            $("#tableContainer").html(response);
-            $("#newForm").html("");
-        })
-        .fail(function () {
-            alert("fail");
-        })
+        if ($("#createForm").valid()) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Create", "Category")', //"/Category/Create/",
+                data: $("#createForm").serialize(),
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#newForm").html("");
+                })
+                .fail(function () {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Internal Errors'
+                    })
+                })
+        }
+        else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'error',
+                title: 'Invalid Form'
+            })
+        }
+
+        
     })
 
 </script>

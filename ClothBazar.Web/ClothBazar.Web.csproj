@@ -456,6 +456,7 @@
     <Content Include="Content\stylesheets\shortcodes.css" />
     <Content Include="Content\stylesheets\style.css" />
     <Content Include="Content\stylesheets\woocommerce.css" />
+    <Content Include="Content\Validation\jquery.validate.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
