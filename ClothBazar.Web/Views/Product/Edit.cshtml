@@ -152,7 +152,7 @@
             console.log(response);
         })
         .fail(function () {
-            alert("fail");
+            alert("Image deleted fail");
         });
     }
 
@@ -160,7 +160,7 @@
         @*alert("good");*@
         $.ajax({
             type: "POST",
-            url: '@Url.Action("Product", "Edit")',//"/Product/Edit/",
+            url: '@Url.Action("Edit", "Product")',//"/Product/Edit/",
             data: $("#editForm").serialize(),
         })
         .done(function (response) {
@@ -168,7 +168,7 @@
             $("#newForm").html("");
         })
         .fail(function () {
-            alert("fail");
+            alert("Update fail");
         })
     })
 </script>

@@ -62,6 +62,25 @@ namespace ClothBaza.Services
             }
         }
 
+        public List<Product> GetLatestList(int numberOfItems)
+        {
+            //geting number  latest Product
+            using (var context = new CBContext())
+            {
+                return context.Products.OrderByDescending(x => x.Id).Take(numberOfItems).Include(x => x.Category).ToList();
+            }
+        }
+        public List<Product> GetLatestList(int pageNo, int pageSize)
+        {
+            //geting number  latest Product based on Category
+            //pageSize == totalitem toShow
+            using (var context = new CBContext())
+            {
+                return context.Products.OrderByDescending(x => x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+                //return context.Products.Include(x => x.Category).ToList();
+            }
+        }
+
         //_____ Feature List ________
         public List<Product> GetFeaturedList()
         {
@@ -70,7 +89,6 @@ namespace ClothBaza.Services
                 return context.Products.Include(x => x.Category).Where(x => x.isFeatured).ToList();
             }
         }
-
 
 
         //_____ Single Record ________
