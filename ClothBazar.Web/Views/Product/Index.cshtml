@@ -13,6 +13,17 @@
     <div id="newForm">
 
     </div>
- </div>
+</div>
 
 <br />
+
+
+<script>
+    //_________________ Navigate to divForm _____________________
+    function focusAction(controllerToFocus) {
+        $('html,body').animate({
+            //scrollTop: $("#newForm").offset().top - 100
+            scrollTop: $("#" + controllerToFocus).offset().top - 100
+        }, 1000)
+    }
+</script>

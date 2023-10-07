@@ -65,7 +65,10 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="button" id="editBtn">Update</button>
+                    <div class="button">
+                        <button type="button" id="editBtn" class="btn btn-primary">Update</button>
+                        <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
+                    </div>
                 </div>
             </div>
             
@@ -170,5 +173,12 @@
         .fail(function () {
             alert("Update fail");
         })
+    })
+
+
+    //________________ Cancel Btn __________________
+    $("#cancelBtn").click(function () {
+        $("#newForm").html("");
+        focusAction("tableContainer");
     })
 </script>

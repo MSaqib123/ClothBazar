@@ -83,7 +83,8 @@ namespace ClothBaza.Services
         {
             using (var context = new CBContext())
             {
-                return context.categories.Include(x => x.Products).Where(x=>x.isFeatured).ToList();
+                var list = context.categories.Include(x => x.Products).Where(x => x.isFeatured).ToList();
+                return list;
             }
         }
         

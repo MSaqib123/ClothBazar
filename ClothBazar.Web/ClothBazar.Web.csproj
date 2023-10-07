@@ -179,10 +179,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202305031450320_addedIsfeatured.cs" />
-    <Compile Include="Migrations\202305031450320_addedIsfeatured.designer.cs">
-      <DependentUpon>202305031450320_addedIsfeatured.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -197,6 +193,7 @@
     <Compile Include="ViewModel\ProductsWidgetVM.cs" />
     <Compile Include="ViewModel\ProductVM.cs" />
     <Compile Include="ViewModel\SharedViewModel.cs" />
+    <Compile Include="ViewModel\ShopVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont5b62.html" />
@@ -535,6 +532,7 @@
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Widget\Products.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -558,11 +556,6 @@
       <Project>{CBCA4F91-6063-492B-979D-0554E455FD4B}</Project>
       <Name>ClothBazar.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202305031450320_addedIsfeatured.resx">
-      <DependentUpon>202305031450320_addedIsfeatured.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

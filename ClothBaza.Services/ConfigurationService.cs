@@ -35,5 +35,18 @@ namespace ClothBaza.Services
                 return context.configuraton.Where(x=>x.Name == Key).FirstOrDefault();
             }
         }
+
+
+        public Conf GetConfigOrDefault(string Key)
+        {
+            Conf config = GetConfig(Key);
+            if (config == null)
+            {
+                // Handle the case where configuration is not found.
+                // You can log an error, provide default values, or throw a specific exception.
+            }
+
+            return config;
+        }
     }
 }

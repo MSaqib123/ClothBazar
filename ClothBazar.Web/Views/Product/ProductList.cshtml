@@ -239,7 +239,7 @@
         .done(function (response) {
             @*alert(response);*@
             $("#newForm").html(response);
-            focusAction();
+            focusAction("newForm");
         })
         .fail(function () {
             alert("fail");
@@ -261,19 +261,20 @@
         .done(function (response) {
             @*alert(response);*@
             $("#newForm").html(response);
-            focusAction();
+            focusAction("newForm");
         })
         .fail(function () {
             alert("fail");
         })
     })
 
-    //__________________ Auto Scrole on Show  Edit,Create Form ______________________
-    function focusAction() {
-        $('html,body').animate({
-            scrollTop: $("#newForm").offset().top - 100
-        }, 1000)
-    }
+    //___ MOve to   INdex Page ____
+    //__________________ Auto Scrole on Show  Edit,Create Form ______________________ 
+    //function focusAction() {
+    //    $('html,body').animate({
+    //        scrollTop: $("#newForm").offset().top - 100
+    //    }, 1000)
+    //}
 
 
     //__________________ Delete Record ______________________

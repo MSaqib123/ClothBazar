@@ -52,33 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CBContext.cs" />
-    <Compile Include="Migrations\202304302135233_initilized.cs" />
-    <Compile Include="Migrations\202304302135233_initilized.Designer.cs">
-      <DependentUpon>202304302135233_initilized.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305010824091_mg2.cs" />
-    <Compile Include="Migrations\202305010824091_mg2.designer.cs">
-      <DependentUpon>202305010824091_mg2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305012034555_ImageURLAdded.cs" />
-    <Compile Include="Migrations\202305012034555_ImageURLAdded.designer.cs">
-      <DependentUpon>202305012034555_ImageURLAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305031452507_addedIsfeatured.cs" />
-    <Compile Include="Migrations\202305031452507_addedIsfeatured.designer.cs">
-      <DependentUpon>202305031452507_addedIsfeatured.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305040510084_added_Isfeatured_ImageURL_in_Product.cs" />
-    <Compile Include="Migrations\202305040510084_added_Isfeatured_ImageURL_in_Product.designer.cs">
-      <DependentUpon>202305040510084_added_Isfeatured_ImageURL_in_Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305050553064_addingMigrationtable.cs" />
-    <Compile Include="Migrations\202305050553064_addingMigrationtable.designer.cs">
-      <DependentUpon>202305050553064_addingMigrationtable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305080342240_AddingValidation.cs" />
-    <Compile Include="Migrations\202305080342240_AddingValidation.designer.cs">
-      <DependentUpon>202305080342240_AddingValidation.cs</DependentUpon>
+    <Compile Include="Migrations\202310061719141_InitialCreate.cs" />
+    <Compile Include="Migrations\202310061719141_InitialCreate.designer.cs">
+      <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,26 +70,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202304302135233_initilized.resx">
-      <DependentUpon>202304302135233_initilized.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305010824091_mg2.resx">
-      <DependentUpon>202305010824091_mg2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305012034555_ImageURLAdded.resx">
-      <DependentUpon>202305012034555_ImageURLAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305031452507_addedIsfeatured.resx">
-      <DependentUpon>202305031452507_addedIsfeatured.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305040510084_added_Isfeatured_ImageURL_in_Product.resx">
-      <DependentUpon>202305040510084_added_Isfeatured_ImageURL_in_Product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305050553064_addingMigrationtable.resx">
-      <DependentUpon>202305050553064_addingMigrationtable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305080342240_AddingValidation.resx">
-      <DependentUpon>202305080342240_AddingValidation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310061719141_InitialCreate.resx">
+      <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -89,7 +89,39 @@ namespace ClothBaza.Services
                 return context.Products.Where(x=>x.Category.Id == CategoryId).OrderByDescending(x => x.Id).Take(pageSize).Include(x => x.Category).ToList();
             }
         }
+        public int GetMaximumPrice()
+        {
+            //Get ListProducts Based on Cateogyr
+            using (var context = new CBContext())
+            {
+                return (int)context.Products.Max(x=>x.Price);
+            }
+        }
 
+        public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId)
+        {
+            using (var context = new CBContext())
+            {
+                var products = context.Products.ToList();
+                if (categoryId.HasValue)
+                {
+                    products = products.Where(x => x.Category.Id == categoryId.Value).ToList();
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    products = products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+                }
+                if (minimumPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price >= minimumPrice.Value).ToList();
+                }
+                if (maximumPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price <= maximumPrice.Value).ToList();
+                }
+                return products;
+            }
+        }
 
         //_____ Feature List ________
         public List<Product> GetFeaturedList()

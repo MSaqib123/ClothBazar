@@ -15,7 +15,7 @@ namespace ClothBazar.Database
         //    base.OnModelCreating(modelBuilder);
         //}
         public CBContext() :base ("ClothBazarConnection")
-        {   
+        {
         }
 
         public  DbSet<Product> Products { get; set; }

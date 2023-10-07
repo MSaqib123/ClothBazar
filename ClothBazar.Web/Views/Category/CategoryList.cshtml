@@ -252,7 +252,7 @@
             @* alert("working good");*@
             @* alert(response);*@
             $("#newForm").html(response);
-            focusAction();
+            focusAction("newForm");
         })
         .fail(function () {
             alert("fail");
@@ -272,19 +272,15 @@
             @* alert(response);*@
             $("#newForm").html(response);
 
-            focusAction();
+            focusAction("newForm");
         })
         .fail(function () {
             alert("fail");
         })
     })
 
-    //_________________ Navigate to divForm _____________________
-    function focusAction() {
-        $('html,body').animate({
-            scrollTop: $("#newForm").offset().top - 100
-        },1000)
-    }
+  
+
 
     //_________________ Navigate to divForm _____________________
     $(".deleteBtn").click(function () {

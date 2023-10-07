@@ -12,10 +12,34 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId , int? pageNo)
         {
-            return View();
+            ShopVM VM = new ShopVM();
+            VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
+            VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId);
+            return View(VM);
+
+            //___________________ Pagination ____________________
+            //CategorySearchVM vm = new CategorySearchVM();
+            ////vm.CategoryList = CategoriesService.Instance.GetList();
+            //pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+            //vm.CategoryList = CategoriesService.Instance.GetList(search, pageNo.Value);
+
+            //___ count Total Records _____
+            //vm.SearchTerms = search;
+            //var totalPages = CategoriesService.Instance.GetListCount(search);
+
+            //if (vm.CategoryList != null)
+            //{
+            //    var paginationSize = ConfigurationService.Instance.GetConfig("paginationSize").Value;
+            //    vm.Pager = new Pager(totalPages, pageNo, Convert.ToInt32(paginationSize));
+            //    return PartialView(vm);
+            //}
+            //return HttpNotFound();
         }
+
+        //____________ CheckOut _______________
         public ActionResult Checkout()
         {
             CheckoutVM vm = new CheckoutVM();
