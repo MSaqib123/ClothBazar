@@ -11,21 +11,25 @@ namespace ClothBazar.Web.Controllers
     public class WidgetController : Controller
     {
         // GET: Widget
-        public ActionResult Products(bool isLatestProducts , int? CategoryId = 0)
+        public ActionResult Products(int widgetType, int? CategoryId = 0)
         {
             ProductsWidgetVM vm = new ProductsWidgetVM();
-            vm.isLatestProduct = isLatestProducts;
-            if (isLatestProducts)
+            vm.widgetType = widgetType;
+            if (widgetType == 1)
             {
                 vm.ProductsList = ProductsService.Instance.GetLatestList(4);
             }
-            else if (CategoryId.HasValue && CategoryId.Value > 0)
+            else if (CategoryId.HasValue && CategoryId.Value > 0 && widgetType == 2)
             {
                 vm.ProductsList = ProductsService.Instance.GetListByCategory(CategoryId.Value,4);
             }
+            else if(CategoryId.HasValue && CategoryId.Value > 0 && widgetType == 3)
+            {
+                vm.ProductsList = ProductsService.Instance.GetListByCategory(CategoryId.Value, 4);
+            }
             else
             {
-                vm.ProductsList = ProductsService.Instance.GetLatestList(1,8);
+                vm.ProductsList = ProductsService.Instance.GetLatestList(1, 8);
             }
             return PartialView(vm);
         }

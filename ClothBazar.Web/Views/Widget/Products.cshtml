@@ -4,19 +4,21 @@
 }
 @{
     var defaultImage = "/Content/images/No_Image.jpg";
+    List<int> cid = new List<int>();
 }
 
 @if (Model != null && Model.ProductsList != null)
 {
     var bestSale = "";
-    if (!Model.isLatestProduct)
+    if (Model.widgetType == 2)
     {
         bestSale = "isotope-product";
         <ul class="flat-filter style-1 text-center max-width-682 clearfix">
             <li class="active"><a href="#" data-filter="*">All Product</a></li>
-            @foreach (var cat in Model.ProductsList.Select(x => x.Category).Take(4).ToList().Distinct())
+            @foreach (var cat in Model.ProductsList.Select(x => x.Category).Take(6).ToList().Distinct())
             {
                 <li><a href="#" data-filter=".@cat.Name">For @cat.Name</a></li>
+                cid.Add(cat.Id);
             }
         </ul>
         <div class="divider h54"></div>
@@ -24,7 +26,7 @@
 
     <div class="product-content product-fourcolumn clearfix">
         <ul class="product style2 @bestSale clearfix">
-            @foreach (var item in Model.ProductsList)
+            @foreach (var item in (cid != null && cid.Any()) ? Model.ProductsList.Where(product => cid.Contains(product.Category.Id)) : Model.ProductsList)
             {
                 var imageUrl = string.IsNullOrEmpty(item.ImageURL) ? defaultImage : item.ImageURL;
                 <li class="product-item @item.Category.Name">
@@ -32,7 +34,7 @@
                         <a href="@Url.Action("ProductDetails", "Product", new {id=item.Id})" class="product-thumb">
                             <img src="@imageUrl" alt="image" style="height:260px">
                         </a>
-                        @if (Model.isLatestProduct)
+                        @if (Model.widgetType == 2)
                         {
                             <span class="new">New</span>
                         }
@@ -47,16 +49,16 @@
                             </ins>
                         </div>
                         @*<ul class="flat-color-list width-14">
-                                <li>
-                                    <a href="#" class="red"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="blue"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="black"></a>
-                                </li>
-                            </ul>*@
+                        <li>
+                            <a href="#" class="red"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="blue"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="black"></a>
+                        </li>
+                    </ul>*@
                     </div>
                     <div class="add-to-cart text-center">
                         <a href="#">ADD TO CART</a>
