@@ -12,12 +12,12 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
-        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId , int? pageNo)
+        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy)
         {
             ShopVM VM = new ShopVM();
             VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
             VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
-            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId);
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy);
             return View(VM);
 
             //___________________ Pagination ____________________

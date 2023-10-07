@@ -99,7 +99,7 @@ namespace ClothBaza.Services
         }
 
         //_______________________ Shoping Product ____________________
-        public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId)
+        public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId,int? sortyBy)
         {
             using (var context = new CBContext())
             {
@@ -119,6 +119,24 @@ namespace ClothBaza.Services
                 if (maximumPrice.HasValue)
                 {
                     products = products.Where(x => x.Price <= maximumPrice.Value).ToList();
+                }
+                if (sortyBy.HasValue)
+                {
+                    switch (sortyBy.Value)
+                    {
+                        case 2:
+                            products = products.OrderByDescending(x => x.Id).ToList();
+                            break;
+                        case 3:
+                            products = products.OrderBy(x => x.Price).ToList();
+                            break;
+                        case 4:
+                            products = products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                        default:
+                            products = products.OrderByDescending(x => x.Id).ToList();
+                            break;
+                    }
                 }
                 return products;
             }
