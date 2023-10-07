@@ -74,7 +74,6 @@
         for (var i = 0; i < totalFiles; i++) {
             var file = element.files[i];
             formData.append("photo", file);
-
         }
 
         $.ajax({
@@ -132,7 +131,7 @@
 
     //______________  Create Category _________________
     $("#createBtn").click(function () {
-        alert("good");
+        //alert("good");
 
         if ($("#createForm").valid()) {
             $.ajax({
@@ -147,7 +146,7 @@
                 .fail(function () {
                     const Toast = Swal.mixin({
                         toast: true,
-                        position: 'bottom-end',
+                        position: 'top-end',
                         showConfirmButton: false,
                         timer: 3000,
                         timerProgressBar: true,
@@ -165,7 +164,7 @@
         else {
             const Toast = Swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: 'top-end',
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,

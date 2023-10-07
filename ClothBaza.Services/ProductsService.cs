@@ -98,6 +98,7 @@ namespace ClothBaza.Services
             }
         }
 
+        //_______________________ Shoping Product ____________________
         public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId)
         {
             using (var context = new CBContext())
@@ -180,7 +181,9 @@ namespace ClothBaza.Services
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
-                var list = context.Products.Include(x => x.Category).Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                var list = context.Products.Include(x => x.Category)
+                    .Where(x => x.Name != null && x.Name.ToLower().Contains(search.ToLower()))
+                    .ToList();
                 return list;
             }
         }

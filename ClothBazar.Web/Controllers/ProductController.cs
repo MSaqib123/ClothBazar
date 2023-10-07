@@ -96,7 +96,5 @@ namespace ClothBazar.Web.Controllers
             vm.Product = ProductsService.Instance.GetSingleRecord(id);
             return View(vm);
         }
-
-
     }
 }

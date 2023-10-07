@@ -19,15 +19,6 @@
 
         <div class="row">
             <div class="col-8">
-                <div class="form-group">
-                    <label>Category</label>
-                    <select name="CategoryId">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
-                </div>
 
                 <div class="form-group">
                     <label>Name</label>
@@ -41,6 +32,17 @@
                 <div class="form-group">
                     <label>Price</label>
                     <input type="text" class="form-control" name="Price" />
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="CategoryId">
+                        <option selected disabled>--- Please SElect Category ---</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -66,13 +68,69 @@
                 <img id="Image" class="img-fluid" src="~/Content/images/No_Image.jpg" />
             </div>
         </div>
-        
+
     </div>
 </form>
 
 <br />
-
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Content/Validation/jquery.validate.min.js"></script>
+<style>
+    .error {
+        color: red
+    }
+</style>
 <script>
+
+
+    //______________  Client Side Validation _________________
+    $('#createForm').validate({ // initialize the plugin
+        rules: {
+            Name: {
+                required: true,
+                @* email: true *@
+                minlength: 5,
+                maxlength: 50,
+             },
+            Description: {
+                required: true,
+                maxlength: 500
+            },
+            CategoryId: {
+                required: true,
+            },
+            Price: {
+                required: true,
+                maxlength: 500
+            },
+            Image: {
+                required: true,
+                maxlength: 500
+            }
+        },
+        messages: {
+            Name: {
+                required: "Name is Required",
+                        @* email: true *@
+                minlength: "Maximum length is 5",
+                maxlength: "Minimum length is 50",
+             },
+            Description: {
+                required: "descripton is Required",
+                maxlength: "Minimum length is 500"
+            },
+            Price: {
+                required: "Price is Required",
+                maxlength: "Minimum length is 500"
+            },
+            Image: {
+                required: "Image is Required On Product Creating",
+                maxlength: "Minimum length is 500"
+            }
+        }
+    });
+
+
 
     //______________ Upload Image _________________
 
@@ -111,20 +169,57 @@
 
     //______________  Create Product _________________
     $("#createBtn").click(function () {
+        
         @*alert("good");*@
-
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("Create", "Product")',
-            data: $("#createForm").serialize(),
-        })
-        .done(function (response) {
-            $("#tableContainer").html(response);
-            $("#newForm").html("");
-        })
-        .fail(function () {
-            alert("fail");
-        })
+        if ($("#createForm").valid()) {
+            $("#createBtn").prop("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Create", "Product")',
+                data: $("#createForm").serialize(),
+            })
+                .done(function (response) {
+                    $("#createBtn").prop("disabled", false);
+                    $("#tableContainer").html(response);
+                    $("#newForm").html("");
+                })
+                .fail(function () {
+                    $("#createBtn").prop("disabled", false);
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Internal Errors'
+                    })
+                })
+        }
+        else {
+            $("#createBtn").prop("disabled", false);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'error',
+                title: 'Invalid Form'
+            })
+        }
     })
 
 
