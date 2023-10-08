@@ -12,24 +12,36 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
-        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1)
+        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1, int? pageNo=1 )
         {
             ShopVM VM = new ShopVM();
+            pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+
             VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
             VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
             VM.SortBy = sortyBy;
             VM.CategoryId = categoryId;
-            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy);
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy,pageNo,10);
+
+            var totalShopProduct = ProductsService.Instance.SearchProductsCount(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
+            VM.Pager = new Pager(totalShopProduct, pageNo);
+
             return View(VM);
         }
-
         
-        public ActionResult filterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId, int? sortyBy = 1)
+        //___ PriceFilter , Pagination ,  categoryFilter ___
+        public ActionResult filterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId, int? sortyBy = 1, int? pageNo = 1)
         {
             ShopProductFilterVM VM = new ShopProductFilterVM();
-            VM.Products = ProductsService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
+            pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy ,pageNo, 10);
+
+            var totalShopProduct = ProductsService.Instance.SearchProductsCount(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
+            VM.Pager = new Pager(totalShopProduct, pageNo);
             return PartialView(VM);
         }
+
 
         //____________ CheckOut _______________
         public ActionResult Checkout()

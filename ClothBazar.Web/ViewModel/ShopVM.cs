@@ -28,5 +28,15 @@ namespace ClothBazar.Web.ViewModel
     public class ShopProductFilterVM
     {
         public List<Product> Products { get; set; }
+
+        //Pagination
+        public int? pageNo { get; set; }
+        public double? TotalPages { get; set; }
+
+        public Pager Pager { get; set; }
+
+        //Sorting 
+        public int? SortBy { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

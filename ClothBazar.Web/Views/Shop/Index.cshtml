@@ -89,6 +89,7 @@
                     @{
                         var filterPro = new ShopProductFilterVM();
                         filterPro.Products = Model.Products;
+                        filterPro.Pager = Model.Pager;
                         Html.RenderAction("filterProducts", filterPro);
                     }
                 </div>
