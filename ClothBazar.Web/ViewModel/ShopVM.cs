@@ -23,6 +23,10 @@ namespace ClothBazar.Web.ViewModel
         //Sorting 
         public int? SortBy { get; set; }
         public int? CategoryId { get; set; }
+
+        public int? MinPrice { get; set; }
+        public int? MaxPrice { get; set; }
+        public string searchTerm { get; set; }
     }
 
     public class ShopProductFilterVM
@@ -38,5 +42,9 @@ namespace ClothBazar.Web.ViewModel
         //Sorting 
         public int? SortBy { get; set; }
         public int? CategoryId { get; set; }
+
+        public int? MinPrice { get; set; }
+        public int? MaxPrice { get; set; }
+        public string searchTerm { get; set; }
     }
 }

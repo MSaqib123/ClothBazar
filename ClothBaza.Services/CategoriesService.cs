@@ -49,7 +49,7 @@ namespace ClothBaza.Services
        
         public List<Category> GetList(string search,int pageNo)
         {
-            int pageSize = Convert.ToInt32(ConfigurationService.Instance.GetConfig("paginationSize").Value);
+            int pageSize = ConfigurationService.Instance.PageSize();
             using (var context = new CBContext())
             {
                 if (search != null && search != "")

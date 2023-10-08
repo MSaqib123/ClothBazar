@@ -36,17 +36,18 @@ namespace ClothBaza.Services
             }
         }
 
-
-        public Conf GetConfigOrDefault(string Key)
+        
+        public int PageSize()
         {
-            Conf config = GetConfig(Key);
-            if (config == null)
+            using (var context = new CBContext())
             {
-                // Handle the case where configuration is not found.
-                // You can log an error, provide default values, or throw a specific exception.
+                var pageSizeConfig = context.configuraton.Where(x=>x.Name == "PageSize").FirstOrDefault();
+                return pageSizeConfig.Value  != null ? int.Parse(pageSizeConfig.Value) : 10;
             }
-
-            return config;
         }
+
+        
+
+        
     }
 }

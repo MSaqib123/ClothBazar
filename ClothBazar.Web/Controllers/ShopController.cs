@@ -1,4 +1,5 @@
 ﻿using ClothBaza.Services;
+using ClothBazar.Web.Migrations;
 using ClothBazar.Web.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,17 @@ namespace ClothBazar.Web.Controllers
         {
             ShopVM VM = new ShopVM();
             pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
-
+            int pageSize = ConfigurationService.Instance.PageSize();
             VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
             VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
+
             VM.SortBy = sortyBy;
             VM.CategoryId = categoryId;
-            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy,pageNo,10);
+            VM.MinPrice = minimumPrice;
+            VM.MaxPrice = maximumPrice;
+            VM.searchTerm = searchTerm;
+
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy,pageNo, pageSize);
 
             var totalShopProduct = ProductsService.Instance.SearchProductsCount(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
             VM.Pager = new Pager(totalShopProduct, pageNo);
@@ -34,14 +40,20 @@ namespace ClothBazar.Web.Controllers
         {
             ShopProductFilterVM VM = new ShopProductFilterVM();
             pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+            int pageSize = ConfigurationService.Instance.PageSize();
 
-            VM.Products = ProductsService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy ,pageNo, 10);
+            VM.SortBy = sortyBy;
+            VM.CategoryId = categoryId;
+            VM.MinPrice = minimumPrice;
+            VM.MaxPrice = maximumPrice;
+            VM.searchTerm = searchTerm;
+
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy ,pageNo, pageSize);
 
             var totalShopProduct = ProductsService.Instance.SearchProductsCount(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
             VM.Pager = new Pager(totalShopProduct, pageNo);
             return PartialView(VM);
         }
-
 
         //____________ CheckOut _______________
         public ActionResult Checkout()
@@ -72,6 +84,5 @@ namespace ClothBazar.Web.Controllers
             }
             return View(vm);
         }
-
     }
 }

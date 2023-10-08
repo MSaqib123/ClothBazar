@@ -3,25 +3,13 @@
 
 
 <!-- Page title -->
-<div class="page-title parallax">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-title-heading">
-                    <h1 class="title">Shop Products</h1>
-                </div><!-- /.page-title-heading -->
-                <!--<div class="breadcrumbs">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop-3col.html">Shop</a></li>
-                        <li><a href="shop-3col-slide.html">Slidebarshop</a></li>
-                    </ul>
-                </div>-->
-                <!-- /.breadcrumbs -->
-            </div><!-- /.col-md-12 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</div><!-- /.page-title -->
+
+<div class="container">
+    <div class="page-title-heading mt-5 text-center">
+        <h1 class="title">Shop</h1>
+    </div><!-- /.page-title-heading -->
+</div><!-- /.container -->
+
 
 <section class="flat-row main-shop shop-slidebar">
     <div class="container">
@@ -38,7 +26,7 @@
                     </div>
 
                     <div class="widget widget-sort-by">
-                        <a class="btn btn-danger" href="@Url.Action("Index","Shop")">Clear Filter</a>
+                        <button class="btn btn-danger" id="clearFilter">Clear Filter</button>
                     </div>
 
                     <div class="widget widget-sort-by">
@@ -46,10 +34,16 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy = (int)sortEnum.Default, CategoryId  = Model.CategoryId}  )" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.Popularity, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceLowToHeigh, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceHeighToLow, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>
+                            @*<li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.Default}  )" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.Popularity})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.PriceLowToHeigh})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.PriceHeighToLow})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>*@
+
+                            <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.Default)">Default-Newest</a></li>
+                            <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.Popularity)">Popularity</a></li>
+                            <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.PriceLowToHeigh)">Price: low to high</a></li>
+                            <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.PriceHeighToLow)">Price: high to low</a></li>
+
                         </ul>
                     </div>
 
@@ -73,11 +67,12 @@
                             Category
                         </h5>
                         <div class="tag-list">
-                            <a href="@Url.Action("Index", "Shop")" class="@(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>
-                            @*<a href="#" class="active">Bags</a>*@
+                            @*<a href="@Url.Action("Index", "Shop")" class="@(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>*@
+                            <a data-categoryId="" href="#" class="category-link @(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>
                             @foreach (var item in Model.FeaturedCategory)
                             {
-                                <a href="@Url.Action("Index", "Shop", new {categoryId = item.Id , sortyBy = Model.SortBy})" class="@(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>
+                                @*<a class="category-link" data-category-id="@item.Id" href="@Url.Action("Index", "Shop", new {categoryId = item.Id , sortyBy = Model.SortBy})" class="@(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>*@
+                                <a  data-categoryId="@item.Id" href="#" class="category-link @(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>
                             }
                         </div>
                     </div><!-- /.widget -->
@@ -100,39 +95,133 @@
 <br />
 <br />
 @section scripts{
-    <script>
-        var time;
-        $("#slide-range").slider({
-            range: true,
-            min: 0,
-            max: '@Model.MaximumPrice',
-            values: [0, '@Model.MaximumPrice'],
-            slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + ".00" + " - " + "$" + ui.values[1] + ".00");
-                clearTimeout(time);
-                time = setTimeout(function () {
-                    //__ Calling ProductFunction
-                    GetData(ui.values[0], ui.values[1]);
-                },500);
+    @*<script>
+            //___ Slide Filter ____
+
+            //___ Slide Filter ____
+            function GetData(minPrice,maxPrice) {
+                $.ajax({
+                    url: "@Url.Action("filterProducts", "Shop")",
+                    data: {
+                        minimumPrice: minPrice,
+                        maximumPrice: maxPrice
+                    }
+                })
+                .done(function (html) {
+                    $('#shopProductDiv').html(html);
+                })
+                .fail(function () {
+                    alter("sdfdsf");
+                })
+            }
+        </script>*@
+
+
+<script>
+        $(document).ready(function () {
+            var time;
+
+            //__ Storing Last Values ___
+            var search = null;
+            var minPrice = null;
+            var maxPrice = null;
+            var categoryId = null;
+            var sortBy = null;
+            var pageNo = null;
+
+            //var categoryId = null; // Initialize categoryId as null
+            applyFilters();
+
+            //clearFilter
+            $("#clearFilter").click(function (e) {
+                e.preventDefault();
+                search = null;
+                minPrice = null;
+                maxPrice = null;
+                categoryId = null;
+                sortBy = null;
+                pageNo = null;
+                applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo);
+                //____ Active ___
+                $(".sort-link").removeClass("active"); // Remove active class from all sorting links
+                $(".category-link").removeClass("active"); // Remove active class from all sorting links
+            });
+
+
+            //Search
+            $(".search-form").submit(function (e) {
+                e.preventDefault(); // Prevent the form from submitting traditionally
+                var search = $(this).find('.search-field').val(); // Get the search term
+                applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo);
+            });
+
+            //Sorting
+            $(document).on("click", ".sort-link", function (e) {
+                e.preventDefault();
+                sortBy = $(this).data("sort-type"); // Get the sorting type from data attribute
+                applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo);
+                //____ Active ___
+                $(".sort-link").removeClass("active"); // Remove active class from all sorting links
+                $(this).addClass("active");
+            });
+
+           $("#slide-range").slider({
+                range: true,
+                min: 0,
+                max: '@Model.MaximumPrice',
+                values: [0, '@Model.MaximumPrice'],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + ".00" + " - " + "$" + ui.values[1] + ".00");
+                    clearTimeout(time);
+                    time = setTimeout(function () {
+                        minPrice = ui.values[0];
+                        maxPrice = ui.values[1];
+                        //__ Calling ProductFunction
+                        applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo);
+                    },500);
+                }
+            });
+
+
+            // Category Filter
+           $(document).on("click", ".category-link", function (e) {
+               e.preventDefault();
+               categoryId = $(this).data("categoryid"); // Corrected attribute name
+               applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo);;
+               //____ Active ___
+               $(".category-link").removeClass("active"); // Remove active class from all sorting links
+               $(this).addClass("active");
+           });
+
+            // Pagination
+            $(document).on("click", ".pageButton", function (e) {
+                e.preventDefault();
+                pageNo = $(this).data("pageno");
+                applyFilters(search, minPrice,maxPrice,categoryId, sortBy, pageNo);
+            });
+
+            function applyFilters(search, minPrice, maxPrice, categoryId, sortBy, pageNo) {
+                $.ajax({
+                    url: '@Url.Action("filterProducts", "Shop")',
+                    data: {
+                        searchTerm:search, 
+                        sortyBy: sortBy,
+                        minimumPrice: minPrice,
+                        maximumPrice: maxPrice,
+                        pageNo: pageNo,
+                        categoryId: categoryId // Include categoryId in the Ajax request
+                    }
+                })
+                .done(function (response) {
+                    $("#shopProductDiv").html(response);
+                })
+                .fail(function () {
+                    alert("Failed to load products.");
+                });
             }
         });
 
+</script>
 
-        function GetData(minPrice,maxPrice) {
-            $.ajax({
-                url: "@Url.Action("filterProducts", "Shop")",
-                data: {
-                    minimumPrice: minPrice,
-                    maximumPrice: maxPrice
-                }
-            })
-            .done(function (html) {
-                $('#shopProductDiv').html(html);
-            })
-            .fail(function () {
-                alter("sdfdsf");
-            })
-        }
-    </script>
 }
 

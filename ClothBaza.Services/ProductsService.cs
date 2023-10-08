@@ -54,7 +54,7 @@ namespace ClothBaza.Services
         }
         public List<Product> GetList(int pageNo)
         {
-            int pageSize = 5;
+            int pageSize = ConfigurationService.Instance.PageSize();
             using (var context = new CBContext())
             {
                 return context.Products.OrderBy(x=>x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
@@ -89,6 +89,8 @@ namespace ClothBaza.Services
                 return context.Products.Where(x=>x.Category.Id == CategoryId).OrderByDescending(x => x.Id).Take(pageSize).Include(x => x.Category).ToList();
             }
         }
+
+        //_______________________ Shoping Product ____________________
         public int GetMaximumPrice()
         {
             //Get ListProducts Based on Cateogyr
@@ -97,8 +99,6 @@ namespace ClothBaza.Services
                 return (int)context.Products.Max(x=>x.Price);
             }
         }
-
-        //_______________________ Shoping Product ____________________
         public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId,int? sortyBy , int? pageNo , int pageSize)
         {
             using (var context = new CBContext())

@@ -1,6 +1,5 @@
 ﻿@model ShopProductFilterVM
 
-
 <div class="filter-shop clearfix">
     <p class="showing-product float-right">
         @{
@@ -80,7 +79,7 @@
 </div>
 
 
-<script>
+<!--<script>
 
     //_________________________ Pagination _____________________
     $(".pageButton").click(function (e) {
@@ -93,9 +92,9 @@
             url: '@Url.Action("filterProducts", "Shop")',
             data: {
                 //search: searchVal
-                pageNo: $(this).attr("data-pageNo"),
+                pageNo: $(this).attr("data-pageNo"),-->
                 @*ch: '@Model.SearchTerms'//searchVal*@
-            }
+            <!--}
         })
         .done(function (response) {
             $("#shopProductDiv").html(response);
@@ -104,4 +103,5 @@
             alert("fail");
         })
     })
-</script>
+</script>-->
+
