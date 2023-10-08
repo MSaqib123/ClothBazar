@@ -18,6 +18,7 @@ namespace ClothBazar.Web.Controllers
             VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
             VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
             VM.SortBy = sortyBy;
+            VM.CategoryId = categoryId;
             VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy);
             return View(VM);
         }

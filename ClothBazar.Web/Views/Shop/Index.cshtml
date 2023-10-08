@@ -35,16 +35,21 @@
                             </label>
                             <input type="submit" class="search-submit" value="Search">
                         </form>
-                    </div><!-- /.widget-search -->
+                    </div>
+
+                    <div class="widget widget-sort-by">
+                        <a class="btn btn-danger" href="@Url.Action("Index","Shop")">Clear Filter</a>
+                    </div>
+
                     <div class="widget widget-sort-by">
                         <h5 class="widget-title">
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy = (int)sortEnum.Default})" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.Popularity})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceLowToHeigh})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceHeighToLow})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy = (int)sortEnum.Default, CategoryId  = Model.CategoryId}  )" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.Popularity, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceLowToHeigh, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceHeighToLow, CategoryId  = Model.CategoryId})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>
                         </ul>
                     </div>
 
@@ -65,14 +70,14 @@
 
                     <div class="widget widget_tag">
                         <h5 class="widget-title">
-                            Featured Category
+                            Category
                         </h5>
                         <div class="tag-list">
-                            <a href="@Url.Action("Index", "Shop")" class="active">All products</a>
+                            <a href="@Url.Action("Index", "Shop")" class="@(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>
                             @*<a href="#" class="active">Bags</a>*@
                             @foreach (var item in Model.FeaturedCategory)
                             {
-                                <a href="@Url.Action("Index", "Shop", new {categoryId = item.Id})">@item.Name</a>
+                                <a href="@Url.Action("Index", "Shop", new {categoryId = item.Id , sortyBy = Model.SortBy})" class="@(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>
                             }
                         </div>
                     </div><!-- /.widget -->

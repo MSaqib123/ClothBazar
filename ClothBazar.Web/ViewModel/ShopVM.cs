@@ -22,6 +22,7 @@ namespace ClothBazar.Web.ViewModel
 
         //Sorting 
         public int? SortBy { get; set; }
+        public int? CategoryId { get; set; }
     }
 
     public class ShopProductFilterVM
