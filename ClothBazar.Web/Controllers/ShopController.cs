@@ -12,31 +12,22 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
-        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy)
+        public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1)
         {
             ShopVM VM = new ShopVM();
             VM.FeaturedCategory = CategoriesService.Instance.GetFeaturedList();
             VM.MaximumPrice = ProductsService.Instance.GetMaximumPrice();
+            VM.SortBy = sortyBy;
             VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy);
             return View(VM);
+        }
 
-            //___________________ Pagination ____________________
-            //CategorySearchVM vm = new CategorySearchVM();
-            ////vm.CategoryList = CategoriesService.Instance.GetList();
-            //pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
-            //vm.CategoryList = CategoriesService.Instance.GetList(search, pageNo.Value);
-
-            //___ count Total Records _____
-            //vm.SearchTerms = search;
-            //var totalPages = CategoriesService.Instance.GetListCount(search);
-
-            //if (vm.CategoryList != null)
-            //{
-            //    var paginationSize = ConfigurationService.Instance.GetConfig("paginationSize").Value;
-            //    vm.Pager = new Pager(totalPages, pageNo, Convert.ToInt32(paginationSize));
-            //    return PartialView(vm);
-            //}
-            //return HttpNotFound();
+        
+        public ActionResult filterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId, int? sortyBy = 1)
+        {
+            ShopProductFilterVM VM = new ShopProductFilterVM();
+            VM.Products = ProductsService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
+            return PartialView(VM);
         }
 
         //____________ CheckOut _______________

@@ -410,7 +410,6 @@
     <Content Include="Content\javascript\tether.min.js" />
     <Content Include="Content\Photo\185b8f55-5672-4f16-b047-ac32bcb339f2.jpg" />
     <Content Include="Content\Photo\42fb449c-8c42-46b6-b0c9-cc1471d81a32.png" />
-    <Content Include="Content\Photo\fa5dfbe0-9801-400a-bc55-a70a9cc39c39.jpg" />
     <Content Include="Content\rev-slider\assets\coloredbg.png" />
     <Content Include="Content\rev-slider\assets\gridtile.png" />
     <Content Include="Content\rev-slider\assets\gridtile_3x3.png" />
@@ -533,6 +532,7 @@
     <Content Include="Views\Widget\Products.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\filterProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

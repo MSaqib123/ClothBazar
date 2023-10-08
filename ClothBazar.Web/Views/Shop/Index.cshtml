@@ -1,5 +1,5 @@
 ﻿@model ShopVM
-    @using ClothBaza.Services.Enum
+@using ClothBaza.Services.Enum
 
 
 <!-- Page title -->
@@ -16,7 +16,8 @@
                         <li><a href="shop-3col.html">Shop</a></li>
                         <li><a href="shop-3col-slide.html">Slidebarshop</a></li>
                     </ul>
-                </div>--><!-- /.breadcrumbs -->
+                </div>-->
+                <!-- /.breadcrumbs -->
             </div><!-- /.col-md-12 -->
         </div><!-- /.row -->
     </div><!-- /.container -->
@@ -40,16 +41,16 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy = (int)sortEnum.Default})" class="active">Default-Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.Popularity})">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceLowToHeigh})">Price: low to high</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceHeighToLow})">Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy = (int)sortEnum.Default})" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.Popularity})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceLowToHeigh})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index", "Shop", new {sortyBy= (int)sortEnum.PriceHeighToLow})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>
                         </ul>
                     </div>
 
                     @*color Section is Removed form Template *@
                     @*Size Section is Removed form Template *@
-                    
+
                     <!-- /.widget-size -->
 
                     <div class="widget widget-price">
@@ -79,58 +80,53 @@
             </div><!-- /.col-md-3 -->
 
             <div class="col-md-9">
-                <div class="filter-shop clearfix">
-                    <p class="showing-product float-right">
-                        Showing 1–12 of 56 Products
-                    </p>
-                </div><!-- /.filte-shop -->
-              
-                <div class="product-content product-threecolumn product-slidebar clearfix">
-                    <ul class="product style2 sd1">
-                        @foreach (var product in Model.Products)
-                        {
-                            var defaultImage = "/Content/images/No_Image.jpg";
-                            var imageUrl = string.IsNullOrEmpty(product.ImageURL) ? defaultImage : product.ImageURL;
-
-                            <li class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a href="#">
-                                        <img src="@imageUrl" alt="image" style="height:250px">
-                                    </a>
-                                    @*<span class="new">New</span>*@
-                                </div>
-                                <div class="product-info clearfix">
-                                    <span class="product-title">@product.Name</span>
-                                    <div class="price">
-                                        <ins>
-                                            <span class="amount">$@product.Price</span>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="add-to-cart text-center">
-                                    <a href="#">ADD TO CART</a>
-                                </div>
-                                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                            </li>
-                        }
-                    </ul><!-- /.product -->
-                </div><!-- /.product-content -->
-                
-                <div class="product-pagination text-center clearfix">
-                    <ul class="flat-pagination">
-                        <li class="prev">
-                            <a href="#"><i class="fa fa-angle-left"></i></a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#" title="">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                    </ul><!-- /.flat-pagination -->
+                <div id="shopProductDiv">
+                    @{
+                        var filterPro = new ShopProductFilterVM();
+                        filterPro.Products = Model.Products;
+                        Html.RenderAction("filterProducts", filterPro);
+                    }
                 </div>
             </div><!-- /.col-md-9 -->
-            
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section><!-- /.flat-row -->
 <br />
 <br />
+@section scripts{
+    <script>
+        var time;
+        $("#slide-range").slider({
+            range: true,
+            min: 0,
+            max: '@Model.MaximumPrice',
+            values: [0, '@Model.MaximumPrice'],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + ".00" + " - " + "$" + ui.values[1] + ".00");
+                clearTimeout(time);
+                time = setTimeout(function () {
+                    //__ Calling ProductFunction
+                    GetData(ui.values[0], ui.values[1]);
+                },500);
+            }
+        });
+
+
+        function GetData(minPrice,maxPrice) {
+            $.ajax({
+                url: "@Url.Action("filterProducts", "Shop")",
+                data: {
+                    minimumPrice: minPrice,
+                    maximumPrice: maxPrice
+                }
+            })
+            .done(function (html) {
+                $('#shopProductDiv').html(html);
+            })
+            .fail(function () {
+                alter("sdfdsf");
+            })
+        }
+    </script>
+}
+

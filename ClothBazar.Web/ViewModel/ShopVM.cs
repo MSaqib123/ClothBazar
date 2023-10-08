@@ -19,5 +19,13 @@ namespace ClothBazar.Web.ViewModel
         public double? TotalPages { get; set; }
 
         public Pager Pager { get; set; }
+
+        //Sorting 
+        public int? SortBy { get; set; }
+    }
+
+    public class ShopProductFilterVM
+    {
+        public List<Product> Products { get; set; }
     }
 }
