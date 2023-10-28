@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ClothBazar.Web.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         //ProductsService service = new ProductsService();

@@ -408,7 +408,10 @@
     <Content Include="Content\javascript\rev-slider.js" />
     <Content Include="Content\javascript\switcher.js" />
     <Content Include="Content\javascript\tether.min.js" />
-    <Content Include="Content\Photo\185b8f55-5672-4f16-b047-ac32bcb339f2.jpg" />
+    <Content Include="Content\Photo\fc65098b-4a18-4942-bbc1-b267d2d5504d.jpg" />
+    <Content Include="Content\Photo\b9014826-e9fb-416e-a615-11d5ac6af246.jpg" />
+    <Content Include="Content\Photo\d094cbc4-0345-4885-a2c7-c4b9d9ae2e4b.jpg" />
+    <Content Include="Content\Photo\75cf5b0c-37f2-43d0-86b7-43203bd94d06.jpg" />
     <Content Include="Content\Photo\42fb449c-8c42-46b6-b0c9-cc1471d81a32.png" />
     <Content Include="Content\rev-slider\assets\coloredbg.png" />
     <Content Include="Content\rev-slider\assets\gridtile.png" />

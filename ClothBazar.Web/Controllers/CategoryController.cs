@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace ClothBazar.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         //CategoriesService service = new CategoriesService();
