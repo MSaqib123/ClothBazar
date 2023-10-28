@@ -77,31 +77,3 @@
         }
     </ul>
 </div>
-
-
-<!--<script>
-
-    //_________________________ Pagination _____________________
-    $(".pageButton").click(function (e) {
-        e.preventDefault();
-        alert();
-        //var searchVal = $("#txtSearch").val();
-        // alert(searchVal);
-
-        $.ajax({
-            url: '@Url.Action("filterProducts", "Shop")',
-            data: {
-                //search: searchVal
-                pageNo: $(this).attr("data-pageNo"),-->
-                @*ch: '@Model.SearchTerms'//searchVal*@
-            <!--}
-        })
-        .done(function (response) {
-            $("#shopProductDiv").html(response);
-        })
-        .fail(function () {
-            alert("fail");
-        })
-    })
-</script>-->
-

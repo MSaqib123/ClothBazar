@@ -55,6 +55,7 @@ namespace ClothBazar.Web.Controllers
             return PartialView(VM);
         }
 
+
         //____________ CheckOut _______________
         public ActionResult Checkout()
         {

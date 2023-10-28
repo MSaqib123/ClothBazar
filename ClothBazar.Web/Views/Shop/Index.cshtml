@@ -1,16 +1,12 @@
 ﻿@model ShopVM
 @using ClothBaza.Services.Enum
 
-
 <!-- Page title -->
-
 <div class="container">
     <div class="page-title-heading mt-5 text-center">
         <h1 class="title">Shop</h1>
     </div><!-- /.page-title-heading -->
 </div><!-- /.container -->
-
-
 <section class="flat-row main-shop shop-slidebar">
     <div class="container">
         <div class="row">
@@ -34,16 +30,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            @*<li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.Default}  )" class="@(Model.SortBy == (int)sortEnum.Default ? "active" : "" )">Default-Newest</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.Popularity})" class="@(Model.SortBy == (int)sortEnum.Popularity  ? "active" : "" )">Popularity</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.PriceLowToHeigh})" class="@(Model.SortBy == (int)sortEnum.PriceLowToHeigh ? "active" : "" )">Price: low to high</a></li>
-                            <li><a href="@Url.Action("Index", "Shop", new { sortyBy = (int)sortEnum.PriceHeighToLow})" class="@(Model.SortBy == (int)sortEnum.PriceHeighToLow ? "active" : "" )">Price: high to low</a></li>*@
-
                             <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.Default)">Default-Newest</a></li>
                             <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.Popularity)">Popularity</a></li>
                             <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.PriceLowToHeigh)">Price: low to high</a></li>
                             <li><a href="#" class="sort-link" data-sort-type="@((int)sortEnum.PriceHeighToLow)">Price: high to low</a></li>
-
                         </ul>
                     </div>
 
@@ -51,7 +41,6 @@
                     @*Size Section is Removed form Template *@
 
                     <!-- /.widget-size -->
-
                     <div class="widget widget-price">
                         <h5 class="widget-title">Filter by price</h5>
                         <div class="price-filter">
@@ -67,11 +56,9 @@
                             Category
                         </h5>
                         <div class="tag-list">
-                            @*<a href="@Url.Action("Index", "Shop")" class="@(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>*@
                             <a data-categoryId="" href="#" class="category-link @(Model.CategoryId == 0 || Model.CategoryId == null ? "active" : string.Empty )">Clear</a>
                             @foreach (var item in Model.FeaturedCategory)
                             {
-                                @*<a class="category-link" data-category-id="@item.Id" href="@Url.Action("Index", "Shop", new {categoryId = item.Id , sortyBy = Model.SortBy})" class="@(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>*@
                                 <a  data-categoryId="@item.Id" href="#" class="category-link @(Model.CategoryId == item.Id ? "active" : string.Empty )">@item.Name</a>
                             }
                         </div>
@@ -95,27 +82,6 @@
 <br />
 <br />
 @section scripts{
-    @*<script>
-            //___ Slide Filter ____
-
-            //___ Slide Filter ____
-            function GetData(minPrice,maxPrice) {
-                $.ajax({
-                    url: "@Url.Action("filterProducts", "Shop")",
-                    data: {
-                        minimumPrice: minPrice,
-                        maximumPrice: maxPrice
-                    }
-                })
-                .done(function (html) {
-                    $('#shopProductDiv').html(html);
-                })
-                .fail(function () {
-                    alter("sdfdsf");
-                })
-            }
-        </script>*@
-
 
 <script>
         $(document).ready(function () {
