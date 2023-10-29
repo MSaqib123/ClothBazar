@@ -1,29 +1,20 @@
-﻿@{ 
+﻿@{
     //ConfigurationService config;// = new ConfigurationService();
 }
 
 <!DOCTYPE html>
-<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<!--<![endif]-->
-<!-- Mirrored from themesflat.co/html/modaz/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 May 2023 13:08:46 GMT -->
 <head>
-    <!-- Basic Page Needs -->
     <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <title>ClothBazar</title>
-
     <meta name="author" content="themesflat.com">
-
-    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- Bootstrap  -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css.map">
-    
-    
+
+
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/responsive.css">
@@ -66,12 +57,13 @@
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
                         <a href="@Url.Action("Index","Home")" title="logo" class="font-weight-bold h3 text-danger">
-                            @*<img src="~/Content/images/logo.png" alt="image" width="107" height="24" data-retina="images/logo@2x.png" data-width="107" data-height="24">*@
+                            <img src="~/Content/images/logo.png" alt="image" width="107" height="24" data-retina="images/logo@2x.png" data-width="107" data-height="24">
                             ClothBazar
                         </a>
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>
 
+                    @*_______________ Nav Linke ____________________*@
                     <ul class="menu-extra">
                         <li class="box-search">
                             <a class="icon_search header-search-icon" href="#"></a>
@@ -80,26 +72,28 @@
                                 <button type="submit" class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-                        <li class="box-login">
-                            <a class="icon_login" href="#"></a>
-                        </li>
-                        <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
-                            <div class="nav-shop-cart">
-                                <div class="widget_shopping_cart_content">
-                                    <div class="woocommerce-min-cart-wrap">
-                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                                            <li class="woocommerce-mini-cart-item mini_cart_item">
-                                                <span>No Items in Shopping Cart</span>
-                                            </li>
-                                        </ul>
-                                    </div><!-- /.widget_shopping_cart_content -->
-                                </div>
-                            </div><!-- /.nav-shop-cart -->
-                        </li>
-                    </ul><!-- /.menu-extra -->
 
-                    <div class="nav-wrap">
+                        <!--<li class="box-cart nav-top-cart-wrapper">
+                        <a class="icon_cart nav-cart-trigger" href="#"><span>3</span></a>
+                        <div class="nav-shop-cart">
+                            <div class="widget_shopping_cart_content">
+                                <div class="woocommerce-min-cart-wrap">
+                                    <ul class="woocommerce-mini-cart cart_list product_list_widget ">
+                                        <li class="woocommerce-mini-cart-item mini_cart_item">
+                                            <span>No Items in Shopping Cart</span>
+                                        </li>
+                                    </ul>
+                                </div>-->
+                        <!-- /.widget_shopping_cart_content -->
+                        <!--</div>
+                        </div>-->
+                        <!-- /.nav-shop-cart -->
+                        <!--</li>-->
+
+                        @Html.Partial("_LoginPartial")
+                    </ul><!-- /.menu-extra -->
+                    @*_______________ Nav Linke ____________________*@
+                    <div class="nav-wrap mr-5 pr-5">
                         <nav id="mainnav" class="mainnav">
                             <ul class="menu">
                                 <li class="active">
@@ -108,35 +102,23 @@
                                 <li>
                                     <a href="@Url.Action("Index","Shop")">SHOP</a>
                                     @*<ul class="submenu">
-                                        <li>
-                                            <a href="shop-3col.html">Shop Layouts</a>
-                                            <ul class="submenu">
-                                                <li><a href="shop-3col.html">Three Columns</a></li>
-                                                <li><a href="shop-4col.html">Four Columns</a></li>
-                                                <li><a href="shop-5col.html">Five Columns</a></li>
-                                                <li><a href="shop-3col-slide.html">Slidebar Three Columns</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="shop-detail-des.html">Shop Details</a>
-                                            <ul class="submenu">
-                                                <li><a href="shop-detail-des.html">Details Description</a></li>
-                                                <li><a href="shop-detail-exter.html">Details External</a></li>
-                                                <li><a href="shop-detail-option.html">Details Options</a></li>
-                                                <li><a href="shop-detail-fix.html">Details Fix</a></li>
-                                                <li><a href="shop-detail-zoom.html">Details Zoom</a></li>
-                                                <li><a href="shop-detail-group.html">Details Grouped</a></li>
-                                                <li><a href="shop-detail-video.html">Details Video</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>*@
+                                            <li>
+                                                <a href="shop-3col.html">Shop Layouts</a>
+                                                <ul class="submenu">
+                                                    <li><a href="shop-3col.html">Three Columns</a></li>
+                                                    <li><a href="shop-4col.html">Four Columns</a></li>
+                                                    <li><a href="shop-5col.html">Five Columns</a></li>
+                                                    <li><a href="shop-3col-slide.html">Slidebar Three Columns</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>*@
                                 </li>
-                                <li>
-                                    <a href="@Url.Action("Checkout","Shop")">CHECKOUT</a>
-                                </li>
-                                <li>
-                                    <a href="blog-list.html">BLOG</a>
-                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Checkout","Shop")">CHECKOUT</a>
+                                    </li>
+                                }
                                 <li>
                                     <a href="contact.html">CONTACT</a>
                                 </li>
@@ -150,7 +132,7 @@
 
         @RenderBody()
 
-        
+
         <!-- Footer -->
         <footer class="footer">
             <div class="container">

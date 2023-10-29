@@ -1,16 +1,48 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+
+@if (!Request.IsAuthenticated)
+{
+    <li class="">
+        <a class="revicon-login" style="font-size:20px" href="@Url.Action("Login","Account")"></a>
+    </li>
+}
+else
+{
+    <li class="box-cart nav-top-cart-wrapper">
+        <a class="font-weight-bold">
+            @Html.Raw(User.Identity.Name.Length > 3 ? User.Identity.Name.Substring(0, 4) : User.Identity.Name)
+        </a>
+        <div class="nav-shop-cart" style="width:110px !important">
+            <div class="widget_shopping_cart_content">
+                <div class="woocommerce-min-cart-wrap">
+                    <ul class="">
+                        <li>
+                            <a class="revicon-logout" href="@Url.Action("LogOff","Account")">Logout</a>
+                        </li>
+                        <li class="mt-2">
+                            <a class="revicon-doc" href="@Url.Action("Profile","Account")">Profile</a>
+                        </li>
+                    </ul>
+                </div><!-- /.widget_shopping_cart_content -->
+            </div>
+        </div><!-- /.nav-shop-cart -->
+    </li>
+}
+
+
+@{ 
+    /*@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else
@@ -19,4 +51,36 @@ else
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
+}
+
+    @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="">
+                                <a class="revicon-login" style="font-size:20px" href="@Url.Action("Login","Account")"></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="box-cart nav-top-cart-wrapper">
+                                <a class="font-weight-bold">
+                                    @Html.Raw(User.Identity.Name.Length > 3 ? User.Identity.Name.Substring(0, 4) : User.Identity.Name)
+                                </a>
+                                <div class="nav-shop-cart" style="width:110px !important">
+                                    <div class="widget_shopping_cart_content">
+                                        <div class="woocommerce-min-cart-wrap">
+                                            <ul class="">
+                                                <li>
+                                                    <a class="revicon-logout" href="@Url.Action("LogOff","Account")">Logout</a>
+                                                </li>
+                                                <li class="mt-2">
+                                                    <a class="revicon-doc" href="@Url.Action("Profile","Account")">Profile</a>
+                                                </li>
+                                            </ul>
+                                        </div><!-- /.wid
+     * get_shopping_cart_content -->
+                                    </div>
+                                </div><!-- /.nav-shop-cart -->
+                            </li>
+                        }
+    */
 }
