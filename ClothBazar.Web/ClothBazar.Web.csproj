@@ -464,10 +464,7 @@
     <Content Include="Content\stylesheets\woocommerce.css" />
     <Content Include="Content\Validation\jquery.validate.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont5b62.eot" />
     <Content Include="Content\fonts\fontawesome-webfont5b62.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont5b62.woff" />
@@ -479,6 +476,8 @@
     <Content Include="Content\rev-slider\fonts\revicons\revicons90c690c6.woff" />
     <Content Include="libman.json" />
     <Content Include="Content\stylesheets\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -545,13 +544,9 @@
     <Folder Include="Content\bootstrap\css\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClothBaza.Services\ClothBaza.Services.csproj">
