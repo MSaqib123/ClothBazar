@@ -336,34 +336,4 @@
         }
     }
 
-
-    //__________________ AddToCart Product ______________________
-    var list = [];
-    $(".addToCartBtn").click(function () {
-        var productId = $(this).attr("data-id");
-        list.push(productId);
-        $.cookie('CartProducts', list.join('-'), { path: '/' });
-
-        @*alert("Added to Cart");*@
-
-        //________ SweetAlert Toaster _________
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            background: '#FF6D60',//'#fff',
-            color:'#fff',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        Toast.fire({
-            icon: 'success',
-            title: 'Add ToCart Successfully'
-        })
-    })
-
 </script>

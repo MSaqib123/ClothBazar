@@ -31,7 +31,7 @@
                 var imageUrl = string.IsNullOrEmpty(item.ImageURL) ? defaultImage : item.ImageURL;
                 <li class="product-item @item.Category.Name">
                     <div class="product-thumb clearfix">
-                        <a href="@Url.Action("ProductDetails", "Product", new {id=item.Id})" class="product-thumb">
+                        <a href="@Url.Action("ProductDetails", "Product", new { id = item.Id })" class="product-thumb">
                             <img src="@imageUrl" alt="image" style="height:260px">
                         </a>
                         @if (Model.widgetType == 2)
@@ -49,19 +49,19 @@
                             </ins>
                         </div>
                         @*<ul class="flat-color-list width-14">
-                        <li>
-                            <a href="#" class="red"></a>
-                        </li>
-                        <li>
-                            <a href="#" class="blue"></a>
-                        </li>
-                        <li>
-                            <a href="#" class="black"></a>
-                        </li>
-                    </ul>*@
+                                <li>
+                                    <a href="#" class="red"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="blue"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="black"></a>
+                                </li>
+                            </ul>*@
                     </div>
-                    <div class="add-to-cart text-center">
-                        <a href="#">ADD TO CART</a>
+                    <div class="add-to-cart text-center text-white py-2 addToCartBtn " data-id="@item.Id">
+                        ADD TO CART
                     </div>
                     <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
                 </li>
@@ -69,3 +69,4 @@
         </ul>
     </div>
 }
+

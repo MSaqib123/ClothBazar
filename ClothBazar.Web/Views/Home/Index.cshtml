@@ -188,6 +188,7 @@
     var categoryModel = Model.FeatureCategoryList.ToList();
     string[] imageUrl = new string[4];
     string[] categoryName = new string[4];
+    int[] categoryId = new int[4];
     //_________ Null Error ___ image is null then  going to big problem _____________
     @*for (int i = 0; i < 4 && i < categoryModel.Count; i++)
         {
@@ -197,7 +198,7 @@
     //_________ Null Error ______ Image
     int count = 0;
     int nameCount = 0;
-
+    int id = 0;
     foreach (var item in categoryModel)
     {
         if (item.ImageURL != null)
@@ -206,6 +207,7 @@
             if (item.Name != null)
             {
                 categoryName[nameCount++] = item.Name;
+                categoryId[id++] = item.Id;
             }
             if (count == 4)
             {
@@ -227,7 +229,7 @@
                                 @*<img src="~/Content/images/image-box/imgbox-1-375x500.jpg" alt="Image">*@
                                 <img src="@imageUrl[0]" alt="Image">
                                 <div class="elm-btn">
-                                    <a href="#" class="themesflat-button bg-white width-150">@categoryName[0]</a>
+                                    <a href="@Url.Action("Index", "Shop", new {  searchTerm = "", minimumPrice = 0, maximumPrice = 100,categoryId = categoryId[0], sortBy = 1, pageNo = 1 })" class="themesflat-button bg-white width-150">@categoryName[0]</a>
                                 </div>
                                 <div class="overlay-effect bg-color-1"></div>
                             </div>
@@ -242,7 +244,7 @@
                             <div class="thumb">
                                 <img src="@imageUrl[1]" alt="Image">
                                 <div class="elm-btn">
-                                    <a href="#" class="themesflat-button bg-white width-150">@categoryName[1]</a>
+                                    <a href="@Url.Action("Index", "Shop", new { searchTerm = "", minimumPrice = 0, maximumPrice = 100,categoryId = categoryId[1], sortBy = 1, pageNo = 1 })" class="themesflat-button bg-white width-150">@categoryName[1]</a>
                                 </div>
                                 <div class="overlay-effect bg-color-1"></div>
                             </div>
@@ -253,7 +255,7 @@
                             <div class="thumb">
                                 <img src="@imageUrl[2]" alt="Image">
                                 <div class="elm-btn">
-                                    <a href="#" class="themesflat-button bg-white width-150">@categoryName[2]</a>
+                                    <a href="@Url.Action("Index", "Shop", new { searchTerm = "", minimumPrice = 0, maximumPrice = 100,categoryId = categoryId[2], sortBy = 1, pageNo = 1 })" class="themesflat-button bg-white width-150">@categoryName[2]</a>
                                 </div>
                                 <div class="overlay-effect bg-color-1"></div>
                             </div>
@@ -268,7 +270,7 @@
                             <div class="thumb">
                                 <img src="@imageUrl[3]" alt="Image">
                                 <div class="elm-btn">
-                                    <a href="#" class="themesflat-button bg-white width-150">@categoryName[3]</a>
+                                    <a href="@Url.Action("Index", "Shop", new { searchTerm = "", minimumPrice = 0, maximumPrice = 100, categoryId = categoryId[3], sortBy = 1, pageNo = 1 })" class="themesflat-button bg-white width-150">@categoryName[3]</a>
                                 </div>
                                 <div class="overlay-effect bg-color-1"></div>
                             </div>

@@ -677,7 +677,6 @@
 
 
                 if ( currMenuType === 'mobile' ) {
-
                     var $mobileMenu = $('#mainnav').attr('id', 'mainnav-mobi').hide();
 
                     var hasChildMenu = $('#mainnav-mobi').find('li:has(ul)');
@@ -804,6 +803,7 @@
 
         activeLayout(); 
         activePattern();
+
     }; 
     
    	// Dom Ready
@@ -851,5 +851,6 @@ function loadProductCart() {
     }
 
     $("#productCartCount").html(carts.length);
-
 }
+
+

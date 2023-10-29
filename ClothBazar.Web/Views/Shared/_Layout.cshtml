@@ -45,6 +45,11 @@
 <body class="header_sticky header-style-1 has-menu-extra">
     <!-- Preloader -->
 
+    @{
+        // Get the current URL or route
+        var currentUrl = HttpContext.Current.Request.RawUrl;
+    }
+
     <div id="loading-overlay">
         <div class="loader"></div>
     </div>
@@ -73,18 +78,18 @@
                         </li>
 
                         <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger active"  href="@Url.Action("Checkout","Shop")"><span class="font-weight-bold" id="productCartCount">3</span></a>
+                            <a class="icon_cart nav-cart-trigger @(currentUrl == Url.Action("Checkout","Shop") ? "active" : "")" href="@Url.Action("Checkout","Shop")"><span class="font-weight-bold" id="productCartCount">3</span></a>
                             @*<div class="nav-shop-cart">
-                                <div class="widget_shopping_cart_content">
-                                    <div class="woocommerce-min-cart-wrap">
-                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                                            <li class="woocommerce-mini-cart-item mini_cart_item">
-                                                <span>No Items in Shopping Cart</span>
-                                            </li>
-                                        </ul>
+                                    <div class="widget_shopping_cart_content">
+                                        <div class="woocommerce-min-cart-wrap">
+                                            <ul class="woocommerce-mini-cart cart_list product_list_widget ">
+                                                <li class="woocommerce-mini-cart-item mini_cart_item">
+                                                    <span>No Items in Shopping Cart</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                         </li>
 
                         @Html.Partial("_LoginPartial")
@@ -93,10 +98,10 @@
                     <div class="nav-wrap mr-5 pr-5">
                         <nav id="mainnav" class="mainnav">
                             <ul class="menu">
-                                <li class="active">
+                                <li class="@(currentUrl == Url.Action("Index","Home") ? "active" : "")">
                                     <a href="@Url.Action("Index","Home")">HOME</a>
                                 </li>
-                                <li>
+                                <li class="@(currentUrl == Url.Action("Index","Shop") ? "active" : "")">
                                     <a href="@Url.Action("Index","Shop")">SHOP</a>
                                     @*<ul class="submenu">
                                             <li>
@@ -112,9 +117,9 @@
                                 </li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li>
-                                        <a href="@Url.Action("Checkout","Shop")">Orders</a>
-                                    </li>
+                                    @*<li class="@(currentUrl == Url.Action("Index","Order") ? "active" : "")">
+                                        <a href="@Url.Action("Index","Order")">Orders</a>
+                                    </li>*@
                                 }
                                 <li>
                                     <a href="contact.html">CONTACT</a>
@@ -238,6 +243,43 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
 
+
+
+    <script>
+
+        //__________________ AddToCart Product ______________________
+        var products;
+        $(".addToCartBtn").click(function () {
+
+            var existingCookieData = $.cookie('CartProducts');
+            if (existingCookieData != null || existingCookieData == "" || existingCookieData != undefined) {
+                products = existingCookieData.split('-');
+            }
+            else {
+                products = [];
+            }
+
+            var productId = $(this).attr("data-id");
+            products.push(productId);
+            $.cookie('CartProducts', products.join('-'), { path: '/' });
+
+            loadProductCart();
+            //________ SweetAlert Toaster _________
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'right',
+                background: '#FF6D60',//'#fff',
+                color: '#fff',
+                showConfirmButton: false,
+                timer: 600,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'Add ToCart Successfully'
+            })
+        })
+    </script>
 
     @RenderSection("scripts", required: false)
 </body>
