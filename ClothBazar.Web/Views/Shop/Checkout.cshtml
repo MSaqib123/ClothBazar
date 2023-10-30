@@ -62,16 +62,12 @@
                 </tr>
                 @foreach (var products in Model.CartProducts)
                 {
-                    var productQuentity = Model.CartProductsID.Where(x => x == products.Id).Count();
-
-                    totalBill = totalBill + (productQuentity * products.Price);
-
                     <tr>
                         <td>@products.Id</td>
                         <td>@products.Name</td>
                         <td>@products.Price</td>
-                        <td>@productQuentity</td>
-                        <td>@(products.Price * productQuentity)</td>
+                        <td>@products.Qty</td>
+                        <td>@products.TotalPrice</td>
                         <td>
                             <button class="btn-sm">Delete</button>
                         </td>
@@ -82,20 +78,17 @@
                 <tr>
                     <td colspan="3"></td>
                     <td>
-                        <b>Total Bill 1st Way</b>
+                        <b>Total Billing Amount</b>
                     </td>
                     <td>
-                        <b>@Model.CartProducts.Sum(p => p.Price * Model.CartProductsID.Where(x => x == p.Id).Count())</b>
+                        <b>@Model.CartProducts.Sum(p => p.Price * Model.CartProducts.Count)</b>
                     </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <td>
-                        <b>Total Bill 2nd Way</b>
-                    </td>
-                    <td>
-                        <b>@totalBill</b>
+                        <a class="btn btn-primary text-white" href="@Url.Action()">CheckOut</a>
                     </td>
                     <td></td>
                 </tr>

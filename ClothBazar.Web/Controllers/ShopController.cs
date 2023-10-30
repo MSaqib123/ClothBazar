@@ -1,4 +1,5 @@
 ﻿using ClothBaza.Services;
+using ClothBazar.Entities;
 using ClothBazar.Web.Migrations;
 using ClothBazar.Web.ViewModel;
 using System;
@@ -75,13 +76,8 @@ namespace ClothBazar.Web.Controllers
 
                 //_________ Single Step ________
                 var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
-
-                //_________ create services __________
-                //service method jo  --> List Ids  laa ker ---> List Product return kraa
-                var List = ProductsService.Instance.GetListRecordbyListIds(IDs);
-                vm.CartProducts = List;
-                // for Product Quentitys
-                vm.CartProductsID = IDs;
+                var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
+                vm.CartProducts = s;
             }
             return View(vm);
         }

@@ -67,6 +67,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="Conf.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductCheckOoutVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

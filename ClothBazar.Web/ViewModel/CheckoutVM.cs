@@ -9,9 +9,9 @@ namespace ClothBazar.Web.ViewModel
     public class CheckoutVM
     {
         //_____ Id List ________ for Quentities
-        public List<int> CartProductsID { get; set; }
+        //public List<int> CartProductsID { get; set; }
 
         //_____ Product List _______
-        public List<Product> CartProducts { get; set; }
+        public List<ProductCheckOoutVM> CartProducts { get; set; }
     }
 }

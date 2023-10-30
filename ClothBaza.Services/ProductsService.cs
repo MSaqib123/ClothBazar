@@ -249,6 +249,30 @@ namespace ClothBaza.Services
             }
         }
 
+        //____________________ ProductCheckOutRecord Return ________________________
+        public List<ProductCheckOoutVM> ProductCheckOutRecord(List<int> IDs)
+        {
+            //_________ create services __________
+            //service method jo  --> List Ids  laa ker ---> List Product return kraa
+            var List = GetListRecordbyListIds(IDs);
+
+            //____________ Adding TotalQuentity  , TotalPrice with VM
+            List<ProductCheckOoutVM> productVM = new List<ProductCheckOoutVM>();
+            ProductCheckOoutVM pro = new ProductCheckOoutVM();
+            foreach (var item in List)
+            {
+                pro.Id = item.Id;
+                pro.Name = item.Name;
+                pro.Description = item.Description;
+                pro.ImageURL = item.ImageURL;
+                pro.Price = item.Price;
+                pro.Qty = IDs.Count(id => id == item.Id);
+                pro.TotalPrice = IDs.Count(id => id == item.Id) * item.Price; // Calculate total price for the product
+
+                productVM.Add(pro);
+            }
+            return productVM;
+        }
 
     }
 }
