@@ -56,8 +56,9 @@ namespace ClothBazar.Web.Controllers
             return PartialView(VM);
         }
 
-
-        //____________ CheckOut _______________
+        //======================================
+        // CheckOut 
+        //======================================
         public ActionResult Checkout()
         {
             CheckoutVM vm = new CheckoutVM();
@@ -78,6 +79,22 @@ namespace ClothBazar.Web.Controllers
                 var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
                 var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
                 vm.CartProducts = s;
+            }
+            return View(vm);
+        }
+
+        //======================================
+        // CheckoutFinal
+        //======================================
+        [Authorize]
+        public ActionResult CheckoutFinal()
+        {
+            CheckoutVM vm = new CheckoutVM();
+            var CartProductsCookie = Request.Cookies["CartProducts"];
+            if (CartProductsCookie != null)
+            {
+                var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
+                var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
             }
             return View(vm);
         }

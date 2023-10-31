@@ -1,4 +1,5 @@
 ﻿using ClothBazar.Entities;
+using ClothBazar.Entities.VM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,15 @@ namespace ClothBazar.Web.ViewModel
 
         //_____ Product List _______
         public List<ProductCheckOoutVM> CartProducts { get; set; }
+
+        //_____ NetAmmount _______
+        public int NetAmount { get; set; }
+
+        //_____ Total Product ____
+        public int TotalProduct { get; set; }
+
+        //_____ UserVM ____
+        public userVM userDetail { get; set; }
+
     }
 }

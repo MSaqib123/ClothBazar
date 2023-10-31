@@ -258,9 +258,9 @@ namespace ClothBaza.Services
 
             //____________ Adding TotalQuentity  , TotalPrice with VM
             List<ProductCheckOoutVM> productVM = new List<ProductCheckOoutVM>();
-            ProductCheckOoutVM pro = new ProductCheckOoutVM();
             foreach (var item in List)
             {
+                ProductCheckOoutVM pro = new ProductCheckOoutVM();
                 pro.Id = item.Id;
                 pro.Name = item.Name;
                 pro.Description = item.Description;
