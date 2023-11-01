@@ -2,6 +2,7 @@
 using ClothBazar.Entities;
 using ClothBazar.Web.Migrations;
 using ClothBazar.Web.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,7 +98,6 @@ namespace ClothBazar.Web.Controllers
             {
                 if (CartProductsCookie != null)
                 {
-
                     var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
                     vm.CartProducts = s;
                     vm.TotalProduct = IDs.Count();
@@ -112,19 +112,11 @@ namespace ClothBazar.Web.Controllers
             
         }
         [HttpPost]
-        public ActionResult CheckoutFinalPost()
+        public ActionResult CheckoutFinalPost(CheckoutVM vm, string CartProductsJson)
         {
-            CheckoutVM vm = new CheckoutVM();
-            var CartProductsCookie = Request.Cookies["CartProducts"];
-            if (CartProductsCookie != null)
-            {
-                var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
-                var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
-                vm.CartProducts = s;
-                vm.TotalProduct = IDs.Count();
-                vm.NetAmount = s.Sum(x => x.Price);
-            }
-            return View(vm);
+            List<ProductCheckOoutVM> cartProducts = JsonConvert.DeserializeObject<List<ProductCheckOoutVM>>(CartProductsJson);
+            //___
+            return View();
         }
     }
 }
