@@ -87,7 +87,32 @@ namespace ClothBazar.Web.Controllers
         // CheckoutFinal
         //======================================
         [Authorize]
+        [HttpGet]
         public ActionResult CheckoutFinal()
+        {
+            CheckoutVM vm = new CheckoutVM();
+            var CartProductsCookie = Request.Cookies["CartProducts"];
+            var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
+            if (IDs.Count() > 0)
+            {
+                if (CartProductsCookie != null)
+                {
+
+                    var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
+                    vm.CartProducts = s;
+                    vm.TotalProduct = IDs.Count();
+                    vm.NetAmount = s.Sum(x => x.Price);
+                }
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("Checkout");
+            }
+            
+        }
+        [HttpPost]
+        public ActionResult CheckoutFinalPost()
         {
             CheckoutVM vm = new CheckoutVM();
             var CartProductsCookie = Request.Cookies["CartProducts"];
@@ -95,6 +120,9 @@ namespace ClothBazar.Web.Controllers
             {
                 var IDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
                 var s = ProductsService.Instance.ProductCheckOutRecord(IDs);
+                vm.CartProducts = s;
+                vm.TotalProduct = IDs.Count();
+                vm.NetAmount = s.Sum(x => x.Price);
             }
             return View(vm);
         }

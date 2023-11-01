@@ -18,5 +18,7 @@ namespace ClothBazar.Entities.VM
         public string address { get; set; }
         [Required]
         public string phoneNumber { get; set; }
+        [Required]
+        public int paymentType { get; set; }
     }
 }

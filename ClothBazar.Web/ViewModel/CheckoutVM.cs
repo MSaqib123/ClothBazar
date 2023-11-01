@@ -16,7 +16,7 @@ namespace ClothBazar.Web.ViewModel
         public List<ProductCheckOoutVM> CartProducts { get; set; }
 
         //_____ NetAmmount _______
-        public int NetAmount { get; set; }
+        public decimal NetAmount { get; set; }
 
         //_____ Total Product ____
         public int TotalProduct { get; set; }
