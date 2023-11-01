@@ -1,10 +1,12 @@
 ﻿using ClothBaza.Services;
 using ClothBazar.Entities;
 using ClothBazar.Web.Migrations;
+using ClothBazar.Web.Models;
 using ClothBazar.Web.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +18,7 @@ namespace ClothBazar.Web.Controllers
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
 
-
+        ApplicationDbContext _eDb = new ApplicationDbContext();
         public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1, int? pageNo=1 )
         {
             ShopVM VM = new ShopVM();
@@ -124,12 +126,39 @@ namespace ClothBazar.Web.Controllers
             order.TotalAmount = vm.NetAmount;
             order.TotalProducts = vm.TotalProduct;
             order.OrderDate = DateTime.Now;
+            int orderId = OrderService.Instance.Save(order);
 
+            //_____ 2nd UserOrder Info _____
+            var userName = User.Identity.Name;
+            string userId = _eDb.Users.Where(x=>x.Email == userName).FirstOrDefault().Id;
+
+            OrderUserInfo orderUser = new OrderUserInfo();
+            orderUser.userId = userId;
+            orderUser.orderId = orderId;
+            orderUser.userEmail = vm.userDetail.email;
+            orderUser.phoneNumber = vm.userDetail.phoneNumber;
+            orderUser.userAddress = vm.userDetail.address;
+            orderUser.userName = vm.userDetail.userName;
+            OrderUserService.Instance.Save(orderUser);
+
+            //_____ 3rd UserItems _____
+            foreach (var item in cartProducts)
+            {
+                OrderItem orderProduct = new OrderItem();
+                orderProduct.OrderId = orderId;
+                orderProduct.ProductId = item.Id;
+                orderProduct.ProductQty = item.Qty;
+                orderProduct.Price = item.Price;
+                orderProduct.TotalPrice = item.TotalPrice;
+                OrderItemService.Instance.Save(orderProduct);
             
+            }
+            //________ Remove Cookie _____________
+            var cookie = new HttpCookie("CartProducts");
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie);
 
-            //_____ 2nd Add Order  _____
-
-            return View();
+            return RedirectToAction("Index","Home");
         }
     }
 }

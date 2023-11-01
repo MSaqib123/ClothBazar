@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,12 +30,15 @@ namespace ClothBaza.Services
         #endregion
 
         //____ create ______
-        public void Save(Order model)
+        public int Save(Order model)
         {
             using (var context = new CBContext())
             {
                 context.orders.Add(model);
                 context.SaveChanges();
+
+                int id = context.orders.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+                return id;
             }
         }
 

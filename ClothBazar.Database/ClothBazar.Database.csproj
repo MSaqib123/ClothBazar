@@ -68,6 +68,10 @@
     <Compile Include="Migrations\202311011830528_chanignOrderTable.designer.cs">
       <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311011922304_changeing.cs" />
+    <Compile Include="Migrations\202311011922304_changeing.designer.cs">
+      <DependentUpon>202311011922304_changeing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311011830528_chanignOrderTable.resx">
       <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311011922304_changeing.resx">
+      <DependentUpon>202311011922304_changeing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
