@@ -21,5 +21,10 @@ namespace ClothBazar.Database
         public  DbSet<Product> Products { get; set; }
         public  DbSet<Category> categories{ get; set; }
         public  DbSet<Conf> configuraton{ get; set; }
+
+        //______________ CheckOut ______________
+        public DbSet<Order> orders  { get; set; }
+        public DbSet<OrderUserInfo> orderUsers  { get; set; }
+        public DbSet<OrderItem> orderItems  { get; set; }
     }
 }

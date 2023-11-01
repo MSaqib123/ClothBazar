@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderItemService.cs" />
+    <Compile Include="OrderUserService.cs" />
+    <Compile Include="OrderService.cs" />
     <Compile Include="ConfigurationService.cs" />
     <Compile Include="Enum\sortEnum.cs" />
     <Compile Include="ProductsService.cs" />

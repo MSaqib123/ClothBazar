@@ -66,6 +66,9 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Conf.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderItem.cs" />
+    <Compile Include="OrderUserInfo.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductCheckOoutVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

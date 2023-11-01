@@ -15,6 +15,8 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
+
+
         public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1, int? pageNo=1 )
         {
             ShopVM VM = new ShopVM();
@@ -115,7 +117,18 @@ namespace ClothBazar.Web.Controllers
         public ActionResult CheckoutFinalPost(CheckoutVM vm, string CartProductsJson)
         {
             List<ProductCheckOoutVM> cartProducts = JsonConvert.DeserializeObject<List<ProductCheckOoutVM>>(CartProductsJson);
-            //___
+
+            //_____ 1st Add Order  _____
+            Order order = new Order();
+            order.Status = 1;
+            order.TotalAmount = vm.NetAmount;
+            order.TotalProducts = vm.TotalProduct;
+            order.OrderDate = DateTime.Now;
+
+            
+
+            //_____ 2nd Add Order  _____
+
             return View();
         }
     }

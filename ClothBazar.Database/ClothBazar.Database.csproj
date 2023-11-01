@@ -56,6 +56,18 @@
     <Compile Include="Migrations\202310061719141_InitialCreate.designer.cs">
       <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311011817444_adding_checkOut_Tables.cs" />
+    <Compile Include="Migrations\202311011817444_adding_checkOut_Tables.designer.cs">
+      <DependentUpon>202311011817444_adding_checkOut_Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311011820491_chaing_ordertable.cs" />
+    <Compile Include="Migrations\202311011820491_chaing_ordertable.designer.cs">
+      <DependentUpon>202311011820491_chaing_ordertable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311011830528_chanignOrderTable.cs" />
+    <Compile Include="Migrations\202311011830528_chanignOrderTable.designer.cs">
+      <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +84,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202310061719141_InitialCreate.resx">
       <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311011817444_adding_checkOut_Tables.resx">
+      <DependentUpon>202311011817444_adding_checkOut_Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311011820491_chaing_ordertable.resx">
+      <DependentUpon>202311011820491_chaing_ordertable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311011830528_chanignOrderTable.resx">
+      <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
