@@ -1,0 +1,63 @@
+﻿@model ClothBazar.Entities.VM.userVM
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+
+<style>
+    .error {
+        color: red
+    }
+</style>
+<div class="container mb-5">
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    User Profile
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>      
+    @using (Html.BeginForm("CheckoutFinalPost", "Shop", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.userName, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.userName, new { @class = "form-control", placeholder = "Enter Username" })
+                    @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.email, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", placeholder = "Enter Email" })
+                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.address, new { @class = "col-md-2 control-label" })
+                    @Html.TextAreaFor(m => m.address, new { @class = "form-control", placeholder = "Enter address" })
+                    @Html.ValidationMessageFor(m => m.address, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.phoneNumber, new { @class = "col-md-2 control-label" })
+                    @Html.TextBoxFor(m => m.phoneNumber, new { @class = "form-control", placeholder = "Enter phone #" })
+                    @Html.ValidationMessageFor(m => m.phoneNumber, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="d-flex justify-content-center px-5 mt-5">
+                        <button type="submit" class="btn btn-primary w-100">Change Info</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    }
+</div>
+
