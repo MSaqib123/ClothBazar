@@ -1,0 +1,195 @@
+﻿@{
+    //ConfigurationService config;// = new ConfigurationService();
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>ClothBazar</title>
+    <meta name="author" content="themesflat.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css.map">
+
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/responsive.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/colors/color1.css" id="colors">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/animate.css">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/shortcodes.css">
+
+
+
+
+
+    <!-- Favicon and touch icons  -->
+    <link href="~/Content/icon/favicon.png" rel="shortcut icon">
+    <script src="~/Content/javascript/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+        <script src="javascript/html5shiv.js"></script>
+        <script src="javascript/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="header_sticky header-style-1 has-menu-extra">
+    <!-- Preloader -->
+
+    @{
+        // Get the current URL or route
+        var currentUrl = HttpContext.Current.Request.RawUrl;
+    }
+
+    <div id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Boxed -->
+    <div class="boxed">
+        <div id="site-header-wrap">
+            <!-- Header -->
+            <header id="header" class="header header-container clearfix">
+                <div class="container clearfix" id="site-header-inner">
+                    <div id="logo" class="logo float-left">
+                        <a href="@Url.Action("Index","Home")" title="logo" class="font-weight-bold h3 text-danger">
+                            Dashboard
+                        </a>
+                    </div><!-- /.logo -->
+                    <div class="mobile-button"><span></span></div>
+
+                    @*_______________ Nav Linke ____________________*@
+                    <ul class="menu-extra">
+                        <li class="box-cart nav-top-cart-wrapper">
+                            <a class="icon_cart nav-cart-trigger @(currentUrl == Url.Action("Checkout","Shop") ? "active" : "")" href="@Url.Action("Checkout","Shop")"><span class="font-weight-bold" id="productCartCount">3</span></a>
+                        </li>
+                    </ul><!-- /.menu-extra -->
+
+                    @*_______________ Nav Linke ____________________*@
+                    <div class="nav-wrap mr-5 pr-5">
+                        <nav id="mainnav" class="mainnav">
+                            <ul class="menu">
+                                <li class="@(currentUrl == Url.Action("Index","Dashboard") ? "active" : "")">
+                                    <a href="@Url.Action("Index","Dashboard")">Dashboard</a>
+                                </li>
+                                <li class="@(currentUrl == Url.Action("Index","Product") ? "active" : "")">
+                                    <a href="@Url.Action("Index","Product")">Product</a>
+                                </li>
+                                <li class="@(currentUrl == Url.Action("Index","Category") ? "active" : "")">
+                                    <a href="@Url.Action("Index","Category")">Category</a>
+                                </li>
+                                
+                                <li class="@(currentUrl == Url.Action("Index","Orders") ? "active" : "")">
+                                    <a href="@Url.Action("Index","Orders")">Orders</a>
+                                </li>
+
+                                <li class="@(currentUrl == Url.Action("Index","User") ? "active" : "")">
+                                    <a href="@Url.Action("Index","User")">User</a>
+                                </li>
+                            </ul>
+                        </nav><!-- /.mainnav -->
+                    </div><!-- /.nav-wrap -->
+                </div><!-- /.container-fluid -->
+            </header><!-- /header -->
+        </div><!-- /#site-header-wrap -->
+
+
+        @RenderBody()
+
+
+        <!-- Footer -->
+        
+
+    </div>
+
+    <!-- Javascript -->
+    <script src="~/Content/javascript/jquery.min.js"></script>
+    <script src="~/Content/javascript/tether.min.js"></script>
+    <script src="~/Content/javascript/bootstrap.min.js"></script>
+    <script src="~/Content/javascript/jquery.easing.js"></script>
+    <script src="~/Content/javascript/parallax.js"></script>
+    <script src="~/Content/javascript/jquery-waypoints.js"></script>
+    <script src="~/Content/javascript/jquery-countTo.js"></script>
+    <script src="~/Content/javascript/jquery.countdown.js"></script>
+    <script src="~/Content/javascript/jquery.flexslider-min.js"></script>
+    <script src="~/Content/javascript/images-loaded.js"></script>
+    <script src="~/Content/javascript/jquery.isotope.min.js"></script>
+    <script src="~/Content/javascript/magnific.popup.min.js"></script>
+    <script src="~/Content/javascript/jquery.hoverdir.js"></script>
+    <script src="~/Content/javascript/owl.carousel.min.js"></script>
+    <script src="~/Content/javascript/equalize.min.js"></script>
+    <script src="~/Content/javascript/gmap3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&amp;region=GB"></script>
+    <script src="~/Content/javascript/jquery-ui.js"></script>
+    <script src="~/Content/javascript/switcher.js"></script>
+    <script src="~/Content/javascript/jquery.cookie.js"></script>
+    <script src="~/Content/javascript/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script src="~/Content/rev-slider/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Content/javascript/rev-slider.js"></script>
+    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+
+
+    <script>
+
+        //__________________ AddToCart Product ______________________
+        var products;
+        $(".addToCartBtn").click(function () {
+
+            var existingCookieData = $.cookie('CartProducts');
+            if (existingCookieData != null || existingCookieData == "" || existingCookieData != undefined) {
+                products = existingCookieData.split('-');
+            }
+            else {
+                products = [];
+            }
+
+            var productId = $(this).attr("data-id");
+            products.push(productId);
+            $.cookie('CartProducts', products.join('-'), { path: '/' });
+
+            loadProductCart();
+            //________ SweetAlert Toaster _________
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'right',
+                background: '#FF6D60',//'#fff',
+                color: '#fff',
+                showConfirmButton: false,
+                timer: 600,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'Add ToCart Successfully'
+            })
+        })
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

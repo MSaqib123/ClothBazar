@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -528,6 +529,10 @@
     <Content Include="Views\Shop\CheckoutFinal.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\About.cshtml" />
+    <Content Include="Views\Admin\Contact.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
