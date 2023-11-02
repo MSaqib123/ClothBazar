@@ -9,27 +9,13 @@ using System.Web.Mvc;
 
 namespace ClothBazar.Web.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    public class AdminController : Controller
     {
-        //CategoriesService service = new CategoriesService();
         public ActionResult Index()
         {
-            HomeVM vm = new HomeVM();
-            vm.FeatureCategoryList = CategoriesService.Instance.GetFeaturedList();
-            return View(vm);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
