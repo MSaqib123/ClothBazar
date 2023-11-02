@@ -72,6 +72,14 @@
     <Compile Include="Migrations\202311011922304_changeing.designer.cs">
       <DependentUpon>202311011922304_changeing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311021712255_adding_userColuninOrder.cs" />
+    <Compile Include="Migrations\202311021712255_adding_userColuninOrder.designer.cs">
+      <DependentUpon>202311021712255_adding_userColuninOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311021730546_adding_userColuninOrde.cs" />
+    <Compile Include="Migrations\202311021730546_adding_userColuninOrde.designer.cs">
+      <DependentUpon>202311021730546_adding_userColuninOrde.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +108,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311011922304_changeing.resx">
       <DependentUpon>202311011922304_changeing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311021712255_adding_userColuninOrder.resx">
+      <DependentUpon>202311021712255_adding_userColuninOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311021730546_adding_userColuninOrde.resx">
+      <DependentUpon>202311021730546_adding_userColuninOrde.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

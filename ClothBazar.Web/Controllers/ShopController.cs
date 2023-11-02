@@ -119,18 +119,21 @@ namespace ClothBazar.Web.Controllers
         public ActionResult CheckoutFinalPost(CheckoutVM vm, string CartProductsJson)
         {
             List<ProductCheckOoutVM> cartProducts = JsonConvert.DeserializeObject<List<ProductCheckOoutVM>>(CartProductsJson);
+            var userName = User.Identity.Name;
+            string userId = _eDb.Users.Where(x => x.Email == userName).FirstOrDefault().Id;
 
             //_____ 1st Add Order  _____
             Order order = new Order();
             order.Status = 1;
             order.TotalAmount = vm.NetAmount;
             order.TotalProducts = vm.TotalProduct;
+            order.PaymentId = vm.userDetail.paymentType;
+            order.userId = userId;
             order.OrderDate = DateTime.Now;
             int orderId = OrderService.Instance.Save(order);
 
             //_____ 2nd UserOrder Info _____
-            var userName = User.Identity.Name;
-            string userId = _eDb.Users.Where(x=>x.Email == userName).FirstOrDefault().Id;
+            
 
             OrderUserInfo orderUser = new OrderUserInfo();
             orderUser.userId = userId;

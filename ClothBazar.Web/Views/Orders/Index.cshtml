@@ -1,0 +1,96 @@
+﻿@model OrderVM
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<div class="container">
+
+    @if (Model.orderList != null)
+    {
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <h2 class="title">
+                        Your Orders
+                    </h2>
+                </div><!-- /.title-section -->
+            </div><!-- /.col-md-12 -->
+        </div>
+
+        if (Model.orderList != null && Model.orderList.Count > 0)
+        {
+            <table class="table">
+                <tr class="font-weight-bold">
+                    <th width="5%">
+                        TotalAmout
+                    </th>
+                    <th width="10%">
+                        TotalProduct
+                    </th>
+                    @*<th width="10%">
+                        UserId
+                    </th>*@
+                    <th width="10%">
+                        PaymentMethod
+                    </th>
+
+                    <th width="10%">OrderDate</th>
+                    <th width="10%">
+                        Status
+                    </th>
+                </tr>
+                @foreach (var products in Model.orderList)
+                {
+                    <tr>
+                        <td>@products.TotalAmount</td>
+                        <td>@products.TotalProducts</td>
+                        @*<td>@products.userId</td>*@
+                        <td>
+                            @if (products.PaymentId == 1)
+                            {
+                                <label>JazzCash</label>
+                            }
+                            else if (@products.Status == 2)
+                            {
+                                <label>Bank Transction</label>
+                            }
+                            else
+                            {
+                                <label>Online Transction</label>
+                            }
+                        </td>
+                        <td>@products.OrderDate</td>
+                        <td>
+                            @if (@products.Status == 1)
+                            {
+                                <b class="text-info ">
+                                    Panding
+                                </b>
+                            }
+                            else if (@products.Status == 2)
+                            {
+                                <b class="text-danger ">
+                                    Reject
+                                </b>
+                            }
+                            else
+                            {
+                                <b class="text-success font-weight-bold">
+                                    Delieverd
+                                </b>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                No Orders in List
+            </div>
+        }
+    }
+</div>
+<br />

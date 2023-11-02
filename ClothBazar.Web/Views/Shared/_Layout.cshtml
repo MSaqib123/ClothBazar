@@ -117,9 +117,9 @@
                                 </li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    @*<li class="@(currentUrl == Url.Action("Index","Order") ? "active" : "")">
-                                        <a href="@Url.Action("Index","Order")">Orders</a>
-                                    </li>*@
+                                    <li class="@(currentUrl == Url.Action("Index","Orders") ? "active" : "")">
+                                        <a href="@Url.Action("Index","Orders")">Orders</a>
+                                    </li>
                                 }
                                 <li>
                                     <a href="contact.html">CONTACT</a>

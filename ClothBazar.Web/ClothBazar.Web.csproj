@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -443,6 +444,7 @@
     <Content Include="Content\stylesheets\flexslider.css" />
     <Content Include="Content\stylesheets\font-awesome.css" />
     <Content Include="Content\stylesheets\jquery-ui.css" />
+    <Content Include="Content\stylesheets\owl.carousel.css" />
     <Content Include="Content\stylesheets\responsive.css" />
     <Content Include="Content\stylesheets\shortcodes.css" />
     <Content Include="Content\stylesheets\style.css" />
@@ -523,6 +525,7 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\filterProducts.cshtml" />
     <Content Include="Views\Shop\CheckoutFinal.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
