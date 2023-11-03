@@ -91,8 +91,16 @@
                 <label>@(item.isFeatured ? "Yes" : "No")</label>
             </td>
             <td>
-                <button class="editBtn btn-sm bg-primary" data-id="@item.Id">Edit</button>
-                <button class="deleteBtn btn-sm" data-id="@item.Id">Delete</button>
+                @if (User.IsInRole("Admin"))
+                {
+                    <button class="editBtn btn-sm bg-primary" data-id="@item.Id">Edit</button>
+                    <button class="deleteBtn btn-sm" data-id="@item.Id">Delete</button>
+                }
+                else
+                {
+                    <label>UnAuthorized Action</label>
+                }
+
             </td>
         </tr>
     }

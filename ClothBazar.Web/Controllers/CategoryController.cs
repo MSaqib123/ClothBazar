@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace ClothBazar.Web.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     [Authorize]
     public class CategoryController : Controller
     {

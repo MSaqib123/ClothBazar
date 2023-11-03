@@ -57,10 +57,18 @@
             <header id="header" class="header header-container clearfix">
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
-                        <a href="@Url.Action("Index","Dashboard")" title="logo" class="font-weight-bold h3 text-danger">
-                            Admin-Panel
+                        <a href="@Url.Action("Index","Admin")" title="logo" class="font-weight-bold h3 text-danger">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <b>Admin - Panel</b>
+                            }
+                            else
+                            {
+                                <b>User Panel</b>
+                            }
+
                         </a>
-                    </div><!-- /.logo -->
+                    </div>
                     <div class="mobile-button"><span></span></div>
 
                     @*_______________ Nav Linke ____________________*@
@@ -73,9 +81,10 @@
                     </ul><!-- /.menu-extra -->
 
                     @*_______________ Nav Linke ____________________*@
-                    <div class="nav-wrap mr-5 pr-5">
+                    <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
                             <ul class="menu">
+
                                 <li class="@(currentUrl == Url.Action("Index","Admin") ? "active" : "")">
                                     <a href="@Url.Action("Index","Admin")">Dashboard</a>
                                 </li>
@@ -85,17 +94,19 @@
                                 <li class="@(currentUrl == Url.Action("Index","Category") ? "active" : "")">
                                     <a href="@Url.Action("Index","Category")">Category</a>
                                 </li>
-
-                                @if (User.Identity.IsAuthenticated)                                
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li class="@(currentUrl == Url.Action("Index","User") ? "active" : "")">
+                                        <a href="@Url.Action("Index","User")">User</a>
+                                    </li>
+                                }
+                                @if (User.Identity.IsAuthenticated)
                                 {
                                     <li class="@(currentUrl == Url.Action("Index","Orders") ? "active"  :"")">
                                         <a href="@Url.Action("Index","Orders")">Orders</a>
                                     </li>
                                 }
 
-                                <li class="@(currentUrl == Url.Action("Index","User") ? "active" : "")">
-                                    <a href="@Url.Action("Index","User")">User</a>
-                                </li>
                             </ul>
                         </nav><!-- /.mainnav -->
                     </div><!-- /.nav-wrap -->

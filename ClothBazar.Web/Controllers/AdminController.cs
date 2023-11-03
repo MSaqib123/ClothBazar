@@ -9,12 +9,18 @@ using System.Web.Mvc;
 
 namespace ClothBazar.Web.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            //if(User.IsInRole("Admin"))
+            //{ 
+                return View();
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index", "Orders");
+            //}
         }
 
     }

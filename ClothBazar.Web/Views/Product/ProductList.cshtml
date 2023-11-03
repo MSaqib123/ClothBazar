@@ -104,10 +104,16 @@
                         <label>@(item.isFeatured ? "Yes" : "No")</label>
                     </td>
                     <td>
-                        <button type="button" class="btn-sm bg-primary editBtn" data-id="@item.Id">Edit</button> |
-                        <button type="button" class="btn-sm bg-danger  deleteBtn" data-id="@item.Id">Delete</button> |
-                        <button type="button" class="btn-sm bg-success addToCartBtn" data-id="@item.Id">ATC</button>
-                    </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <button type="button" class="btn-sm bg-primary editBtn" data-id="@item.Id">Edit</button> 
+                            <button type = "button" class="btn-sm bg-danger  deleteBtn" data-id="@item.Id">Delete</button> <span>|</span>
+                            <button type = "button" class="btn-sm bg-success addToCartBtn" data-id="@item.Id">ATC</button>
+                        }
+                        else{
+                            <label>UnAuthorized Action</label>
+                        }
+                     </td>
                 </tr>
             }
         }

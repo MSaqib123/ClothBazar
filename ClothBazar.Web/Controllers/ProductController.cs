@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ClothBazar.Web.Controllers
 {
+    //[Authorize(Roles ="Admin")]
     [Authorize]
     public class ProductController : Controller
     {
@@ -54,7 +55,6 @@ namespace ClothBazar.Web.Controllers
             return RedirectToAction("ProductList");
         }
 
-
         //____ Parital Edit _______
         public ActionResult Edit(int id)
         {
@@ -88,7 +88,6 @@ namespace ClothBazar.Web.Controllers
             ProductsService.Instance.Delete(record);
             return RedirectToAction("ProductList");
         }
-
 
         //______________ Detail Product ________________
         public ActionResult ProductDetails(int id)
