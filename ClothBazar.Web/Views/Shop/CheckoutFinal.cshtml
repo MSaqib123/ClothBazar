@@ -98,11 +98,11 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
-    $(document).ready(function() {
-        // Assuming you're using jQuery
-        var cartProducts = @Html.Raw(Json.Encode(Model.CartProducts));
-        $('#CartProductsJson').val(JSON.stringify(cartProducts));
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            // Assuming you're using jQuery
+            var cartProducts = @Html.Raw(Json.Encode(Model.CartProducts));
+            $('#CartProductsJson').val(JSON.stringify(cartProducts));
+        });
+    </script>
 }

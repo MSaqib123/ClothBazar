@@ -10,18 +10,20 @@ using System.Web.Mvc;
 namespace ClothBazar.Web.Controllers
 {
     //[Authorize(Roles ="Admin")]
-    [Authorize]
+    
     public class ProductController : Controller
     {
         //ProductsService service = new ProductsService();
         // GET: Product
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
         //_____ Partial List + Saerch ________
+        [Authorize]
         public ActionResult ProductList(string search,int? pageNo)
         {
             //___________________ Pagination ____________________
@@ -41,6 +43,7 @@ namespace ClothBazar.Web.Controllers
         }
 
         //____ Parital create _______
+        [Authorize]
         public ActionResult Create()
         {
             //return View();
@@ -56,6 +59,7 @@ namespace ClothBazar.Web.Controllers
         }
 
         //____ Parital Edit _______
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             ProductVM vm = new ProductVM();
@@ -66,7 +70,7 @@ namespace ClothBazar.Web.Controllers
 
             return PartialView(vm);
         }
-        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Product model)
         {
             //var product = new Product();
@@ -82,6 +86,7 @@ namespace ClothBazar.Web.Controllers
 
         //____ Delete _______
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             var record = ProductsService.Instance.GetSingleRecord(id);
@@ -89,12 +94,15 @@ namespace ClothBazar.Web.Controllers
             return RedirectToAction("ProductList");
         }
 
-        //______________ Detail Product ________________
+        //========================================================
+        // Detail Product 
+        //========================================================
         public ActionResult ProductDetails(int id)
         {
             ProductDetailVM vm = new ProductDetailVM();
             vm.Product = ProductsService.Instance.GetSingleRecord(id);
             return View(vm);
         }
+
     }
 }

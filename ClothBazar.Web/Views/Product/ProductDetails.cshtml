@@ -108,17 +108,17 @@
                                     </ul>
                                 </div>*@
                                 <div class="product-quantity">
-                                    <div class="quantity">
+                                    @*<div class="quantity">
                                         <input type="text" value="1" name="quantity-number" class="quantity-number">
                                         <span class="inc quantity-button">+</span>
                                         <span class="dec quantity-button">-</span>
-                                    </div>
+                                    </div>*@
                                     <div class="add-to-cart">
-                                        <a href="#">ADD TO CART</a>
+                                        <a class="text-white addToCartBtn" data-id="@Model.Product.Id">ADD TO CART</a>
                                     </div>
-                                    <div class="box-like">
+                                    @*<div class="box-like">
                                         <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="product-categories">
                                     <span>Categories: </span><a href="#">@Model.Product.Category.Name</a>
@@ -141,7 +141,9 @@
         </div><!-- /.container -->
     </section><!-- /.flat-row -->
 
-    <section class="flat-row shop-detail-content">
+    { 
+        /*        
+        <section class="flat-row shop-detail-content">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -322,8 +324,10 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.shop-detail-content -->
-
+        </section><!-- /.shop-detail-content -->
+        */
+    }
+    
     <section class="flat-row shop-related">
         <div class="container">
             <div class="row">
@@ -338,3 +342,39 @@
         </div>
     </section>
 }
+@section scripts{
+    <script>
+        //__________________ AddToCart Product ______________________
+        var products;
+        $(".addToCartBtn").click(function () {
+
+            var existingCookieData = $.cookie('CartProducts');
+            if (existingCookieData != null || existingCookieData == "" || existingCookieData != undefined) {
+                products = existingCookieData.split('-');
+            }
+            else {
+                products = [];
+            }
+
+            var productId = $(this).attr("data-id");
+            products.push(productId);
+            $.cookie('CartProducts', products.join('-'), { path: '/' });
+
+            loadProductCart();
+            //________ SweetAlert Toaster _________
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'right',
+                background: '#FF6D60',//'#fff',
+                color: '#fff',
+                showConfirmButton: false,
+                timer: 600,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'Add ToCart Successfully'
+            })
+        })
+    </script>    
+    }

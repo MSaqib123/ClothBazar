@@ -5,12 +5,15 @@
     <li class="">
         <a class="revicon-login" style="font-size:20px" href="@Url.Action("Login","Account")"></a>
     </li>
+    <li class="">
+        <a class="text-danger" style="font-size:20px" href="@Url.Action("Guest_Login","Account")">Guest_user</a>
+    </li>
 }
 else
 {
     <li class="box-cart nav-top-cart-wrapper">
         <a class="font-weight-bold">
-            @Html.Raw(User.Identity.Name.Length > 3 ? User.Identity.Name.Substring(0, 4) : User.Identity.Name)
+            @Html.Raw(User.Identity.Name.Length > 3 ? User.Identity.Name.Substring(0, 6) : User.Identity.Name)
         </a>
         <div class="nav-shop-cart" style="width:140px !important">
             <div class="widget_shopping_cart_content text-center">
@@ -33,7 +36,7 @@ else
 }
 
 
-@{ 
+@{
     /*@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
