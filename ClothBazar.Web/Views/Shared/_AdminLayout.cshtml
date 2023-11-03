@@ -28,10 +28,6 @@
     <!-- Animation Style -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/shortcodes.css">
 
-
-
-
-
     <!-- Favicon and touch icons  -->
     <link href="~/Content/icon/favicon.png" rel="shortcut icon">
     <script src="~/Content/javascript/jquery.min.js"></script>
@@ -62,7 +58,7 @@
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
                         <a href="@Url.Action("Index","Dashboard")" title="logo" class="font-weight-bold h3 text-danger">
-                            Dashboard
+                            Admin-Panel
                         </a>
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>
@@ -70,7 +66,9 @@
                     @*_______________ Nav Linke ____________________*@
                     <ul class="menu-extra">
                         <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger @(currentUrl == Url.Action("Checkout","Shop") ? "active" : "")" href="@Url.Action("Checkout","Shop")"><span class="font-weight-bold" id="productCartCount">3</span></a>
+                            <a class="font-weight-bold @(currentUrl == Url.Action("Index","Home") ? "active" : "")"  href="@Url.Action("Index","Home")">
+                                Home
+                            </a>
                         </li>
                     </ul><!-- /.menu-extra -->
 
@@ -78,8 +76,8 @@
                     <div class="nav-wrap mr-5 pr-5">
                         <nav id="mainnav" class="mainnav">
                             <ul class="menu">
-                                <li class="@(currentUrl == Url.Action("Index","Dashboard") ? "active" : "")">
-                                    <a href="@Url.Action("Index","Dashboard")">Dashboard</a>
+                                <li class="@(currentUrl == Url.Action("Index","Admin") ? "active" : "")">
+                                    <a href="@Url.Action("Index","Admin")">Dashboard</a>
                                 </li>
                                 <li class="@(currentUrl == Url.Action("Index","Product") ? "active" : "")">
                                     <a href="@Url.Action("Index","Product")">Product</a>
@@ -87,10 +85,13 @@
                                 <li class="@(currentUrl == Url.Action("Index","Category") ? "active" : "")">
                                     <a href="@Url.Action("Index","Category")">Category</a>
                                 </li>
-                                
-                                <li class="@(currentUrl == Url.Action("Index","Orders") ? "active" : "")">
-                                    <a href="@Url.Action("Index","Orders")">Orders</a>
-                                </li>
+
+                                @if (User.Identity.IsAuthenticated)                                
+                                {
+                                    <li class="@(currentUrl == Url.Action("Index","Orders") ? "active"  :"")">
+                                        <a href="@Url.Action("Index","Orders")">Orders</a>
+                                    </li>
+                                }
 
                                 <li class="@(currentUrl == Url.Action("Index","User") ? "active" : "")">
                                     <a href="@Url.Action("Index","User")">User</a>
