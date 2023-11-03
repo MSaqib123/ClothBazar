@@ -8,7 +8,15 @@
 <section class="flat-row row-image-box mt-2">
     <div class="container text-center">
         <div class="rowtext-center">
-            <h1 class="display-3 text-center">Dashbaord Page</h1>
+            @if (User.IsInRole("Admin"))
+            {
+                <h1 class="display-3 text-center">Dashbaord_Panel</h1>
+            }
+            else
+            {
+                <h1 class="display-3 text-center">User_Panel</h1>
+            }
+
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section>
