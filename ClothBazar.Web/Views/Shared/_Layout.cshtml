@@ -96,7 +96,7 @@
                     </ul><!-- /.menu-extra -->
                     @*_______________ Nav Linke ____________________*@
                     <div class="nav-wrap mr-5 pr-5">
-                        <nav id="mainnav" class="mainnav">
+                        <nav id="mainnav" class="mainnav d-flex justify-content-start">
                             <ul class="menu">
                                 <li class="@(currentUrl == Url.Action("Index","Home") ? "active" : "")">
                                     <a href="@Url.Action("Index","Home")">HOME</a>
@@ -116,7 +116,7 @@
                                     </ul>*@
                                 </li>
                                 <li>
-                                    <a href="contact.html">CONTACT</a>
+                                    @*<a href="@Url.Action("Contact","Home")">CONTACT</a>*@
                                 </li>
                             </ul>
                         </nav><!-- /.mainnav -->
