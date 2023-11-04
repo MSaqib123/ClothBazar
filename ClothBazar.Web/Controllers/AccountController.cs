@@ -98,8 +98,15 @@ namespace ClothBazar.Web.Controllers
             model.Email = "Guest_Login@gmail.com";
             model.Password = "Guest12345.";
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var guestUser = await UserManager.FindByEmailAsync(model.Email);
+            if (guestUser == null)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                await UserManager.CreateAsync(user, model.Password);
+            }
+           
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             if (result == SignInStatus.Failure)
             {

@@ -22,14 +22,11 @@ namespace ClothBazar.Database.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("ClothBazarConnection", throwIfV1Schema: false)
+            : base("ClothBazarConnection")
         {
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
 
         public System.Data.Entity.DbSet<ClothBazar.Entities.Product> Products { get; set; }
         public DbSet<Category> categories { get; set; }
@@ -39,5 +36,10 @@ namespace ClothBazar.Database.Models
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderUserInfo> orderUsers { get; set; }
         public DbSet<OrderItem> orderItems { get; set; }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
     }
 }
