@@ -29,16 +29,24 @@ namespace ClothBazar.Web.Controllers
             //___________________ Pagination ____________________
             ProductSearchVM vm = new ProductSearchVM();
             
-            vm.TotalPages = Math.Ceiling(ProductsService.Instance.GetList().Count / 5.0);
-            int totalPage = Convert.ToInt32(vm.TotalPages);
-            vm.pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? (pageNo.Value > totalPage ? totalPage : pageNo.Value ) : 1) : 1;
-            vm.ProductsList = ProductsService.Instance.GetList(vm.pageNo.Value);
+            //vm.TotalPages = Math.Ceiling(ProductsService.Instance.GetList().Count / 5.0);
+            int TotalPages = Convert.ToInt32(vm.TotalPages);
+            pageNo = pageNo.HasValue ? (pageNo.Value > 0 ? pageNo.Value : 1) : 1;
+            vm.ProductsList = ProductsService.Instance.GetList(pageNo.Value);
 
+            //vm.CategoryList = CategoriesService.Instance.GetList(search, pageNo.Value);
+
+            var totalPages = CategoriesService.Instance.GetListCount("");
             if (search != null && search != "")
             {
                 vm.SearchTerms = search;
                 vm.ProductsList = ProductsService.Instance.SearchRecords(search);
+                totalPages = CategoriesService.Instance.GetListCount(search);
             }
+
+            var paginationSize = ConfigurationService.Instance.GetConfig("paginationSize").Value;
+            vm.Pager = new Pager(totalPages, pageNo, Convert.ToInt32(paginationSize));
+
             return PartialView(vm);
         }
 

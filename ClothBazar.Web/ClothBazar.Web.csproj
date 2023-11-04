@@ -182,11 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202310291217266_addIdentitityTables.cs" />
-    <Compile Include="Migrations\202310291217266_addIdentitityTables.designer.cs">
-      <DependentUpon>202310291217266_addIdentitityTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CategorySearchVM.cs" />
@@ -553,11 +548,6 @@
       <Project>{CBCA4F91-6063-492B-979D-0554E455FD4B}</Project>
       <Name>ClothBazar.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310291217266_addIdentitityTables.resx">
-      <DependentUpon>202310291217266_addIdentitityTables.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

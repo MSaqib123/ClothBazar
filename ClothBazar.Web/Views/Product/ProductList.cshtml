@@ -21,7 +21,7 @@
         <form id="searchForm">
             <div class="row">
                 <div class="col-8">
-                    <input type="text" id="txtSearch" placeholder="Search" value="@Model.SearchTerms"/>
+                    <input type="text" id="txtSearch" placeholder="Search" value="@Model.SearchTerms" />
                 </div>
                 <div class="col-4">
                     <div class="d-flex justify-content-between">
@@ -106,14 +106,15 @@
                     <td>
                         @if (User.IsInRole("Admin"))
                         {
-                            <button type="button" class="btn-sm bg-primary editBtn" data-id="@item.Id">Edit</button> 
-                            <button type = "button" class="btn-sm bg-danger  deleteBtn" data-id="@item.Id">Delete</button> <span>|</span>
-                            <button type = "button" class="btn-sm bg-success addToCartBtn" data-id="@item.Id">ATC</button>
+                            <button type="button" class="btn-sm bg-primary editBtn" data-id="@item.Id">Edit</button>
+                            <button type="button" class="btn-sm bg-danger  deleteBtn" data-id="@item.Id">Delete</button> <span>|</span>
+                            <button type="button" class="btn-sm bg-success addToCartBtn" data-id="@item.Id">ATC</button>
                         }
-                        else{
+                        else
+                        {
                             <label>UnAuthorized Action</label>
                         }
-                     </td>
+                    </td>
                 </tr>
             }
         }
@@ -130,42 +131,46 @@
 
 <div class="blog-pagination clearfix">
     <ul class="flat-pagination">
-        @{
-            var totalPages = Model.TotalPages;
-        }
-        <li class="prev">
-            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo-1)"><i class="fa fa-angle-left"></i></a>
-        </li>
-        @for (int i = 0; i < totalPages; i++)
+        @if (Model.Pager.CurrentPage > 1)
         {
-            if (Model.pageNo == (i+1))
-            {
-                <li class="active">
-                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a href="#" class="pageButton" data-pageNo="@(i+1)">@(i+1)</a>
-                </li>
-            }
+            <li class="prev">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.CurrentPage-1)"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            <li class="first">
+                <a href="#" class="pageButton" data-pageNo="1"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+        @for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+        {
+            string activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
+            <li class="@activeClass">
+                <a href="#" class="pageButton" data-pageNo="@page">@page</a>
+            </li>
         }
 
-        <li>
-            <a href="#" class="pageButton" data-pageNo="@(Model.pageNo+1)">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </li>
-    </ul><!-- /.flat-pagination -->
-</div><!-- /.blog-pagination -->
 
+        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+        {
+            <li class="end">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.EndPage)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="pageButton" data-pageNo="@(Model.Pager.CurrentPage+1)">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+        }
+    </ul>
+    @*}*@
+</div><!-- /.blog-pagination -->
 
 <br />
 <br />
 @*</div>
-    <div id="newForm">
-</div>*@
+        <div id="newForm">
+    </div>*@
 
 <script>
     $("#searchForm").submit(function (e) {
@@ -275,7 +280,7 @@
     })
 
     //___ MOve to   INdex Page ____
-    //__________________ Auto Scrole on Show  Edit,Create Form ______________________ 
+    //__________________ Auto Scrole on Show  Edit,Create Form ______________________
     //function focusAction() {
     //    $('html,body').animate({
     //        scrollTop: $("#newForm").offset().top - 100

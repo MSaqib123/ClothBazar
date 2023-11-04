@@ -14,5 +14,7 @@ namespace ClothBazar.Web.ViewModel
         //Pagination
         public int? pageNo { get; set; }
         public double? TotalPages { get; set; }
+
+        public Pager Pager { get; set; }
     }
 }

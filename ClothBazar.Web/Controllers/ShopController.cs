@@ -1,7 +1,6 @@
 ﻿using ClothBaza.Services;
 using ClothBazar.Database.Models;
 using ClothBazar.Entities;
-using ClothBazar.Web.Migrations;
 using ClothBazar.Web.ViewModel;
 using Newtonsoft.Json;
 using System;
@@ -35,7 +34,7 @@ namespace ClothBazar.Web.Controllers
             VM.Products = ProductsService.Instance.SearchProducts(searchTerm,minimumPrice,maximumPrice,categoryId,sortyBy,pageNo, pageSize);
 
             var totalShopProduct = ProductsService.Instance.SearchProductsCount(searchTerm, minimumPrice, maximumPrice, categoryId, sortyBy);
-            VM.Pager = new Pager(totalShopProduct, pageNo);
+            VM.Pager = new Pager(totalShopProduct, pageNo, pageSize);
 
             return View(VM);
         }
