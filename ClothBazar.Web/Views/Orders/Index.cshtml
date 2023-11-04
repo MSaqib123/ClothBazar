@@ -1,12 +1,137 @@
-﻿@model OrderVM
+﻿@{ 
+/*
+@model OrderVM
+@{
+ViewBag.Title = "Checkout";
+Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+@if (Model.orderList != null)
+{
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    Your Orders
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>
+
+    if (Model.orderList != null && Model.orderList.Count > 0)
+    {
+
+
+        <table class="table">
+            <tr class="font-weight-bold">
+                <th width="5%">
+                    TotalAmout
+                </th>
+                <th width="10%">
+                    TotalProduct
+                </th>
+                <th width="10%">
+                    UserId
+                </th>
+                <th width="10%">
+                    PaymentMethod
+                </th>
+
+                <th width="10%">OrderDate</th>
+                <th width="10%">
+                    Status
+                </th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th width="10%">
+                        Status
+                    </th>
+                }
+
+            </tr>
+            @foreach (var products in Model.orderList)
+            {
+                <tr>
+                    <td>@products.TotalAmount</td>
+                    <td>@products.TotalProducts</td>
+                    <td>@products.userId</td>
+                    <td>
+                        @if (products.PaymentId == 1)
+                        {
+                            <label>JazzCash</label>
+                        }
+                        else if (@products.Status == 2)
+                        {
+                            <label>Bank Transction</label>
+                        }
+                        else
+                        {
+                            <label>Online Transction</label>
+                        }
+                    </td>
+                    <td>@products.OrderDate</td>
+                    <td>
+                        @if (@products.Status == 1)
+                        {
+                            <b class="text-info ">
+                                Panding
+                            </b>
+                        }
+                        else if (@products.Status == 2)
+                        {
+                            <b class="text-danger ">
+                                Reject
+                            </b>
+                        }
+                        else
+                        {
+                            <b class="text-success font-weight-bold">
+                                Delieverd
+                            </b>
+                        }
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td width="10%">
+                            <form id="statusForm" action="@Url.Action("statusPost", "Orders")" method="post">
+                                <input type="hidden" name="id" value="@products.Id" />
+                                <select id="paymentId" name="paymentId" onchange="document.getElementById('statusForm').submit();">
+                                    <option disabled>------ Select Payment Method ------</option>
+                                    <option value="1" @(products.Status == 1 ? "selected" : "")>Panding</option>
+                                    <option value="2" @(products.Status == 2 ? "selected" : "")>Reject</option>
+                                    <option value="3" @(products.Status == 3 ? "selected" : "")>Delieverd</option>
+                                </select>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            No Orders in List
+        </div>
+    }
+}
+</div>
+<br />
+
+*/
+}
+
+@model OrderVM
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="container">
-
-    @if (Model.orderList != null)
+    @if (Model.orderList != null && Model.orderList.Count > 0)
     {
         <br />
         <div class="row">
@@ -18,80 +143,116 @@
                 </div><!-- /.title-section -->
             </div><!-- /.col-md-12 -->
         </div>
+        <table class="table">
+            <tr class="font-weight-bold">
+                <th width="5%">
+                    TotalAmout
+                </th>
+                <th width="10%">
+                    TotalProduct
+                </th>
+                <th width="10%">
+                    UserId
+                </th>
+                <th width="10%">
+                    PaymentMethod
+                </th>
 
-        if (Model.orderList != null && Model.orderList.Count > 0)
-        {
-            <table class="table">
-                <tr class="font-weight-bold">
-                    <th width="5%">
-                        TotalAmout
-                    </th>
-                    <th width="10%">
-                        TotalProduct
-                    </th>
-                    @*<th width="10%">
-                        UserId
-                    </th>*@
-                    <th width="10%">
-                        PaymentMethod
-                    </th>
-
-                    <th width="10%">OrderDate</th>
+                <th width="10%">OrderDate</th>
+                <th width="10%">
+                    Status
+                </th>
+                @if (User.IsInRole("Admin"))
+                {
                     <th width="10%">
                         Status
                     </th>
-                </tr>
-                @foreach (var products in Model.orderList)
-                {
-                    <tr>
-                        <td>@products.TotalAmount</td>
-                        <td>@products.TotalProducts</td>
-                        @*<td>@products.userId</td>*@
-                        <td>
-                            @if (products.PaymentId == 1)
-                            {
-                                <label>JazzCash</label>
-                            }
-                            else if (@products.Status == 2)
-                            {
-                                <label>Bank Transction</label>
-                            }
-                            else
-                            {
-                                <label>Online Transction</label>
-                            }
-                        </td>
-                        <td>@products.OrderDate</td>
-                        <td>
-                            @if (@products.Status == 1)
-                            {
-                                <b class="text-info ">
-                                    Panding
-                                </b>
-                            }
-                            else if (@products.Status == 2)
-                            {
-                                <b class="text-danger ">
-                                    Reject
-                                </b>
-                            }
-                            else
-                            {
-                                <b class="text-success font-weight-bold">
-                                    Delieverd
-                                </b>
-                            }
-                        </td>
-                    </tr>
                 }
-            </table>
-        }
-        else
-        {
-            <div class="alert alert-danger">
-                No Orders in List
-            </div>
-        }
+
+            </tr>
+            @{
+                string currentUser = null;
+                int count = 0;
+            }
+            @foreach (var products in Model.orderList)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    if (currentUser != products.userId)
+                    {
+                        count++;
+                        <tr>
+                            <td colspan="6">
+                                @*<b>@products.userId</b>*@
+                                <b>User_ @count</b>
+                            </td>
+                        </tr>
+                        currentUser = products.userId;
+                    }
+                }
+
+                <tr>
+                    <td>@products.TotalAmount</td>
+                    <td>@products.TotalProducts</td>
+                    <td>@products.userId</td>
+                    <td>
+                        @if (products.PaymentId == 1)
+                        {
+                            <label>JazzCash</label>
+                        }
+                        else if (@products.Status == 2)
+                        {
+                            <label>Bank Transction</label>
+                        }
+                        else
+                        {
+                            <label>Online Transction</label>
+                        }
+                    </td>
+                    <td>@products.OrderDate</td>
+                    <td>
+                        @if (@products.Status == 1)
+                        {
+                            <b class="text-info ">
+                                Pending
+                            </b>
+                        }
+                        else if (@products.Status == 2)
+                        {
+                            <b class="text-danger ">
+                                Reject
+                            </b>
+                        }
+                        else
+                        {
+                            <b class="text-success font-weight-bold">
+                                Delivered
+                            </b>
+                        }
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td width="10%">
+                            <form id="statusForm" action="@Url.Action("statusPost", "Orders")" method="post">
+                                <input type="hidden" name="id" value="@products.Id" />
+                                <select id="paymentId" name="paymentId" onchange="document.getElementById('statusForm').submit();">
+                                    <option disabled>------ Select Payment Method ------</option>
+                                    <option value="1" @(products.Status == 1 ? "selected" : "")>Pending</option>
+                                    <option value="2" @(products.Status == 2 ? "selected" : "")>Reject</option>
+                                    <option value="3" @(products.Status == 3 ? "selected" : "")>Delivered</option>
+                                </select>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            No Orders in List
+        </div>
     }
 </div>
 <br />

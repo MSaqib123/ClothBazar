@@ -71,6 +71,7 @@ namespace ClothBazar.Web.Controllers
             return PartialView(vm);
         }
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult Edit(Product model)
         {
             //var product = new Product();

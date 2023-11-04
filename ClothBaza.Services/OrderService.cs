@@ -1,4 +1,5 @@
 ﻿using ClothBazar.Database;
+using ClothBazar.Database.Models;
 using ClothBazar.Entities;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace ClothBaza.Services
         //____ create ______
         public int Save(Order model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.orders.Add(model);
                 context.SaveChanges();
@@ -45,17 +46,32 @@ namespace ClothBaza.Services
         //_____ List ________
         public List<Order> GetList()
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.orders.ToList();//Include(x=>x.Products).ToList();
             }
         }
-       
-        
+
+
+        //_____ Update Status --------
+        //_____ List ________
+        public bool UpdateStatus(int id,int status)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var o = context.orders.Where(x => x.Id == id).FirstOrDefault();
+                o.Status = status;
+                context.Entry(o).State = EntityState.Modified;
+                context.SaveChanges();
+                return true;
+            }
+        }
+
+
         //_____ Single Record ________
         //public Category GetSingleRecord(int Id)
         //{
-        //    using (var context = new CBContext())
+        //    using (var context = new ApplicationDbContext())
         //    {
         //        return context.categories.Include(x=>x.Products).Where(x=>x.Id == Id).FirstOrDefault();
         //    }
@@ -65,7 +81,7 @@ namespace ClothBaza.Services
         ////_____ Update Record ________
         //public void Update(Category model)
         //{
-        //    using (var context = new CBContext())
+        //    using (var context = new ApplicationDbContext())
         //    {
         //        context.Entry(model).State = EntityState.Modified;
         //        context.SaveChanges();
@@ -75,7 +91,7 @@ namespace ClothBaza.Services
         ////_____ Delete Record ________
         //public void Delete(Category model)
         //{
-        //    using (var context = new CBContext())
+        //    using (var context = new ApplicationDbContext())
         //    {
         //        context.Entry(model).State = EntityState.Deleted;
         //        context.SaveChanges();

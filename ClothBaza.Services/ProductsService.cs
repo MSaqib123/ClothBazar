@@ -1,4 +1,5 @@
 ﻿using ClothBazar.Database;
+using ClothBazar.Database.Models;
 using ClothBazar.Entities;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace ClothBaza.Services
         //____ create ______
         public void Save(Product model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.Products.Add(model);
                 context.SaveChanges();
@@ -43,11 +44,11 @@ namespace ClothBaza.Services
         public List<Product> GetList()
         {
             //______ if add Vertual ______
-            //var context = new CBContext();
+            //var context = new ApplicationDbContext();
             //return context.Products.ToList();
 
             //______ with Using  block ---> add Include() _____________
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.Include(x=>x.Category).ToList();
             }
@@ -55,7 +56,7 @@ namespace ClothBaza.Services
         public List<Product> GetList(int pageNo)
         {
             int pageSize = ConfigurationService.Instance.PageSize();
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.OrderBy(x=>x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
                 //return context.Products.Include(x => x.Category).ToList();
@@ -65,7 +66,7 @@ namespace ClothBaza.Services
         public List<Product> GetLatestList(int numberOfItems)
         {
             //geting number  latest Product
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.OrderByDescending(x => x.Id).Take(numberOfItems).Include(x => x.Category).ToList();
             }
@@ -74,7 +75,7 @@ namespace ClothBaza.Services
         {
             //geting number  latest Product based on Categories
             //pageSize == totalitem toShow
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.OrderByDescending(x => x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
                 //return context.Products.Include(x => x.Category).ToList();
@@ -84,7 +85,7 @@ namespace ClothBaza.Services
         public List<Product> GetListByCategory(int CategoryId, int pageSize)
         {
             //Get ListProducts Based on Cateogyr
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.Where(x=>x.Category.Id == CategoryId).OrderByDescending(x => x.Id).Take(pageSize).Include(x => x.Category).ToList();
             }
@@ -94,14 +95,14 @@ namespace ClothBaza.Services
         public int GetMaximumPrice()
         {
             //Get ListProducts Based on Cateogyr
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return (int)context.Products.Max(x=>x.Price);
             }
         }
         public List<Product> SearchProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId,int? sortyBy , int? pageNo , int pageSize)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 var products = context.Products.ToList();
                 if (categoryId.HasValue)
@@ -144,7 +145,7 @@ namespace ClothBaza.Services
 
         public int SearchProductsCount(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryId,int? sortyBy)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 var products = context.Products.ToList();
                 if (categoryId.HasValue)
@@ -188,7 +189,7 @@ namespace ClothBaza.Services
         //_____ Feature List ________
         public List<Product> GetFeaturedList()
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.Include(x => x.Category).Where(x => x.isFeatured).ToList();
             }
@@ -198,7 +199,7 @@ namespace ClothBaza.Services
         //_____ Single Record ________
         public Product GetSingleRecord(int Id)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 //return context.Products.Where(x => x.Id == Id).Include(x=>x.Category).FirstOrDefault();
                 return context.Products.Include(x=>x.Category).Where(x=>x.Id == Id).FirstOrDefault(); //on the base  primary key automaticlay find  category as well as
@@ -208,7 +209,7 @@ namespace ClothBaza.Services
         //_____ GetProductList base on  Ids List ________ Add to Cart
         public List<Product> GetListRecordbyListIds(List<int> Id)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.Products.Where(x => Id.Contains(x.Id)).Include(x=>x.Category).ToList();
             }
@@ -218,7 +219,7 @@ namespace ClothBaza.Services
         //_____ Update Record ________
         public void Update(Product model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.Entry(model).State = EntityState.Modified;
                 context.SaveChanges();
@@ -228,7 +229,7 @@ namespace ClothBaza.Services
         //_____ Delete Record ________
         public void Delete(Product model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.Entry(model).State = EntityState.Deleted;
                 context.SaveChanges();
@@ -238,7 +239,7 @@ namespace ClothBaza.Services
         //_____ Search Record ________
         public List<Product> SearchRecords(string search)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();

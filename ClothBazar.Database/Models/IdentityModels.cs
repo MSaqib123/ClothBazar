@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ClothBazar.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace ClothBazar.Web.Models
+namespace ClothBazar.Database.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -30,8 +31,13 @@ namespace ClothBazar.Web.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ClothBazar.Entities.Category> Categories { get; set; }
-
         public System.Data.Entity.DbSet<ClothBazar.Entities.Product> Products { get; set; }
+        public DbSet<Category> categories { get; set; }
+        public DbSet<Conf> configuraton { get; set; }
+
+        //______________ CheckOut ______________
+        public DbSet<Order> orders { get; set; }
+        public DbSet<OrderUserInfo> orderUsers { get; set; }
+        public DbSet<OrderItem> orderItems { get; set; }
     }
 }

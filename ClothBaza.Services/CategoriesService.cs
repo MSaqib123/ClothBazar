@@ -1,4 +1,4 @@
-﻿using ClothBazar.Database;
+﻿using ClothBazar.Database.Models;
 using ClothBazar.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace ClothBaza.Services
         //____ create ______
         public void Save(Category model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.categories.Add(model);
                 context.SaveChanges();
@@ -41,7 +41,7 @@ namespace ClothBaza.Services
         //_____ List ________
         public List<Category> GetList()
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.categories.Include(x=>x.Products).ToList();
             }
@@ -50,7 +50,7 @@ namespace ClothBaza.Services
         public List<Category> GetList(string search,int pageNo)
         {
             int pageSize = ConfigurationService.Instance.PageSize();
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 if (search != null && search != "")
                 {
@@ -81,7 +81,7 @@ namespace ClothBaza.Services
         //_____ Feature List ________
         public List<Category> GetFeaturedList()
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 var list = context.categories.Include(x => x.Products).Where(x => x.isFeatured).ToList();
                 return list;
@@ -91,7 +91,7 @@ namespace ClothBaza.Services
         //_____ Single Record ________
         public Category GetSingleRecord(int Id)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.categories.Include(x=>x.Products).Where(x=>x.Id == Id).FirstOrDefault();
             }
@@ -101,7 +101,7 @@ namespace ClothBaza.Services
         //_____ Update Record ________
         public void Update(Category model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.Entry(model).State = EntityState.Modified;
                 context.SaveChanges();
@@ -111,7 +111,7 @@ namespace ClothBaza.Services
         //_____ Delete Record ________
         public void Delete(Category model)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 context.Entry(model).State = EntityState.Deleted;
                 context.SaveChanges();
@@ -121,7 +121,7 @@ namespace ClothBaza.Services
         //_____ Search Record ________
         public List<Category> SearchRecords(string search)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 //if any product Name is null in database then will give error
                 //var list = context.Products.Where(x => x.Name.Contains(search)).ToList();
@@ -136,7 +136,7 @@ namespace ClothBaza.Services
          //_____ ListCount ________
         public int GetListCount(string search)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 if (search != null && search!="")
                 {

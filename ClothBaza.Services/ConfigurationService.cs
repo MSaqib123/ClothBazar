@@ -1,4 +1,5 @@
 ﻿using ClothBazar.Database;
+using ClothBazar.Database.Models;
 using ClothBazar.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace ClothBaza.Services
 
         public Conf GetConfig(string Key)
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 return context.configuraton.Where(x=>x.Name == Key).FirstOrDefault();
             }
@@ -39,7 +40,7 @@ namespace ClothBaza.Services
         
         public int PageSize()
         {
-            using (var context = new CBContext())
+            using (var context = new ApplicationDbContext())
             {
                 var pageSizeConfig = context.configuraton.Where(x=>x.Name == "PageSize").FirstOrDefault();
                 return pageSizeConfig.Value  != null ? int.Parse(pageSizeConfig.Value) : 10;

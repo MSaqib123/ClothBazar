@@ -1,7 +1,7 @@
 ﻿using ClothBaza.Services;
+using ClothBazar.Database.Models;
 using ClothBazar.Entities;
 using ClothBazar.Web.Migrations;
-using ClothBazar.Web.Models;
 using ClothBazar.Web.ViewModel;
 using Newtonsoft.Json;
 using System;
@@ -17,7 +17,6 @@ namespace ClothBazar.Web.Controllers
     {
         // GET: Shop
         //ProductsService ProductServices = new ProductsService();
-
         ApplicationDbContext _eDb = new ApplicationDbContext();
         public ActionResult Index(string searchTerm, int? minimumPrice,int? maximumPrice,int? categoryId, int? sortyBy = 1, int? pageNo=1 )
         {

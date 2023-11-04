@@ -40,9 +40,42 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,35 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CBContext.cs" />
-    <Compile Include="Migrations\202310061719141_InitialCreate.cs" />
-    <Compile Include="Migrations\202310061719141_InitialCreate.designer.cs">
-      <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311011817444_adding_checkOut_Tables.cs" />
-    <Compile Include="Migrations\202311011817444_adding_checkOut_Tables.designer.cs">
-      <DependentUpon>202311011817444_adding_checkOut_Tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311011820491_chaing_ordertable.cs" />
-    <Compile Include="Migrations\202311011820491_chaing_ordertable.designer.cs">
-      <DependentUpon>202311011820491_chaing_ordertable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311011830528_chanignOrderTable.cs" />
-    <Compile Include="Migrations\202311011830528_chanignOrderTable.designer.cs">
-      <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311011922304_changeing.cs" />
-    <Compile Include="Migrations\202311011922304_changeing.designer.cs">
-      <DependentUpon>202311011922304_changeing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311021712255_adding_userColuninOrder.cs" />
-    <Compile Include="Migrations\202311021712255_adding_userColuninOrder.designer.cs">
-      <DependentUpon>202311021712255_adding_userColuninOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311021730546_adding_userColuninOrde.cs" />
-    <Compile Include="Migrations\202311021730546_adding_userColuninOrde.designer.cs">
-      <DependentUpon>202311021730546_adding_userColuninOrde.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,29 +99,6 @@
       <Project>{CBCA4F91-6063-492B-979D-0554E455FD4B}</Project>
       <Name>ClothBazar.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310061719141_InitialCreate.resx">
-      <DependentUpon>202310061719141_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311011817444_adding_checkOut_Tables.resx">
-      <DependentUpon>202311011817444_adding_checkOut_Tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311011820491_chaing_ordertable.resx">
-      <DependentUpon>202311011820491_chaing_ordertable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311011830528_chanignOrderTable.resx">
-      <DependentUpon>202311011830528_chanignOrderTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311011922304_changeing.resx">
-      <DependentUpon>202311011922304_changeing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311021712255_adding_userColuninOrder.resx">
-      <DependentUpon>202311021712255_adding_userColuninOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311021730546_adding_userColuninOrde.resx">
-      <DependentUpon>202311021730546_adding_userColuninOrde.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

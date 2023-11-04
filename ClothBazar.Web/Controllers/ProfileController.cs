@@ -8,10 +8,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ClothBazar.Web.Models;
 using ClothBaza.Services;
 using ClothBazar.Entities;
 using ClothBazar.Entities.VM;
+using ClothBazar.Database.Models;
 
 namespace ClothBazar.Web.Controllers
 {

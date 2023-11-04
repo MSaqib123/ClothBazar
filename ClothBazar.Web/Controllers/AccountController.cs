@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ClothBazar.Web.Models;
+using ClothBazar.Database.Models;
 
 namespace ClothBazar.Web.Controllers
 {
@@ -107,7 +107,6 @@ namespace ClothBazar.Web.Controllers
             }
             else
             {
-
                 switch (result)
                 {
                     case SignInStatus.Success:
